@@ -9,7 +9,11 @@
  * x along the baseline (0..15.24), y from baseline toward half court (0..14.33).
  * Basket at (7.62, 1.60).
  *
- * Run: node scripts/generate-mock-tracking.mjs
+ * Run: node scripts/generate-mock-tracking.mjs            → data/mock-tracking.json
+ *      node scripts/generate-mock-tracking.mjs --scenario reality-test-no-help
+ *                                                        → data/mock-tracking-no-help.json
+ *
+ * Scenarios change ONLY physical coordinates. Nothing downstream is authored.
  */
 import { writeFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
@@ -18,6 +22,48 @@ import { dirname, join } from "node:path"
 const DT = 0.1
 const DURATION = 10
 const CLOCK_AT_START = "07:38.0"
+
+const scenarioArg = process.argv.indexOf("--scenario")
+const SCENARIO = scenarioArg >= 0 ? process.argv[scenarioArg + 1] : "original"
+
+const SCENARIOS = {
+  original: {
+    file: "mock-tracking.json",
+    source: "MOCK TRACKING",
+    // D4 helps: ~1.7 m toward the paint
+    d4Keys: [
+      [0, 13.2, 1.5],
+      [2.15, 13.2, 1.5],
+      [2.65, 11.5, 2.1],
+      [3.0, 11.4, 2.12],
+      [3.75, 11.4, 2.12],
+      [4.1, 12.2, 1.8],
+      [4.7, 13.6, 1.3],
+      [10, 13.6, 1.3],
+    ],
+  },
+  "reality-test-no-help": {
+    file: "mock-tracking-no-help.json",
+    source: "MOCK TRACKING · NO HELP",
+    // D4 only stunts: ~0.3 m toward the paint, then stays home on P15
+    d4Keys: [
+      [0, 13.2, 1.5],
+      [2.15, 13.2, 1.5],
+      [2.65, 12.92, 1.6],
+      [3.0, 12.9, 1.6],
+      [3.75, 12.9, 1.6],
+      [4.1, 13.2, 1.5],
+      [4.7, 13.6, 1.3],
+      [10, 13.6, 1.3],
+    ],
+  },
+}
+
+const scenario = SCENARIOS[SCENARIO]
+if (!scenario) {
+  console.error(`unknown scenario "${SCENARIO}" (${Object.keys(SCENARIOS).join(", ")})`)
+  process.exit(1)
+}
 
 // Piecewise-linear keyframes: constant speed within each segment so the
 // derived velocity is easy to reason about and edit.
@@ -104,16 +150,7 @@ const PLAYERS = [
   {
     id: "D4",
     team: "defense",
-    keys: [
-      [0, 13.2, 1.5],
-      [2.15, 13.2, 1.5],
-      [2.65, 11.5, 2.1], // help: ~1.7 m toward the paint
-      [3.0, 11.4, 2.12],
-      [3.75, 11.4, 2.12],
-      [4.1, 12.2, 1.8],
-      [4.7, 13.6, 1.3],
-      [10, 13.6, 1.3],
-    ],
+    keys: scenario.d4Keys,
   },
   {
     id: "D5",
@@ -225,7 +262,8 @@ const states = positions.map((frame, i) => {
 
 const out = {
   meta: {
-    source: "MOCK TRACKING",
+    source: scenario.source,
+    scenario: SCENARIO,
     generator: "scripts/generate-mock-tracking.mjs",
     units: { position: "m", velocity: "m/s", time: "s" },
     sampleRate: DT,
@@ -249,6 +287,6 @@ const out = {
 }
 
 const here = dirname(fileURLToPath(import.meta.url))
-const target = join(here, "..", "data", "mock-tracking.json")
+const target = join(here, "..", "data", scenario.file)
 writeFileSync(target, JSON.stringify(out, null, 1))
-console.log(`wrote ${states.length} frames → ${target}`)
+console.log(`[${SCENARIO}] wrote ${states.length} frames → ${target}`)

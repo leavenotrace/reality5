@@ -1,7 +1,7 @@
 import { Workspace } from "@/components/reality5/workspace"
-import { getDefaultPossession } from "@/lib/reality5/data-source"
+import { getWorkspaceData } from "@/lib/reality5/data-source"
 
 export default async function Page() {
-  const possession = await getDefaultPossession()
-  return <Workspace possession={possession} />
+  const data = await getWorkspaceData()
+  return <Workspace data={data} />
 }

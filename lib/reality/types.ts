@@ -46,6 +46,7 @@ export interface RosterEntry {
 export interface TrackingDataset {
   meta: {
     source: string
+    scenario?: string
     sampleRate: number
     duration: number
     clockAtStart: string

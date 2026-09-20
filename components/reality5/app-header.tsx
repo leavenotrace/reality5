@@ -51,9 +51,6 @@ export function AppHeader() {
           <span className="size-1.5 rounded-full bg-space" aria-hidden />
           {game.label}
         </Badge>
-        <Badge variant="secondary" className="font-mono text-[10px]">
-          V0.2
-        </Badge>
       </div>
     </header>
   )

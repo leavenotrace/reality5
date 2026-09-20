@@ -1,6 +1,6 @@
 "use client"
 
-import type { Possession } from "@/lib/reality5/types"
+import type { RealityWorkspaceData } from "@/lib/reality5/data-source"
 import { AppHeader } from "./app-header"
 import { CommentaryPanel } from "./commentary-panel"
 import { EvidencePanel } from "./evidence-panel"
@@ -9,9 +9,9 @@ import { RealityTimeline } from "./reality-timeline"
 import { VideoPanel } from "./video-panel"
 import { WorkspaceProvider } from "./workspace-context"
 
-export function Workspace({ possession }: { possession: Possession }) {
+export function Workspace({ data }: { data: RealityWorkspaceData }) {
   return (
-    <WorkspaceProvider possession={possession}>
+    <WorkspaceProvider data={data}>
       <div className="flex h-dvh flex-col">
         <AppHeader />
         <main className="grid min-h-0 flex-1 grid-cols-1 gap-3 p-3 lg:grid-cols-[68fr_32fr]">

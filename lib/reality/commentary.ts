@@ -32,6 +32,7 @@ export function buildCommentaryContext(
     help_defender: help?.actor,
     help_defender_shift: help?.evidence.defender_shift,
     help_reaction_time: help?.evidence.reaction_time,
+    help_shift_threshold: config.helpShiftThreshold,
     defenders_collapsing: collapse?.evidence.defenders_collapsing,
     shooter: open?.actor ?? pass?.target,
     open_distance: open?.evidence.peak_open_distance,
@@ -81,51 +82,99 @@ export function buildCommentary(
   const speedId = drive ? evidenceId(drive.id, "speed") : null
   const contestId = three ? evidenceId(three.id, "contest_distance") : null
 
-  const publicSegments: CommentarySegment[] = [
-    text("持球人的"),
-    ev(drive, "突破"),
-    text("吸引了"),
-    ev(help ?? collapse, "协防"),
-    text("，弱侧底角因此出现"),
-    ev(open, "空位"),
-    text("，随后完成"),
-    ev(pass, "分球"),
-    text("和"),
-    ev(three, "三分出手"),
-    text("。"),
-  ]
+  // The "drive drew help, help opened the corner" story is only allowed when
+  // the engine detected BOTH the help rotation and the resulting open space.
+  const helpCreatedOpen = Boolean(help && open)
+  const contested = three?.evidence.contested === "yes"
+  const shotWord = three ? (contested ? "受干扰的三分出手" : "三分出手") : "出手"
 
-  const proSegments: CommentarySegment[] = [
-    text(`持球人 ${jersey(ctx.ball_handler)} `),
-    ev(drive, "突破"),
-    text("后，弱侧防守者 "),
-    text(jersey(ctx.help_defender)),
-    text(" 向禁区移动约 "),
-    chip(help, "defender_shift", `${fmt(ctx.help_defender_shift)} 米`),
-    text(`，使底角射手 ${jersey(ctx.shooter)} 与最近防守者距离扩大到约 `),
-    chip(open, "peak_open_distance", `${fmt(ctx.open_distance)} 米`),
-    text("。这个投篮机会在传球到达之前 "),
-    chip(pass, "creation_lead", `${fmt(ctx.creation_lead)} 秒`),
-    text(" 已经形成。"),
-  ]
+  const publicSegments: CommentarySegment[] = helpCreatedOpen
+    ? [
+        text("持球人的"),
+        ev(drive, "突破"),
+        text("吸引了"),
+        ev(help, "协防"),
+        text("，弱侧底角因此出现"),
+        ev(open, "空位"),
+        text("，随后完成"),
+        ev(pass, "分球"),
+        text("和"),
+        ev(three, "三分出手"),
+        text("。"),
+      ]
+    : [
+        text("持球人的"),
+        ev(drive, "突破"),
+        text("没有吸引到协防，弱侧防守者守住了底角。球虽然"),
+        ev(pass, "传到"),
+        text("了底角，但射手并没有真正的空位，最终只能完成一次"),
+        ev(three, shotWord),
+        text("。"),
+      ]
 
-  const coachSegments: CommentarySegment[] = [
-    text(`${jersey(ctx.help_defender)} 面对的是一个结构性取舍：${jersey(ctx.ball_handler)} 的`),
-    ev(drive, "突破"),
-    text("速度达到 "),
-    chip(drive, "speed", `${fmt(ctx.drive_speed)} m/s`),
-    text(
-      `，共 ${fmt(ctx.defenders_collapsing, 0)} 名防守者向禁区收缩。不协防，禁区将被直接攻击；协防，就必须离开底角射手。他选择护框，向禁区位移 `,
-    ),
-    chip(help, "defender_shift", `${fmt(ctx.help_defender_shift)} m`),
-    text("，代价是把底角让出 "),
-    chip(open, "peak_open_distance", `${fmt(ctx.open_distance)} m`),
-    text(` 的出手空间（阈值 ${fmt(ctx.open_threshold)} m）。空位比传球早 `),
-    chip(pass, "creation_lead", `${fmt(ctx.creation_lead)} s`),
-    text(" 形成，出手瞬间最近防守者距离 "),
-    chip(three, "contest_distance", `${fmt(ctx.contest_distance)} m`),
-    text("，说明进攻方是有意识地兑现这一取舍，而非偶然。"),
-  ]
+  const proSegments: CommentarySegment[] = helpCreatedOpen
+    ? [
+        text(`持球人 ${jersey(ctx.ball_handler)} `),
+        ev(drive, "突破"),
+        text("后，弱侧防守者 "),
+        text(jersey(ctx.help_defender)),
+        text(" 向禁区移动约 "),
+        chip(help, "defender_shift", `${fmt(ctx.help_defender_shift)} 米`),
+        text(`，使底角射手 ${jersey(ctx.shooter)} 与最近防守者距离扩大到约 `),
+        chip(open, "peak_open_distance", `${fmt(ctx.open_distance)} 米`),
+        text("。这个投篮机会在传球到达之前 "),
+        chip(pass, "creation_lead", `${fmt(ctx.creation_lead)} 秒`),
+        text(" 已经形成。"),
+      ]
+    : [
+        text(`持球人 ${jersey(ctx.ball_handler)} `),
+        ev(drive, "突破"),
+        text("时速度达到 "),
+        chip(drive, "speed", `${fmt(ctx.drive_speed)} m/s`),
+        text(
+          `，但弱侧防守者没有离开底角射手 ${jersey(ctx.shooter)}，其最近防守者距离始终低于 ${fmt(ctx.open_threshold)} 米的空位阈值。`,
+        ),
+        ev(pass, "传球"),
+        text("到达时接球者并未处于空位，出手瞬间最近防守者距离仅 "),
+        chip(three, "contest_distance", `${fmt(ctx.contest_distance)} 米`),
+        text(contested ? "，属于受干扰出手。" : "。"),
+      ]
+
+  const coachSegments: CommentarySegment[] = helpCreatedOpen
+    ? [
+        text(`${jersey(ctx.help_defender)} 面对的是一个结构性取舍：${jersey(ctx.ball_handler)} 的`),
+        ev(drive, "突破"),
+        text("速度达到 "),
+        chip(drive, "speed", `${fmt(ctx.drive_speed)} m/s`),
+        text(
+          `，共 ${fmt(ctx.defenders_collapsing, 0)} 名防守者向禁区收缩。不协防，禁区将被直接攻击；协防，就必须离开底角射手。他选择护框，向禁区位移 `,
+        ),
+        chip(help, "defender_shift", `${fmt(ctx.help_defender_shift)} m`),
+        text("，代价是把底角让出 "),
+        chip(open, "peak_open_distance", `${fmt(ctx.open_distance)} m`),
+        text(` 的出手空间（阈值 ${fmt(ctx.open_threshold)} m）。空位比传球早 `),
+        chip(pass, "creation_lead", `${fmt(ctx.creation_lead)} s`),
+        text(" 形成，出手瞬间最近防守者距离 "),
+        chip(three, "contest_distance", `${fmt(ctx.contest_distance)} m`),
+        text("，说明进攻方是有意识地兑现这一取舍，而非偶然。"),
+      ]
+    : [
+        text(`防守方在这一回合没有付出结构性代价：${jersey(ctx.ball_handler)} 的`),
+        ev(drive, "突破"),
+        text("速度达到 "),
+        chip(drive, "speed", `${fmt(ctx.drive_speed)} m/s`),
+        text(
+          `，篮筐距离缩短 ${fmt(typeof ctx.drive_basket_change === "number" ? Math.abs(ctx.drive_basket_change) : undefined)} m，但弱侧防守者选择留守底角，没有发生达到 ${fmt(ctx.help_shift_threshold)} m 阈值的协防位移，也没有形成防守收缩。`,
+        ),
+        ev(pass, "传球"),
+        text("因此没有兑现任何提前形成的空位，出手瞬间最近防守者距离 "),
+        chip(three, "contest_distance", `${fmt(ctx.contest_distance)} m`),
+        text(
+          contested
+            ? "，低于干扰阈值。进攻方应当在突破未吸引协防时选择攻击禁区或重新组织，而不是把球传向一个被守住的底角。"
+            : "。进攻方应当重新组织，而不是把球传向一个被守住的底角。",
+        ),
+      ]
 
   const compact = (ids: (string | null)[]) => ids.filter((v): v is string => Boolean(v))
 

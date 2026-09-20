@@ -8,6 +8,7 @@ import { clockAt } from "@/lib/reality5/tracking"
 import { CourtOverlay } from "./court-overlay"
 import { PanelHeader } from "./panel-header"
 import { RealityDebug } from "./reality-debug"
+import { RealityTestPanel } from "./reality-test-panel"
 import { useWorkspace } from "./workspace-context"
 
 export function VideoPanel() {
@@ -104,7 +105,10 @@ export function VideoPanel() {
 
           <Legend />
         </div>
-        {debugOpen && <RealityDebug />}
+        <div className="flex min-h-0 flex-col gap-0 overflow-auto">
+          <RealityTestPanel />
+          {debugOpen && <RealityDebug />}
+        </div>
         </div>
       </div>
 

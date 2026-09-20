@@ -12,6 +12,8 @@ import {
   type RefObject,
 } from "react"
 import type { CourtState } from "@/lib/reality/types"
+import type { RealityTestResult } from "@/lib/reality/reality-test"
+import type { RealityWorkspaceData, Scenario, ScenarioId } from "@/lib/reality5/data-source"
 import type {
   Evidence,
   OverlayCourtState,
@@ -26,6 +28,10 @@ import {
 
 interface WorkspaceValue {
   possession: Possession
+  scenarios: Scenario[]
+  scenarioId: ScenarioId
+  setScenario: (id: ScenarioId) => void
+  realityTest: RealityTestResult
   currentTime: number
   isPlaying: boolean
   /** True while REPLAY ANALYSIS is animating the detection pass. */
@@ -69,12 +75,15 @@ export function useWorkspace(): WorkspaceValue {
  * the same currentTime so the overlay, graph, and timeline stay in sync.
  */
 export function WorkspaceProvider({
-  possession,
+  data,
   children,
 }: {
-  possession: Possession
+  data: RealityWorkspaceData
   children: ReactNode
 }) {
+  const [scenarioId, setScenarioId] = useState<ScenarioId>(data.scenarios[0].id)
+  const possession =
+    data.scenarios.find((s) => s.id === scenarioId)?.possession ?? data.scenarios[0].possession
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -194,6 +203,20 @@ export function WorkspaceProvider({
     [pause, possession.events, seek],
   )
 
+  /** Switching scenarios only swaps the tracking-derived possession; playback restarts from 0. */
+  const setScenario = useCallback(
+    (id: ScenarioId) => {
+      if (id === scenarioId) return
+      pause()
+      setIsReplaying(false)
+      setFocusedEvidenceId(null)
+      setHoveredEventId(null)
+      commitTime(0)
+      setScenarioId(id)
+    },
+    [commitTime, pause, scenarioId],
+  )
+
   const manualSeek = useCallback(
     (t: number) => {
       setIsReplaying(false)
@@ -229,6 +252,10 @@ export function WorkspaceProvider({
 
   const value: WorkspaceValue = {
     possession,
+    scenarios: data.scenarios,
+    scenarioId,
+    setScenario,
+    realityTest: data.realityTest,
     currentTime,
     isPlaying,
     isReplaying,
