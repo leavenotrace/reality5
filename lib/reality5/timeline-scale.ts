@@ -1,4 +1,4 @@
-import type { BasketballEvent } from "./types"
+import type { PresentedEvent as BasketballEvent } from "./types"
 
 export interface TimelineScale {
   /** Clip-relative seconds → 0..1 position on the track. */

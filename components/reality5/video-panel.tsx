@@ -1,16 +1,29 @@
 "use client"
 
-import { Pause, Play, RotateCcw } from "lucide-react"
+import { Pause, Play, RotateCcw, RotateCw } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { clockAt } from "@/lib/reality5/tracking"
 import { CourtOverlay } from "./court-overlay"
 import { PanelHeader } from "./panel-header"
+import { RealityDebug } from "./reality-debug"
 import { useWorkspace } from "./workspace-context"
 
 export function VideoPanel() {
-  const { possession, currentTime, isPlaying, toggle, restart, videoRef, activeEvent } =
-    useWorkspace()
+  const {
+    possession,
+    currentTime,
+    isPlaying,
+    isReplaying,
+    debugOpen,
+    toggle,
+    restart,
+    replayAnalysis,
+    videoRef,
+    activeEvent,
+    detectedEventIds,
+  } = useWorkspace()
 
   return (
     <section
@@ -40,7 +53,8 @@ export function VideoPanel() {
           style={{ backgroundImage: `url(${possession.video.poster})` }}
         />
         <div aria-hidden className="panel-grid absolute inset-0 opacity-70" />
-        <div className="relative mx-auto aspect-video h-full max-h-full shadow-[0_0_0_1px_oklch(1_0_0/0.08),0_24px_60px_-20px_oklch(0_0_0/0.8)]">
+        <div className="relative flex h-full items-stretch justify-center gap-3 px-3">
+        <div className="relative aspect-video h-full min-w-0 max-h-full shadow-[0_0_0_1px_oklch(1_0_0/0.08),0_24px_60px_-20px_oklch(0_0_0/0.8)]">
           <video
             ref={videoRef}
             poster={possession.video.poster}
@@ -64,6 +78,16 @@ export function VideoPanel() {
             <span className="rounded-sm bg-black/70 px-2 py-1 text-[10px] font-medium tracking-widest text-muted-foreground">
               TACTICAL VIEW
             </span>
+            <span className="flex items-center gap-1.5 rounded-sm bg-black/70 px-2 py-1 font-mono text-[10px] tracking-wider text-muted-foreground">
+              <span className="size-1.5 rounded-full bg-tactical" aria-hidden />
+              {possession.dataSource.source}
+            </span>
+            {isReplaying && (
+              <span className="flex items-center gap-1.5 rounded-sm border border-space/50 bg-black/70 px-2 py-1 font-mono text-[10px] tracking-wider text-space">
+                <span className="size-1.5 animate-pulse rounded-full bg-space" aria-hidden />
+                DETECTING {detectedEventIds.size}/{possession.events.length}
+              </span>
+            )}
           </div>
 
           {activeEvent && (
@@ -80,6 +104,8 @@ export function VideoPanel() {
 
           <Legend />
         </div>
+        {debugOpen && <RealityDebug />}
+        </div>
       </div>
 
       <div className="flex items-center gap-2 border-t px-3 py-2">
@@ -93,6 +119,15 @@ export function VideoPanel() {
         </Button>
         <Button size="icon-sm" variant="ghost" onClick={restart} aria-label="重新播放">
           <RotateCcw />
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={replayAnalysis}
+          className="gap-1.5 font-mono text-[10px] tracking-wider"
+        >
+          <RotateCw data-icon="inline-start" className={cn(isReplaying && "animate-spin")} />
+          REPLAY ANALYSIS
         </Button>
         <span className="ml-1 font-mono text-xs tabular-nums text-muted-foreground">
           {currentTime.toFixed(1)}s / {possession.video.duration.toFixed(1)}s

@@ -14,6 +14,11 @@ type Phase = "idle" | "analyzing" | "ready"
 export function CommentaryPanel() {
   const { possession } = useWorkspace()
   const [phase, setPhase] = useState<Phase>("idle")
+  const evidenceLinks = new Set(
+    possession.commentary.flatMap((c) =>
+      c.segments.flatMap((s) => (s.kind === "evidence" ? [s.evidenceId] : [])),
+    ),
+  ).size
 
   useEffect(() => {
     if (phase !== "analyzing") return
@@ -33,7 +38,7 @@ export function CommentaryPanel() {
           phase === "ready" ? (
             <span className="flex items-center gap-1.5 text-[10px] tracking-wider text-space">
               <span className="size-1.5 rounded-full bg-space" aria-hidden />
-              GROUNDED · 5 EVIDENCE LINKS
+              GROUNDED · {evidenceLinks} EVIDENCE LINKS · TEMPLATE
             </span>
           ) : null
         }
@@ -42,7 +47,7 @@ export function CommentaryPanel() {
       {phase !== "ready" ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-3 px-6 py-8 text-center">
           <p className="max-w-sm text-xs leading-relaxed text-muted-foreground">
-            解说不是从统计数字中「编」出来的。Reality5 先读取赛场结构，再把每一句话链接回可验证的证据。
+            解说不是从统计数字中「编」出来的。Reality5 先从追踪数据检测事件，再用确定性模板把每一句话链接回可验证的证据。
           </p>
           <Button
             onClick={() => setPhase("analyzing")}
@@ -79,12 +84,55 @@ export function CommentaryPanel() {
 }
 
 function CommentaryText({ commentary }: { commentary: Commentary }) {
+  const { evidenceById, focusEvidence, focusedEvidenceId, seekToEvent, seek } = useWorkspace()
   return (
-    <p className="text-sm leading-7 text-foreground/90">
-      {commentary.segments.map((segment, i) => (
-        <Segment key={i} segment={segment} />
-      ))}
-    </p>
+    <div className="flex flex-col gap-2.5">
+      <p className="text-sm leading-7 text-foreground/90">
+        {commentary.segments.map((segment, i) => (
+          <Segment key={i} segment={segment} />
+        ))}
+      </p>
+      <ul className="flex flex-wrap gap-1.5" aria-label="证据来源">
+        {commentary.chips.map((id) => {
+          const ev = evidenceById.get(id)
+          if (!ev) return null
+          const focused = focusedEvidenceId === id
+          return (
+            <li key={id}>
+              <button
+                type="button"
+                onClick={() => seekToEvent(ev.sourceEventId)}
+                onMouseEnter={() => focusEvidence(id)}
+                onMouseLeave={() => focusEvidence(null)}
+                onFocus={() => focusEvidence(id)}
+                onBlur={() => focusEvidence(null)}
+                title={`${ev.label.zh} · 跳转到测量时刻`}
+                className={cn(
+                  "rounded-sm border px-1.5 py-0.5 font-mono text-[10px] font-semibold tracking-wider tabular-nums uppercase transition-colors",
+                  "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
+                  focused
+                    ? "border-tactical bg-tactical/15 text-tactical"
+                    : "border-border text-foreground/80 hover:border-tactical/60 hover:text-tactical",
+                )}
+              >
+                {ev.value.toFixed(ev.precision)}
+                {ev.unit} {ev.label.en}
+              </button>
+            </li>
+          )
+        })}
+        <li>
+          <button
+            type="button"
+            onClick={() => seek(0)}
+            title="解说全部来自追踪数据 · 回到回合开始"
+            className="rounded-sm border border-dashed border-border px-1.5 py-0.5 font-mono text-[10px] font-semibold tracking-wider text-muted-foreground uppercase transition-colors hover:text-foreground"
+          >
+            TRACKING DATA
+          </button>
+        </li>
+      </ul>
+    </div>
   )
 }
 

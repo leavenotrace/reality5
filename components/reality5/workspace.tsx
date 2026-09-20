@@ -13,7 +13,7 @@ export function Workspace({ possession }: { possession: Possession }) {
   return (
     <WorkspaceProvider possession={possession}>
       <div className="flex h-dvh flex-col">
-        <AppHeader gameLabel={possession.game.label} />
+        <AppHeader />
         <main className="grid min-h-0 flex-1 grid-cols-1 gap-3 p-3 lg:grid-cols-[68fr_32fr]">
           <div className="flex min-h-0 flex-col gap-3">
             <VideoPanel />

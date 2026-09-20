@@ -11,20 +11,33 @@ import {
   type ReactNode,
   type RefObject,
 } from "react"
+import type { CourtState } from "@/lib/reality/types"
 import type {
-  BasketballEvent,
-  CourtState,
   Evidence,
+  OverlayCourtState,
   Possession,
+  PresentedEvent,
 } from "@/lib/reality5/types"
-import { getActiveEvent, getCourtState } from "@/lib/reality5/tracking"
+import {
+  getActiveEvent,
+  getRealityState,
+  toOverlayState,
+} from "@/lib/reality5/tracking"
 
 interface WorkspaceValue {
   possession: Possession
   currentTime: number
   isPlaying: boolean
-  courtState: CourtState
-  activeEvent: BasketballEvent | null
+  /** True while REPLAY ANALYSIS is animating the detection pass. */
+  isReplaying: boolean
+  debugOpen: boolean
+  /** Engine state (meters) at currentTime. */
+  realityState: CourtState
+  /** Overlay state (feet) at currentTime. */
+  courtState: OverlayCourtState
+  activeEvent: PresentedEvent | null
+  /** Ids of events whose onset has been reached. */
+  detectedEventIds: Set<string>
   focusedEvidenceId: string | null
   hoveredEventId: string | null
   videoRef: RefObject<HTMLVideoElement | null>
@@ -34,10 +47,12 @@ interface WorkspaceValue {
   seek: (t: number) => void
   seekToEvent: (eventId: string) => void
   restart: () => void
+  replayAnalysis: () => void
+  toggleDebug: () => void
   focusEvidence: (id: string | null) => void
   hoverEvent: (id: string | null) => void
   evidenceById: Map<string, Evidence>
-  eventById: Map<string, BasketballEvent>
+  eventById: Map<string, PresentedEvent>
 }
 
 const WorkspaceContext = createContext<WorkspaceValue | null>(null)
@@ -63,6 +78,8 @@ export function WorkspaceProvider({
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isReplaying, setIsReplaying] = useState(false)
+  const [debugOpen, setDebugOpen] = useState(false)
   const [focusedEvidenceId, setFocusedEvidenceId] = useState<string | null>(null)
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null)
 
@@ -125,9 +142,17 @@ export function WorkspaceProvider({
   }, [isPlaying, pause, play])
 
   const restart = useCallback(() => {
+    setIsReplaying(false)
     seek(0)
     play()
   }, [play, seek])
+
+  const replayAnalysis = useCallback(() => {
+    pause()
+    seek(0)
+    setIsReplaying(true)
+    play()
+  }, [pause, play, seek])
 
   useEffect(() => {
     if (!isPlaying) return
@@ -145,6 +170,7 @@ export function WorkspaceProvider({
       if (next >= duration) {
         commitTime(duration)
         setIsPlaying(false)
+        setIsReplaying(false)
         stopLoop()
         v?.pause()
         return
@@ -161,18 +187,35 @@ export function WorkspaceProvider({
     (eventId: string) => {
       const event = possession.events.find((e) => e.id === eventId)
       if (!event) return
+      setIsReplaying(false)
       pause()
       seek(event.t)
     },
     [pause, possession.events, seek],
   )
 
-  const courtState = useMemo(
-    () => getCourtState(possession, currentTime),
+  const manualSeek = useCallback(
+    (t: number) => {
+      setIsReplaying(false)
+      seek(t)
+    },
+    [seek],
+  )
+
+  const realityState = useMemo(
+    () => getRealityState(possession, currentTime),
     [possession, currentTime],
   )
+  const courtState = useMemo(() => toOverlayState(realityState), [realityState])
   const activeEvent = useMemo(
     () => getActiveEvent(possession.events, currentTime),
+    [possession.events, currentTime],
+  )
+  const detectedEventIds = useMemo(
+    () =>
+      new Set(
+        possession.events.filter((e) => e.t <= currentTime + 0.02).map((e) => e.id),
+      ),
     [possession.events, currentTime],
   )
   const evidenceById = useMemo(
@@ -188,17 +231,23 @@ export function WorkspaceProvider({
     possession,
     currentTime,
     isPlaying,
+    isReplaying,
+    debugOpen,
+    realityState,
     courtState,
     activeEvent,
+    detectedEventIds,
     focusedEvidenceId,
     hoveredEventId,
     videoRef,
     play,
     pause,
     toggle,
-    seek,
+    seek: manualSeek,
     seekToEvent,
     restart,
+    replayAnalysis,
+    toggleDebug: () => setDebugOpen((v) => !v),
     focusEvidence: setFocusedEvidenceId,
     hoverEvent: setHoveredEventId,
     evidenceById,
