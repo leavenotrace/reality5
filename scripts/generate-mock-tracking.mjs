@@ -28,8 +28,22 @@ const SCENARIO = scenarioArg >= 0 ? process.argv[scenarioArg + 1] : "original"
 
 const SCENARIOS = {
   original: {
-    file: "mock-tracking.json",
-    source: "MOCK TRACKING",
+    file: "sample-possession-01.json",
+    possessionId: "sample_possession_01",
+    // P23 kicks to the corner; P15 catches and shoots
+    possession: [
+      { from: 0, to: 3.3, playerId: "P23" },
+      { from: 3.75, to: 4.05, playerId: "P15" },
+    ],
+    ballFree: [
+      [3.3, 5.9, 3.8, 1.5],
+      [3.75, 14.6, 1.0, 1.4],
+      [4.05, 14.5, 1.1, 2.3],
+      [4.5, 11.0, 1.4, 5.0],
+      [5.0, 7.62, 1.6, 3.05],
+      [5.4, 7.62, 1.6, 0.0],
+      [10, 7.62, 1.6, 0.0],
+    ],
     // D4 helps: ~1.7 m toward the paint
     d4Keys: [
       [0, 13.2, 1.5],
@@ -43,8 +57,17 @@ const SCENARIOS = {
     ],
   },
   "reality-test-no-help": {
-    file: "mock-tracking-no-help.json",
-    source: "MOCK TRACKING · NO HELP",
+    file: "sample-possession-02.json",
+    possessionId: "sample_possession_02",
+    // Corner stays covered, so P23 kicks to the wing (P7) who holds the ball
+    possession: [
+      { from: 0, to: 3.3, playerId: "P23" },
+      { from: 3.9, to: 10.01, playerId: "P7" },
+    ],
+    ballFree: [
+      [3.3, 5.9, 3.8, 1.5],
+      [3.9, 1.9, 8.0, 1.4],
+    ],
     // D4 only stunts: ~0.3 m toward the paint, then stays home on P15
     d4Keys: [
       [0, 13.2, 1.5],
@@ -164,21 +187,10 @@ const PLAYERS = [
   },
 ]
 
-const POSSESSION = [
-  { from: 0, to: 3.3, playerId: "P23" },
-  { from: 3.75, to: 4.05, playerId: "P15" },
-]
+const POSSESSION = scenario.possession
 
 // Ball keyframes while NOT in a player's hands: [t, x, y, z]
-const BALL_FREE = [
-  [3.3, 5.9, 3.8, 1.5],
-  [3.75, 14.6, 1.0, 1.4],
-  [4.05, 14.5, 1.1, 2.3],
-  [4.5, 11.0, 1.4, 5.0],
-  [5.0, 7.62, 1.6, 3.05],
-  [5.4, 7.62, 1.6, 0.0],
-  [10, 7.62, 1.6, 0.0],
-]
+const BALL_FREE = scenario.ballFree
 
 function lerpKeys(keys, t) {
   if (t <= keys[0][0]) return keys[0].slice(1)
@@ -222,25 +234,11 @@ const positions = Array.from({ length: frameCount }, (_, i) => {
   })
 })
 
-const states = positions.map((frame, i) => {
+// Frames carry PHYSICAL state only: positions and the ball. No velocity, no
+// events. The Reality Engine derives everything else.
+const frames = positions.map((frame, i) => {
   const t = r(i * DT)
-  const prev = positions[Math.max(0, i - 1)]
-  const next = positions[Math.min(frameCount - 1, i + 1)]
-  const span = (Math.min(frameCount - 1, i + 1) - Math.max(0, i - 1)) * DT || DT
-
-  const players = frame.map((p, k) => {
-    const vx = (next[k].x - prev[k].x) / span
-    const vy = (next[k].y - prev[k].y) / span
-    return {
-      id: p.id,
-      team: p.team,
-      x: r(p.x),
-      y: r(p.y),
-      vx: r(vx),
-      vy: r(vy),
-      speed: r(Math.hypot(vx, vy)),
-    }
-  })
+  const players = frame.map((p) => ({ id: p.id, team: p.team, x: r(p.x), y: r(p.y) }))
 
   const holder = possessorAt(t)
   let ball
@@ -261,14 +259,12 @@ const states = positions.map((frame, i) => {
 })
 
 const out = {
-  meta: {
-    source: scenario.source,
-    scenario: SCENARIO,
+  metadata: {
+    game_id: "demo_game",
+    possession_id: scenario.possessionId,
+    fps: Math.round(1 / DT),
+    court_unit: "meters",
     generator: "scripts/generate-mock-tracking.mjs",
-    units: { position: "m", velocity: "m/s", time: "s" },
-    sampleRate: DT,
-    duration: DURATION,
-    clockAtStart: CLOCK_AT_START,
     court: { width: 15.24, depth: 14.33, basket: { x: 7.62, y: 1.6 } },
   },
   roster: [
@@ -283,10 +279,10 @@ const out = {
     { id: "D4", team: "defense", number: 4, name: "弱侧防守", role: "Weak-side" },
     { id: "D5", team: "defense", number: 5, name: "护框", role: "Rim Protector" },
   ],
-  states,
+  frames,
 }
 
 const here = dirname(fileURLToPath(import.meta.url))
 const target = join(here, "..", "data", scenario.file)
 writeFileSync(target, JSON.stringify(out, null, 1))
-console.log(`[${SCENARIO}] wrote ${states.length} frames → ${target}`)
+console.log(`[${SCENARIO}] wrote ${frames.length} frames → ${target}`)

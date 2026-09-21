@@ -6,7 +6,7 @@ import { deriveKinematics } from "./court-state"
 import { promoteEvidence } from "./evidence"
 import type { CourtState, DetectorConfig, PossessionAnalysis, RosterEntry } from "./types"
 
-export const ENGINE = { name: "REALITY ENGINE", version: "V0.2" } as const
+export const ENGINE = { name: "REALITY ENGINE", version: "V0.3" } as const
 
 /**
  * Mock Tracking Data → Court State → Detectors → Events → Play Graph →

@@ -92,6 +92,7 @@ function CommentaryText({ commentary }: { commentary: Commentary }) {
           <Segment key={i} segment={segment} />
         ))}
       </p>
+      <TraceMarkers commentary={commentary} />
       <ul className="flex flex-wrap gap-1.5" aria-label="证据来源">
         {commentary.chips.map((id) => {
           const ev = evidenceById.get(id)
@@ -136,8 +137,66 @@ function CommentaryText({ commentary }: { commentary: Commentary }) {
   )
 }
 
+/**
+ * Every claim in the commentary is backed by an event. For each event the
+ * text references, show [EVENT] [value] [FRAME n] markers that open the
+ * evidence trace. Sentences without an event get no markers — and the
+ * commentary builder never emits them.
+ */
+function TraceMarkers({ commentary }: { commentary: Commentary }) {
+  const { evidenceById, eventById, openTrace, possession } = useWorkspace()
+  const sampleRate = possession.tracking.meta.sampleRate
+
+  const eventIds: string[] = []
+  for (const seg of commentary.segments) {
+    const id =
+      seg.kind === "event"
+        ? seg.eventId
+        : seg.kind === "evidence"
+          ? evidenceById.get(seg.evidenceId)?.sourceEventId
+          : undefined
+    if (id && !eventIds.includes(id)) eventIds.push(id)
+  }
+  for (const chip of commentary.chips) {
+    const id = evidenceById.get(chip)?.sourceEventId
+    if (id && !eventIds.includes(id)) eventIds.push(id)
+  }
+  if (eventIds.length === 0) return null
+
+  return (
+    <ul className="flex flex-col gap-1" aria-label="证据追溯">
+      {eventIds.map((id) => {
+        const event = eventById.get(id)
+        if (!event) return null
+        const primary = event.evidenceIds.map((e) => evidenceById.get(e)).find(Boolean)
+        const frame = Math.round(event.t / sampleRate)
+        const markers = [
+          event.type,
+          primary ? `${primary.value.toFixed(primary.precision)}${primary.unit}` : null,
+          `FRAME ${frame}`,
+        ].filter((m): m is string => Boolean(m))
+        return (
+          <li key={id} className="flex flex-wrap items-center gap-1">
+            {markers.map((m) => (
+              <button
+                key={m}
+                type="button"
+                onClick={() => openTrace(id)}
+                title={`${event.title.zh} · 打开证据追溯`}
+                className="rounded-sm border border-space/40 px-1 py-px font-mono text-[10px] tracking-wider text-space transition-colors hover:bg-space/10 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+              >
+                [{m}]
+              </button>
+            ))}
+          </li>
+        )
+      })}
+    </ul>
+  )
+}
+
 function Segment({ segment }: { segment: CommentarySegment }) {
-  const { focusEvidence, focusedEvidenceId, seekToEvent, evidenceById, hoverEvent, hoveredEventId } =
+  const { focusEvidence, focusedEvidenceId, openTrace, evidenceById, hoverEvent, hoveredEventId, seekToEvent } =
     useWorkspace()
 
   if (segment.kind === "text") return <>{segment.value}</>
@@ -152,8 +211,8 @@ function Segment({ segment }: { segment: CommentarySegment }) {
         onMouseLeave={() => focusEvidence(null)}
         onFocus={() => focusEvidence(segment.evidenceId)}
         onBlur={() => focusEvidence(null)}
-        onClick={() => evidence && seekToEvent(evidence.sourceEventId)}
-        title={evidence ? `${evidence.label.zh} · 点击回看来源事件` : undefined}
+        onClick={() => evidence && openTrace(evidence.sourceEventId)}
+        title={evidence ? `${evidence.label.zh} · 点击打开证据追溯` : undefined}
         className={cn(
           "mx-0.5 inline-flex items-baseline gap-1 rounded-sm border-b border-dashed px-1 font-mono text-[13px] font-semibold tabular-nums transition-colors",
           "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",

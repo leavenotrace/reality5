@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowDown, RotateCw } from "lucide-react"
+import { ArrowDown, RotateCw, ScanSearch } from "lucide-react"
 import { Fragment } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -191,16 +191,33 @@ function GraphNode({
   isActive: boolean
   isReached: boolean
 }) {
-  const { seekToEvent, hoverEvent, hoveredEventId, evidenceById, focusEvidence, eventById } =
-    useWorkspace()
+  const {
+    seekToEvent,
+    hoverEvent,
+    hoveredEventId,
+    evidenceById,
+    focusEvidence,
+    eventById,
+    openTrace,
+  } = useWorkspace()
   const colorKey = TYPE_COLOR[event.type]
   const c = colorClasses[colorKey]
   const hovered = hoveredEventId === event.id
 
   return (
-    <button
-      type="button"
+    // A div so the nested VIEW EVIDENCE button stays valid HTML.
+    <div
+      role="button"
+      tabIndex={0}
+      aria-label={`${String(event.index).padStart(2, "0")} ${event.type.replace("_", " ")} ${event.clock}`}
       onClick={() => seekToEvent(event.id)}
+      onKeyDown={(e) => {
+        if (e.target !== e.currentTarget) return
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault()
+          seekToEvent(event.id)
+        }
+      }}
       onMouseEnter={() => hoverEvent(event.id)}
       onMouseLeave={() => hoverEvent(null)}
       aria-current={isActive ? "step" : undefined}
@@ -297,9 +314,21 @@ function GraphNode({
                 })}
               </ul>
             )}
+            <Button
+              size="xs"
+              variant="outline"
+              className={cn("w-fit gap-1 font-mono text-[10px] tracking-wider", c.text)}
+              onClick={(e) => {
+                e.stopPropagation()
+                openTrace(event.id)
+              }}
+            >
+              <ScanSearch data-icon="inline-start" />
+              VIEW EVIDENCE
+            </Button>
           </div>
         )}
       </div>
-    </button>
+    </div>
   )
 }

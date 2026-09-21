@@ -1,15 +1,22 @@
 "use client"
 
-import { Bug } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { Bug, Download, GitCompareArrows, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { Reality5Logo } from "./reality5-logo"
 import { useWorkspace } from "./workspace-context"
 
 export function AppHeader() {
-  const { possession, debugOpen, toggleDebug } = useWorkspace()
-  const { dataSource, game } = possession
+  const {
+    possession,
+    possessions,
+    debugOpen,
+    toggleDebug,
+    setAnalyzeOpen,
+    setCompareOpen,
+    exportCurrent,
+  } = useWorkspace()
+  const { dataSource } = possession
 
   return (
     <header className="grid h-14 shrink-0 grid-cols-[1fr_auto_1fr] items-center border-b bg-panel px-4">
@@ -36,7 +43,7 @@ export function AppHeader() {
         </p>
       </div>
 
-      <div className="flex items-center justify-end gap-2">
+      <div className="flex items-center justify-end gap-1.5">
         <Button
           size="xs"
           variant={debugOpen ? "secondary" : "ghost"}
@@ -47,10 +54,33 @@ export function AppHeader() {
           <Bug data-icon="inline-start" />
           REALITY DEBUG
         </Button>
-        <Badge variant="outline" className="gap-1.5 font-mono text-[10px]">
-          <span className="size-1.5 rounded-full bg-space" aria-hidden />
-          {game.label}
-        </Badge>
+        <Button
+          size="xs"
+          variant="ghost"
+          onClick={exportCurrent}
+          className="gap-1.5 font-mono text-[10px] tracking-wider"
+        >
+          <Download data-icon="inline-start" />
+          EXPORT ANALYSIS
+        </Button>
+        <Button
+          size="xs"
+          variant="ghost"
+          disabled={possessions.length < 2}
+          onClick={() => setCompareOpen(true)}
+          className="gap-1.5 font-mono text-[10px] tracking-wider"
+        >
+          <GitCompareArrows data-icon="inline-start" />
+          COMPARE REALITIES
+        </Button>
+        <Button
+          size="xs"
+          onClick={() => setAnalyzeOpen(true)}
+          className="ml-1 gap-1 font-mono text-[10px] tracking-wider"
+        >
+          <Plus data-icon="inline-start" />
+          ANALYZE NEW POSSESSION
+        </Button>
       </div>
     </header>
   )

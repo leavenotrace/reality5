@@ -54,6 +54,8 @@ export function RealityDebug() {
     },
   ]
 
+  const frameIndex = Math.round(currentTime / possession.tracking.meta.sampleRate)
+
   const detected = analysis.events.map((e) => ({
     type: e.type,
     on: detectedEventIds.has(e.id),
@@ -76,20 +78,30 @@ export function RealityDebug() {
         </span>
       </div>
 
+      <SectionLabel>INPUT</SectionLabel>
       <dl className="flex flex-col">
+        <Row label="Adapter" value={possession.dataSource.adapter} />
+        <Row label="Possession" value={possession.tracking.meta.possessionId} />
+        <Row label="Frame" value={`${frameIndex} / ${analysis.states.length - 1}`} />
+        <Row label="Clock" value={possession.tracking.meta.clockDerived ? "derived" : "source"} />
         {rows.map((row) => (
-          <div key={row.label} className="flex items-baseline justify-between gap-2">
-            <dt className="text-muted-foreground">{row.label}</dt>
-            <dd className={cn("tabular-nums", row.accent && "text-space")}>{row.value}</dd>
-          </div>
+          <Row key={row.label} label={row.label} value={row.value} accent={row.accent} />
         ))}
-        <div className="mt-1.5 flex items-baseline justify-between gap-2 border-t border-border/50 pt-1.5">
-          <dt className="text-muted-foreground">OPEN THRESHOLD</dt>
-          <dd className="tabular-nums">{analysis.config.openSpaceThreshold.toFixed(1)} m</dd>
-        </div>
       </dl>
 
-      <p className="mt-2 text-[9px] tracking-[0.2em] text-muted-foreground">DETECTED</p>
+      <SectionLabel>DETECTOR</SectionLabel>
+      <dl className="flex flex-col">
+        <Row label="drive speed" value={`> ${analysis.config.driveSpeedThreshold.toFixed(1)} m/s`} />
+        <Row label="help shift" value={`> ${analysis.config.helpShiftThreshold.toFixed(1)} m`} />
+        <Row
+          label="collapse"
+          value={`≥${analysis.config.collapseMinDefenders} × ${analysis.config.collapseShiftThreshold.toFixed(1)} m`}
+        />
+        <Row label="open space" value={`> ${analysis.config.openSpaceThreshold.toFixed(1)} m`} />
+        <Row label="contest" value={`< ${analysis.config.contestDistance.toFixed(1)} m`} />
+      </dl>
+
+      <SectionLabel>OUTPUT</SectionLabel>
       <ul className="mt-0.5 flex flex-col">
         {detected.map((d, i) => (
           <li key={`${d.type}-${i}`} className="flex items-center gap-1.5">
@@ -121,5 +133,22 @@ export function RealityDebug() {
         </p>
       </div>
     </aside>
+  )
+}
+
+function SectionLabel({ children }: { children: string }) {
+  return (
+    <p className="mt-2 border-t border-border/50 pt-1.5 text-[9px] tracking-[0.2em] text-space/80 first:mt-0 first:border-0 first:pt-0">
+      {children}
+    </p>
+  )
+}
+
+function Row({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
+  return (
+    <div className="flex items-baseline justify-between gap-2">
+      <dt className="truncate text-muted-foreground">{label}</dt>
+      <dd className={cn("shrink-0 tabular-nums", accent && "text-space")}>{value}</dd>
+    </div>
   )
 }

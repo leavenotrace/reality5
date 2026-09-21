@@ -43,18 +43,6 @@ export interface RosterEntry {
   role: string
 }
 
-export interface TrackingDataset {
-  meta: {
-    source: string
-    scenario?: string
-    sampleRate: number
-    duration: number
-    clockAtStart: string
-  }
-  roster: RosterEntry[]
-  states: CourtState[]
-}
-
 export type EventType =
   | "DRIVE"
   | "HELP_DEFENSE"

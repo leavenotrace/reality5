@@ -11,9 +11,9 @@ import {
   type ReactNode,
   type RefObject,
 } from "react"
-import type { CourtState } from "@/lib/reality/types"
-import type { RealityTestResult } from "@/lib/reality/reality-test"
-import type { RealityWorkspaceData, Scenario, ScenarioId } from "@/lib/reality5/data-source"
+import type { CourtState, DetectorConfig } from "@/lib/reality/types"
+import { exportAnalysis, exportFileName } from "@/lib/reality/export"
+import type { RealityWorkspaceData } from "@/lib/reality5/data-source"
 import type {
   Evidence,
   OverlayCourtState,
@@ -28,10 +28,22 @@ import {
 
 interface WorkspaceValue {
   possession: Possession
-  scenarios: Scenario[]
-  scenarioId: ScenarioId
-  setScenario: (id: ScenarioId) => void
-  realityTest: RealityTestResult
+  /** Every possession loaded this session: samples first, then analyzed uploads. */
+  possessions: Possession[]
+  possessionId: string
+  setPossession: (id: string) => void
+  /** Receives a finished PossessionAnalysis envelope from any source and shows it. */
+  loadPossession: (possession: Possession) => void
+  config: DetectorConfig
+  samples: RealityWorkspaceData["samples"]
+  analyzeOpen: boolean
+  setAnalyzeOpen: (open: boolean) => void
+  compareOpen: boolean
+  setCompareOpen: (open: boolean) => void
+  /** Event whose evidence trace is open. */
+  traceEventId: string | null
+  openTrace: (eventId: string | null) => void
+  exportCurrent: () => void
   currentTime: number
   isPlaying: boolean
   /** True while REPLAY ANALYSIS is animating the detection pass. */
@@ -81,9 +93,12 @@ export function WorkspaceProvider({
   data: RealityWorkspaceData
   children: ReactNode
 }) {
-  const [scenarioId, setScenarioId] = useState<ScenarioId>(data.scenarios[0].id)
-  const possession =
-    data.scenarios.find((s) => s.id === scenarioId)?.possession ?? data.scenarios[0].possession
+  const [possessions, setPossessions] = useState<Possession[]>(data.possessions)
+  const [possessionId, setPossessionId] = useState<string>(data.possessions[0].id)
+  const possession = possessions.find((p) => p.id === possessionId) ?? possessions[0]
+  const [analyzeOpen, setAnalyzeOpen] = useState(false)
+  const [compareOpen, setCompareOpen] = useState(false)
+  const [traceEventId, setTraceEventId] = useState<string | null>(null)
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -203,19 +218,50 @@ export function WorkspaceProvider({
     [pause, possession.events, seek],
   )
 
-  /** Switching scenarios only swaps the tracking-derived possession; playback restarts from 0. */
-  const setScenario = useCallback(
-    (id: ScenarioId) => {
-      if (id === scenarioId) return
-      pause()
-      setIsReplaying(false)
-      setFocusedEvidenceId(null)
-      setHoveredEventId(null)
-      commitTime(0)
-      setScenarioId(id)
+  const resetView = useCallback(() => {
+    pause()
+    setIsReplaying(false)
+    setFocusedEvidenceId(null)
+    setHoveredEventId(null)
+    setTraceEventId(null)
+    commitTime(0)
+  }, [commitTime, pause])
+
+  /** Switching possessions only swaps the engine output; playback restarts from 0. */
+  const setPossession = useCallback(
+    (id: string) => {
+      if (id === possessionId) return
+      resetView()
+      setPossessionId(id)
     },
-    [commitTime, pause, scenarioId],
+    [possessionId, resetView],
   )
+
+  const loadPossession = useCallback(
+    (next: Possession) => {
+      setPossessions((prev) => {
+        const i = prev.findIndex((p) => p.id === next.id)
+        if (i === -1) return [...prev, next]
+        const copy = prev.slice()
+        copy[i] = next
+        return copy
+      })
+      resetView()
+      setPossessionId(next.id)
+    },
+    [resetView],
+  )
+
+  const exportCurrent = useCallback(() => {
+    const payload = exportAnalysis(possession.tracking, possession.analysis, possession.dataSource.source)
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = exportFileName(possession.tracking)
+    a.click()
+    URL.revokeObjectURL(url)
+  }, [possession])
 
   const manualSeek = useCallback(
     (t: number) => {
@@ -252,10 +298,19 @@ export function WorkspaceProvider({
 
   const value: WorkspaceValue = {
     possession,
-    scenarios: data.scenarios,
-    scenarioId,
-    setScenario,
-    realityTest: data.realityTest,
+    possessions,
+    possessionId,
+    setPossession,
+    loadPossession,
+    config: data.config,
+    samples: data.samples,
+    analyzeOpen,
+    setAnalyzeOpen,
+    compareOpen,
+    setCompareOpen,
+    traceEventId,
+    openTrace: setTraceEventId,
+    exportCurrent,
     currentTime,
     isPlaying,
     isReplaying,

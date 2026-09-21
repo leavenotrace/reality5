@@ -9,6 +9,7 @@
  * the engine works in meters and the tracking helpers convert.
  */
 
+import type { NormalizedTracking, TrackingSourceKind } from "@/lib/adapters/types"
 import type {
   BasketballEvent as EngineEvent,
   Commentary,
@@ -120,15 +121,20 @@ export interface VideoSource {
 }
 
 export interface DataSourceInfo {
-  source: string
+  source: TrackingSourceKind
   engine: string
   sampleRateHz: number
   frames: number
+  adapter: string
 }
 
 export interface Possession {
   id: string
+  /** Display name, e.g. "Sample Possession 01" or the uploaded file name. */
+  label: string
   game: { home: string; away: string; label: string; quarter: string }
+  /** Adapter output the analysis was computed from. */
+  tracking: NormalizedTracking
   video: VideoSource
   players: Player[]
   dataSource: DataSourceInfo

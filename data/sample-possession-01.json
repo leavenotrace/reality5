@@ -1,16 +1,10 @@
 {
- "meta": {
-  "source": "MOCK TRACKING",
-  "scenario": "original",
+ "metadata": {
+  "game_id": "demo_game",
+  "possession_id": "sample_possession_01",
+  "fps": 10,
+  "court_unit": "meters",
   "generator": "scripts/generate-mock-tracking.mjs",
-  "units": {
-   "position": "m",
-   "velocity": "m/s",
-   "time": "s"
-  },
-  "sampleRate": 0.1,
-  "duration": 10,
-  "clockAtStart": "07:38.0",
   "court": {
    "width": 15.24,
    "depth": 14.33,
@@ -92,7 +86,7 @@
    "role": "Rim Protector"
   }
  ],
- "states": [
+ "frames": [
   {
    "timestamp": 0,
    "gameClock": "07:38.0",
@@ -101,91 +95,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.6,
-     "y": 10,
-     "vx": -0.083,
-     "vy": -0.5,
-     "speed": 0.507
+     "y": 10
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.6,
-     "y": 9,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -203,91 +167,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.592,
-     "y": 9.95,
-     "vx": -0.083,
-     "vy": -0.5,
-     "speed": 0.507
+     "y": 9.95
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.59,
-     "y": 8.96,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.96
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -305,91 +239,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.583,
-     "y": 9.9,
-     "vx": -0.083,
-     "vy": -0.5,
-     "speed": 0.507
+     "y": 9.9
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.58,
-     "y": 8.92,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.92
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -407,91 +311,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.575,
-     "y": 9.85,
-     "vx": -0.083,
-     "vy": -0.5,
-     "speed": 0.507
+     "y": 9.85
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.57,
-     "y": 8.88,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.88
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -509,91 +383,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.567,
-     "y": 9.8,
-     "vx": -0.083,
-     "vy": -0.5,
-     "speed": 0.507
+     "y": 9.8
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.56,
-     "y": 8.84,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.84
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -611,91 +455,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.558,
-     "y": 9.75,
-     "vx": -0.083,
-     "vy": -0.5,
-     "speed": 0.507
+     "y": 9.75
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.55,
-     "y": 8.8,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.8
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -713,91 +527,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.55,
-     "y": 9.7,
-     "vx": -0.083,
-     "vy": -0.5,
-     "speed": 0.507
+     "y": 9.7
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.54,
-     "y": 8.76,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.76
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -815,91 +599,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.542,
-     "y": 9.65,
-     "vx": -0.083,
-     "vy": -0.5,
-     "speed": 0.507
+     "y": 9.65
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.53,
-     "y": 8.72,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.72
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -917,91 +671,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.533,
-     "y": 9.6,
-     "vx": -0.083,
-     "vy": -0.5,
-     "speed": 0.507
+     "y": 9.6
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.52,
-     "y": 8.68,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.68
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -1019,91 +743,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.525,
-     "y": 9.55,
-     "vx": -0.083,
-     "vy": -0.5,
-     "speed": 0.507
+     "y": 9.55
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.51,
-     "y": 8.64,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.64
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -1121,91 +815,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.517,
-     "y": 9.5,
-     "vx": -0.083,
-     "vy": -0.5,
-     "speed": 0.507
+     "y": 9.5
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.5,
-     "y": 8.6,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.6
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -1223,91 +887,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.508,
-     "y": 9.45,
-     "vx": -0.083,
-     "vy": -0.5,
-     "speed": 0.507
+     "y": 9.45
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.49,
-     "y": 8.56,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.56
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -1325,91 +959,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.5,
-     "y": 9.4,
-     "vx": -0.042,
-     "vy": -0.5,
-     "speed": 0.502
+     "y": 9.4
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.48,
-     "y": 8.52,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.52
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -1427,91 +1031,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.5,
-     "y": 9.35,
-     "vx": 0,
-     "vy": -0.5,
-     "speed": 0.5
+     "y": 9.35
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.47,
-     "y": 8.48,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.48
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -1529,91 +1103,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.5,
-     "y": 9.3,
-     "vx": 0,
-     "vy": -0.5,
-     "speed": 0.5
+     "y": 9.3
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.46,
-     "y": 8.44,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.44
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -1631,91 +1175,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.5,
-     "y": 9.25,
-     "vx": 0,
-     "vy": -0.5,
-     "speed": 0.5
+     "y": 9.25
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.45,
-     "y": 8.4,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.4
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -1733,91 +1247,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.5,
-     "y": 9.2,
-     "vx": 0,
-     "vy": -0.5,
-     "speed": 0.5
+     "y": 9.2
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.44,
-     "y": 8.36,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.36
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -1835,91 +1319,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.5,
-     "y": 9.15,
-     "vx": 0,
-     "vy": -0.5,
-     "speed": 0.5
+     "y": 9.15
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.43,
-     "y": 8.32,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.32
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -1937,91 +1391,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.5,
-     "y": 9.1,
-     "vx": 0,
-     "vy": -0.5,
-     "speed": 0.5
+     "y": 9.1
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.42,
-     "y": 8.28,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.28
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -2039,91 +1463,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.5,
-     "y": 9.05,
-     "vx": 0,
-     "vy": -0.5,
-     "speed": 0.5
+     "y": 9.05
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.41,
-     "y": 8.24,
-     "vx": -0.1,
-     "vy": -0.4,
-     "speed": 0.412
+     "y": 8.24
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -2141,91 +1535,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.5,
-     "y": 9,
-     "vx": -0.667,
-     "vy": -2.536,
-     "speed": 2.622
+     "y": 9
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.1,
-     "y": 7.3,
-     "vx": -0.077,
-     "vy": 0.269,
-     "speed": 0.28
+     "y": 7.3
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.8,
-     "y": 8.4,
-     "vx": 0.15,
-     "vy": -0.3,
-     "speed": 0.335
+     "y": 8.4
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.4,
-     "y": 8.2,
-     "vx": -0.431,
-     "vy": -1.914,
-     "speed": 1.962
+     "y": 8.2
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.9,
-     "y": 6.6,
-     "vx": -0.077,
-     "vy": 0.269,
-     "speed": 0.28
+     "y": 6.6
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7
     }
    ],
    "ball": {
@@ -2243,91 +1607,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.367,
-     "y": 8.543,
-     "vx": -1.333,
-     "vy": -4.571,
-     "speed": 4.762
+     "y": 8.543
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.085,
-     "y": 7.354,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.354
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.83,
-     "y": 8.34,
-     "vx": 0.3,
-     "vy": -0.6,
-     "speed": 0.671
+     "y": 8.34
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.324,
-     "y": 7.857,
-     "vx": -0.762,
-     "vy": -3.429,
-     "speed": 3.512
+     "y": 7.857
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.885,
-     "y": 6.654,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 6.654
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.2,
-     "y": 1.5,
-     "vx": -0.85,
-     "vy": 0.3,
-     "speed": 0.901
+     "y": 1.5
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.4,
-     "y": 7,
-     "vx": -0.278,
-     "vy": -0.444,
-     "speed": 0.524
+     "y": 7
     }
    ],
    "ball": {
@@ -2345,91 +1679,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.233,
-     "y": 8.086,
-     "vx": -1.333,
-     "vy": -4.571,
-     "speed": 4.762
+     "y": 8.086
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.069,
-     "y": 7.408,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.408
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.86,
-     "y": 8.28,
-     "vx": 0.3,
-     "vy": -0.6,
-     "speed": 0.671
+     "y": 8.28
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.248,
-     "y": 7.514,
-     "vx": -0.762,
-     "vy": -3.429,
-     "speed": 3.512
+     "y": 7.514
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.869,
-     "y": 6.708,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 6.708
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.03,
-     "y": 1.56,
-     "vx": -2.55,
-     "vy": 0.9,
-     "speed": 2.704
+     "y": 1.56
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.344,
-     "y": 6.911,
-     "vx": -0.556,
-     "vy": -0.889,
-     "speed": 1.048
+     "y": 6.911
     }
    ],
    "ball": {
@@ -2447,91 +1751,61 @@
      "id": "P23",
      "team": "offense",
      "x": 7.1,
-     "y": 7.629,
-     "vx": -1.333,
-     "vy": -4.571,
-     "speed": 4.762
+     "y": 7.629
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.054,
-     "y": 7.462,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.462
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.89,
-     "y": 8.22,
-     "vx": 0.3,
-     "vy": -0.6,
-     "speed": 0.671
+     "y": 8.22
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.171,
-     "y": 7.171,
-     "vx": -0.762,
-     "vy": -3.429,
-     "speed": 3.512
+     "y": 7.171
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.854,
-     "y": 6.762,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 6.762
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 12.69,
-     "y": 1.68,
-     "vx": -3.4,
-     "vy": 1.2,
-     "speed": 3.606
+     "y": 1.68
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.289,
-     "y": 6.822,
-     "vx": -0.556,
-     "vy": -0.889,
-     "speed": 1.048
+     "y": 6.822
     }
    ],
    "ball": {
@@ -2549,91 +1823,61 @@
      "id": "P23",
      "team": "offense",
      "x": 6.967,
-     "y": 7.171,
-     "vx": -1.333,
-     "vy": -4.571,
-     "speed": 4.762
+     "y": 7.171
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.038,
-     "y": 7.515,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.515
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.92,
-     "y": 8.16,
-     "vx": 0.3,
-     "vy": -0.6,
-     "speed": 0.671
+     "y": 8.16
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.095,
-     "y": 6.829,
-     "vx": -0.762,
-     "vy": -3.429,
-     "speed": 3.512
+     "y": 6.829
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.838,
-     "y": 6.815,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 6.815
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 12.35,
-     "y": 1.8,
-     "vx": -3.4,
-     "vy": 1.2,
-     "speed": 3.606
+     "y": 1.8
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.233,
-     "y": 6.733,
-     "vx": -0.556,
-     "vy": -0.889,
-     "speed": 1.048
+     "y": 6.733
     }
    ],
    "ball": {
@@ -2651,91 +1895,61 @@
      "id": "P23",
      "team": "offense",
      "x": 6.833,
-     "y": 6.714,
-     "vx": -1.333,
-     "vy": -4.571,
-     "speed": 4.762
+     "y": 6.714
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.023,
-     "y": 7.569,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.569
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.95,
-     "y": 8.1,
-     "vx": 0.3,
-     "vy": -0.6,
-     "speed": 0.671
+     "y": 8.1
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 7.019,
-     "y": 6.486,
-     "vx": -0.762,
-     "vy": -3.429,
-     "speed": 3.512
+     "y": 6.486
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.823,
-     "y": 6.869,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 6.869
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 12.01,
-     "y": 1.92,
-     "vx": -3.4,
-     "vy": 1.2,
-     "speed": 3.606
+     "y": 1.92
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.178,
-     "y": 6.644,
-     "vx": -0.556,
-     "vy": -0.889,
-     "speed": 1.048
+     "y": 6.644
     }
    ],
    "ball": {
@@ -2753,91 +1967,61 @@
      "id": "P23",
      "team": "offense",
      "x": 6.7,
-     "y": 6.257,
-     "vx": -1.333,
-     "vy": -4.571,
-     "speed": 4.762
+     "y": 6.257
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 2.008,
-     "y": 7.623,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.623
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 11.98,
-     "y": 8.04,
-     "vx": 0.3,
-     "vy": -0.6,
-     "speed": 0.671
+     "y": 8.04
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.943,
-     "y": 6.143,
-     "vx": -0.762,
-     "vy": -3.429,
-     "speed": 3.512
+     "y": 6.143
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.808,
-     "y": 6.923,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 6.923
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.67,
-     "y": 2.04,
-     "vx": -2.621,
-     "vy": 0.914,
-     "speed": 2.776
+     "y": 2.04
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.122,
-     "y": 6.556,
-     "vx": -0.556,
-     "vy": -0.889,
-     "speed": 1.048
+     "y": 6.556
     }
    ],
    "ball": {
@@ -2855,91 +2039,61 @@
      "id": "P23",
      "team": "offense",
      "x": 6.567,
-     "y": 5.8,
-     "vx": -1.333,
-     "vy": -4.571,
-     "speed": 4.762
+     "y": 5.8
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.992,
-     "y": 7.677,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.677
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.01,
-     "y": 7.98,
-     "vx": 0.3,
-     "vy": -0.6,
-     "speed": 0.671
+     "y": 7.98
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.867,
-     "y": 5.8,
-     "vx": -0.762,
-     "vy": -3.429,
-     "speed": 3.512
+     "y": 5.8
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.792,
-     "y": 6.977,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 6.977
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.486,
-     "y": 2.103,
-     "vx": -1.064,
-     "vy": 0.343,
-     "speed": 1.118
+     "y": 2.103
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.067,
-     "y": 6.467,
-     "vx": -0.556,
-     "vy": -0.889,
-     "speed": 1.048
+     "y": 6.467
     }
    ],
    "ball": {
@@ -2957,91 +2111,61 @@
      "id": "P23",
      "team": "offense",
      "x": 6.433,
-     "y": 5.343,
-     "vx": -1.333,
-     "vy": -4.571,
-     "speed": 4.762
+     "y": 5.343
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.977,
-     "y": 7.731,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.731
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.04,
-     "y": 7.92,
-     "vx": 0.3,
-     "vy": -0.6,
-     "speed": 0.671
+     "y": 7.92
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.79,
-     "y": 5.457,
-     "vx": -0.762,
-     "vy": -3.429,
-     "speed": 3.512
+     "y": 5.457
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.777,
-     "y": 7.031,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.031
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.457,
-     "y": 2.109,
-     "vx": -0.286,
-     "vy": 0.057,
-     "speed": 0.291
+     "y": 2.109
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 10.011,
-     "y": 6.378,
-     "vx": -0.556,
-     "vy": -0.889,
-     "speed": 1.048
+     "y": 6.378
     }
    ],
    "ball": {
@@ -3059,91 +2183,61 @@
      "id": "P23",
      "team": "offense",
      "x": 6.3,
-     "y": 4.886,
-     "vx": -1.333,
-     "vy": -4.571,
-     "speed": 4.762
+     "y": 4.886
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.962,
-     "y": 7.785,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.785
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.07,
-     "y": 7.86,
-     "vx": 0.3,
-     "vy": -0.6,
-     "speed": 0.671
+     "y": 7.86
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.714,
-     "y": 5.114,
-     "vx": -0.762,
-     "vy": -3.429,
-     "speed": 3.512
+     "y": 5.114
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.762,
-     "y": 7.085,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.085
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.429,
-     "y": 2.114,
-     "vx": -0.286,
-     "vy": 0.057,
-     "speed": 0.291
+     "y": 2.114
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.956,
-     "y": 6.289,
-     "vx": -0.556,
-     "vy": -0.889,
-     "speed": 1.048
+     "y": 6.289
     }
    ],
    "ball": {
@@ -3161,91 +2255,61 @@
      "id": "P23",
      "team": "offense",
      "x": 6.167,
-     "y": 4.429,
-     "vx": -1.167,
-     "vy": -3.762,
-     "speed": 3.939
+     "y": 4.429
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.946,
-     "y": 7.838,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.838
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0.15,
-     "vy": -0.3,
-     "speed": 0.335
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.638,
-     "y": 4.771,
-     "vx": -0.655,
-     "vy": -3.155,
-     "speed": 3.222
+     "y": 4.771
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.746,
-     "y": 7.138,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.138
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.4,
-     "y": 2.12,
-     "vx": -0.143,
-     "vy": 0.029,
-     "speed": 0.146
+     "y": 2.12
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": -0.278,
-     "vy": -0.444,
-     "speed": 0.524
+     "y": 6.2
     }
    ],
    "ball": {
@@ -3263,91 +2327,61 @@
      "id": "P23",
      "team": "offense",
      "x": 6.067,
-     "y": 4.133,
-     "vx": -0.833,
-     "vy": -2.143,
-     "speed": 2.299
+     "y": 4.133
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.931,
-     "y": 7.892,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.892
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.583,
-     "y": 4.483,
-     "vx": -0.44,
-     "vy": -2.607,
-     "speed": 2.644
+     "y": 4.483
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.731,
-     "y": 7.192,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.192
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.4,
-     "y": 2.12,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.12
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -3365,91 +2399,61 @@
      "id": "P23",
      "team": "offense",
      "x": 6,
-     "y": 4,
-     "vx": -0.667,
-     "vy": -1.333,
-     "speed": 1.491
+     "y": 4
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.915,
-     "y": 7.946,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.946
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.55,
-     "y": 4.25,
-     "vx": -0.333,
-     "vy": -2.333,
-     "speed": 2.357
+     "y": 4.25
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.715,
-     "y": 7.246,
-     "vx": -0.154,
-     "vy": 0.538,
-     "speed": 0.56
+     "y": 7.246
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.4,
-     "y": 2.12,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.12
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -3467,91 +2471,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.933,
-     "y": 3.867,
-     "vx": -0.504,
-     "vy": -1.004,
-     "speed": 1.123
+     "y": 3.867
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": -0.077,
-     "vy": 0.269,
-     "speed": 0.28
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.517,
-     "y": 4.017,
-     "vx": -0.25,
-     "vy": -1.75,
-     "speed": 1.768
+     "y": 4.017
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": -0.077,
-     "vy": 0.269,
-     "speed": 0.28
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.4,
-     "y": 2.12,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.12
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -3568,91 +2542,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.899,
-     "y": 3.799,
-     "vx": -0.178,
-     "vy": -0.345,
-     "speed": 0.388
+     "y": 3.799
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": -0.083,
-     "vy": -0.583,
-     "speed": 0.589
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.4,
-     "y": 2.12,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.12
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -3669,91 +2613,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.898,
-     "y": 3.798,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.798
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.4,
-     "y": 2.12,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.12
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -3770,91 +2684,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.896,
-     "y": 3.796,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.796
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.4,
-     "y": 2.12,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.12
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -3871,91 +2755,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.895,
-     "y": 3.795,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.795
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.6,
-     "y": 1,
-     "vx": -0.125,
-     "vy": 0.125,
-     "speed": 0.177
+     "y": 1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.4,
-     "y": 2.12,
-     "vx": 0.571,
-     "vy": -0.229,
-     "speed": 0.615
+     "y": 2.12
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -3972,91 +2826,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.893,
-     "y": 3.793,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.793
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.575,
-     "y": 1.025,
-     "vx": -0.375,
-     "vy": 0.375,
-     "speed": 0.53
+     "y": 1.025
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.514,
-     "y": 2.074,
-     "vx": 1.714,
-     "vy": -0.686,
-     "speed": 1.846
+     "y": 2.074
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -4074,91 +2898,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.892,
-     "y": 3.792,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.792
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.525,
-     "y": 1.075,
-     "vx": -0.375,
-     "vy": 0.375,
-     "speed": 0.53
+     "y": 1.075
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.743,
-     "y": 1.983,
-     "vx": 2.286,
-     "vy": -0.914,
-     "speed": 2.462
+     "y": 1.983
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -4176,91 +2970,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.89,
-     "y": 3.79,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.79
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": -0.125,
-     "vy": 0.125,
-     "speed": 0.177
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 11.971,
-     "y": 1.891,
-     "vx": 2.286,
-     "vy": -0.914,
-     "speed": 2.462
+     "y": 1.891
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -4278,91 +3042,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.889,
-     "y": 3.789,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.789
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 12.2,
-     "y": 1.8,
-     "vx": 2.31,
-     "vy": -0.874,
-     "speed": 2.469
+     "y": 1.8
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -4379,91 +3113,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.887,
-     "y": 3.787,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.787
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 12.433,
-     "y": 1.717,
-     "vx": 2.333,
-     "vy": -0.833,
-     "speed": 2.478
+     "y": 1.717
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -4480,91 +3184,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.886,
-     "y": 3.786,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.786
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 12.667,
-     "y": 1.633,
-     "vx": 2.333,
-     "vy": -0.833,
-     "speed": 2.478
+     "y": 1.633
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -4581,91 +3255,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.884,
-     "y": 3.784,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.784
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 12.9,
-     "y": 1.55,
-     "vx": 2.333,
-     "vy": -0.833,
-     "speed": 2.478
+     "y": 1.55
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -4682,91 +3326,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.883,
-     "y": 3.783,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.783
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.133,
-     "y": 1.467,
-     "vx": 2.333,
-     "vy": -0.833,
-     "speed": 2.478
+     "y": 1.467
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -4783,91 +3397,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.881,
-     "y": 3.781,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.781
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.367,
-     "y": 1.383,
-     "vx": 2.333,
-     "vy": -0.833,
-     "speed": 2.478
+     "y": 1.383
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -4884,91 +3468,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.88,
-     "y": 3.78,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.78
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 1.167,
-     "vy": -0.417,
-     "speed": 1.239
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -4985,91 +3539,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.878,
-     "y": 3.778,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.778
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -5086,91 +3610,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.877,
-     "y": 3.777,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.777
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -5187,91 +3681,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.875,
-     "y": 3.775,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.775
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -5288,91 +3752,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.874,
-     "y": 3.774,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.774
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -5389,91 +3823,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.872,
-     "y": 3.772,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.772
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -5490,91 +3894,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.871,
-     "y": 3.771,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.771
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -5591,91 +3965,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.869,
-     "y": 3.769,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.769
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -5692,91 +4036,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.868,
-     "y": 3.768,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.768
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -5793,91 +4107,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.866,
-     "y": 3.766,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.766
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -5894,91 +4178,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.865,
-     "y": 3.765,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.765
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -5995,91 +4249,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.863,
-     "y": 3.763,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.763
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -6096,91 +4320,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.862,
-     "y": 3.762,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.762
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -6197,91 +4391,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.86,
-     "y": 3.76,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.76
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -6298,91 +4462,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.859,
-     "y": 3.759,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.759
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -6399,91 +4533,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.857,
-     "y": 3.757,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.757
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -6500,91 +4604,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.856,
-     "y": 3.756,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.756
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -6601,91 +4675,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.854,
-     "y": 3.754,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.754
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -6702,91 +4746,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.853,
-     "y": 3.753,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.753
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -6803,91 +4817,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.851,
-     "y": 3.751,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.751
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -6904,91 +4888,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.85,
-     "y": 3.75,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.75
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -7005,91 +4959,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.848,
-     "y": 3.748,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.748
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -7106,91 +5030,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.847,
-     "y": 3.747,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.747
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -7207,91 +5101,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.845,
-     "y": 3.745,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.745
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -7308,91 +5172,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.844,
-     "y": 3.744,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.744
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -7409,91 +5243,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.842,
-     "y": 3.742,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.742
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -7510,91 +5314,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.841,
-     "y": 3.741,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.741
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -7611,91 +5385,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.839,
-     "y": 3.739,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.739
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -7712,91 +5456,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.838,
-     "y": 3.738,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.738
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -7813,91 +5527,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.836,
-     "y": 3.736,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.736
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -7914,91 +5598,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.835,
-     "y": 3.735,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.735
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -8015,91 +5669,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.833,
-     "y": 3.733,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.733
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -8116,91 +5740,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.832,
-     "y": 3.732,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.732
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -8217,91 +5811,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.83,
-     "y": 3.73,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.73
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -8318,91 +5882,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.829,
-     "y": 3.729,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.729
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -8419,91 +5953,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.827,
-     "y": 3.727,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.727
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -8520,91 +6024,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.826,
-     "y": 3.726,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.726
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -8621,91 +6095,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.824,
-     "y": 3.724,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.724
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -8722,91 +6166,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.823,
-     "y": 3.723,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.723
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -8823,91 +6237,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.821,
-     "y": 3.721,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.721
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -8924,91 +6308,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.82,
-     "y": 3.72,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.72
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -9025,91 +6379,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.818,
-     "y": 3.718,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.718
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -9126,91 +6450,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.817,
-     "y": 3.717,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.717
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -9227,91 +6521,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.815,
-     "y": 3.715,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.715
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -9328,91 +6592,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.814,
-     "y": 3.714,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.714
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -9429,91 +6663,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.812,
-     "y": 3.712,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.712
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -9530,91 +6734,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.811,
-     "y": 3.711,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.711
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -9631,91 +6805,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.809,
-     "y": 3.709,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.709
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -9732,91 +6876,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.808,
-     "y": 3.708,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.708
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -9833,91 +6947,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.806,
-     "y": 3.706,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.706
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -9934,91 +7018,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.805,
-     "y": 3.705,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.705
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -10035,91 +7089,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.803,
-     "y": 3.703,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.703
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -10136,91 +7160,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.802,
-     "y": 3.702,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.702
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {
@@ -10237,91 +7231,61 @@
      "id": "P23",
      "team": "offense",
      "x": 5.8,
-     "y": 3.7,
-     "vx": -0.015,
-     "vy": -0.015,
-     "speed": 0.021
+     "y": 3.7
     },
     {
      "id": "P15",
      "team": "offense",
      "x": 14.5,
-     "y": 1.1,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.1
     },
     {
      "id": "P7",
      "team": "offense",
      "x": 1.9,
-     "y": 8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 8
     },
     {
      "id": "P34",
      "team": "offense",
      "x": 3.4,
-     "y": 1.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.8
     },
     {
      "id": "P5",
      "team": "offense",
      "x": 12.1,
-     "y": 7.8,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.8
     },
     {
      "id": "D1",
      "team": "defense",
      "x": 6.5,
-     "y": 3.9,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 3.9
     },
     {
      "id": "D2",
      "team": "defense",
      "x": 4.3,
-     "y": 2.4,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 2.4
     },
     {
      "id": "D3",
      "team": "defense",
      "x": 2.7,
-     "y": 7.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 7.3
     },
     {
      "id": "D4",
      "team": "defense",
      "x": 13.6,
-     "y": 1.3,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 1.3
     },
     {
      "id": "D5",
      "team": "defense",
      "x": 9.9,
-     "y": 6.2,
-     "vx": 0,
-     "vy": 0,
-     "speed": 0
+     "y": 6.2
     }
    ],
    "ball": {

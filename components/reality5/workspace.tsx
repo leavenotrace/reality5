@@ -1,9 +1,12 @@
 "use client"
 
 import type { RealityWorkspaceData } from "@/lib/reality5/data-source"
+import { AnalyzeDrawer } from "./analyze-drawer"
 import { AppHeader } from "./app-header"
 import { CommentaryPanel } from "./commentary-panel"
+import { CompareDialog } from "./compare-dialog"
 import { EvidencePanel } from "./evidence-panel"
+import { EvidenceTraceDialog } from "./evidence-trace-dialog"
 import { PlayGraph } from "./play-graph"
 import { RealityTimeline } from "./reality-timeline"
 import { VideoPanel } from "./video-panel"
@@ -26,6 +29,9 @@ export function Workspace({ data }: { data: RealityWorkspaceData }) {
           <PlayGraph />
         </main>
       </div>
+      <AnalyzeDrawer />
+      <CompareDialog />
+      <EvidenceTraceDialog />
     </WorkspaceProvider>
   )
 }
