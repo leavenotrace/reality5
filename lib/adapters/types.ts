@@ -1,3 +1,5 @@
+import type { BasketSide } from "@/lib/reality/court"
+import type { RealityIntegrity } from "@/lib/reality/integrity"
 import type { CourtState, RosterEntry } from "@/lib/reality/types"
 
 /**
@@ -21,11 +23,17 @@ export interface NormalizedTracking {
     /** True when the input had no game clock and labels were derived from timestamps. */
     clockDerived: boolean
     unit: "meters"
+    /** Always the shared contract in lib/reality/court.ts. */
+    coordinateSystem: "NBA_METRIC"
+    /** Which basket the offense attacks, from metadata or inferred from the ball. */
+    attackingBasket: BasketSide
     adapter: string
   }
   roster: RosterEntry[]
   /** Physical state only. Velocity is filled in by deriveKinematics. */
   states: CourtState[]
+  /** Physical validation result. Analysis must refuse anything not `valid`. */
+  integrity: RealityIntegrity
 }
 
 export interface InputIssue {
@@ -37,7 +45,15 @@ export interface InputIssue {
 
 export type AdapterResult =
   | { ok: true; tracking: NormalizedTracking; warnings: InputIssue[] }
-  | { ok: false; errors: InputIssue[]; warnings: InputIssue[] }
+  | {
+      ok: false
+      errors: InputIssue[]
+      warnings: InputIssue[]
+      /** Present when the schema parsed but physical validation vetoed the data. */
+      integrity?: RealityIntegrity
+      /** Frame/roster summary so the input check can still show counts. */
+      summary?: { frames: number; duration: number; offense: number; defense: number; possessed: number }
+    }
 
 export interface TrackingInputAdapter {
   id: string

@@ -1,18 +1,19 @@
 import { stateAt } from "@/lib/reality/court-state"
 import type { CourtState } from "@/lib/reality/types"
-import { FEET_PER_METER } from "./court"
 import type { Anchor, OverlayCourtState, Possession, PresentedEvent, Vec2 } from "./types"
 
-const m2ft = (m: number) => m * FEET_PER_METER
-
-/** Convert an engine court state (meters) into the overlay frame (feet). */
+/**
+ * Snapshot an engine court state for the overlay. Positions stay in court
+ * meters; the SVG projection (courtToScreen) is the only place they become
+ * screen units.
+ */
 export function toOverlayState(state: CourtState): OverlayCourtState {
   const players: OverlayCourtState["players"] = {}
-  for (const p of state.players) players[p.id] = { x: m2ft(p.x), y: m2ft(p.y) }
+  for (const p of state.players) players[p.id] = { x: p.x, y: p.y }
   return {
     t: state.timestamp,
     players,
-    ball: { x: m2ft(state.ball.x), y: m2ft(state.ball.y), z: m2ft(state.ball.z ?? 0) },
+    ball: { x: state.ball.x, y: state.ball.y, z: state.ball.z ?? 0 },
     possessor: state.ball.possessor,
   }
 }

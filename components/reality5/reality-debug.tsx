@@ -2,7 +2,9 @@
 
 import { Check, Circle } from "lucide-react"
 import { useMemo } from "react"
+import { basketFor } from "@/lib/reality/court"
 import { dist, nearestDefenderDistance, playerById } from "@/lib/reality/court-state"
+import { project } from "@/lib/reality5/court"
 import type { EventType } from "@/lib/reality5/types"
 import { cn } from "@/lib/utils"
 import { getRealityState } from "@/lib/reality5/tracking"
@@ -63,6 +65,18 @@ export function RealityDebug() {
   }))
   const missing = ALL_TYPES.filter((t) => !analysis.events.some((e) => e.type === t))
 
+  const integrity = analysis.integrity
+  const basket = basketFor(analysis.config.attackingBasket)
+  const trackedIds = [handlerId, helpId, shooterId].filter((id, i, arr) => id && arr.indexOf(id) === i)
+  const coordinateRows = [
+    ...trackedIds
+      .map((id) => ({ id, p: playerById(realityState, id) }))
+      .filter((r): r is { id: string; p: NonNullable<typeof r.p> } => Boolean(r.p)),
+    { id: "BASKET", p: basket },
+  ]
+  const m = (v: number, p = 2) => `${v.toFixed(p)}m`
+  const px = (v: number) => v.toFixed(1)
+
   return (
     <aside
       aria-label="Reality Debug"
@@ -97,8 +111,40 @@ export function RealityDebug() {
           label="collapse"
           value={`≥${analysis.config.collapseMinDefenders} × ${analysis.config.collapseShiftThreshold.toFixed(1)} m`}
         />
-        <Row label="open space" value={`> ${analysis.config.openSpaceThreshold.toFixed(1)} m`} />
+        <Row
+          label="open space"
+          value={`≥ ${analysis.config.openSpaceThreshold.toFixed(1)} / < ${analysis.config.openSpaceExitThreshold.toFixed(1)} m`}
+        />
         <Row label="contest" value={`< ${analysis.config.contestDistance.toFixed(1)} m`} />
+      </dl>
+
+      <SectionLabel>COURT COORDINATES</SectionLabel>
+      <dl className="flex flex-col">
+        {coordinateRows.map(({ id, p }) => (
+          <div key={id} className="flex items-baseline justify-between gap-2">
+            <dt className={cn("truncate", id === "BASKET" ? "text-tactical" : "text-foreground")}>{id}</dt>
+            <dd className="shrink-0 tabular-nums text-muted-foreground">
+              x {m(p.x, id === "BASKET" ? 3 : 2)} <span className="ml-1">y {m(p.y)}</span>
+            </dd>
+          </div>
+        ))}
+        <Row label="system" value={integrity.coordinateSystem} />
+        <Row label="attacking" value={analysis.config.attackingBasket.toUpperCase()} />
+      </dl>
+
+      <SectionLabel>SCREEN COORDINATES</SectionLabel>
+      <dl className="flex flex-col text-muted-foreground/70">
+        {coordinateRows.map(({ id, p }) => {
+          const s = project(p)
+          return (
+            <div key={id} className="flex items-baseline justify-between gap-2">
+              <dt className="truncate">{id}</dt>
+              <dd className="shrink-0 tabular-nums">
+                {px(s.x)} <span className="ml-1">{px(s.y)}</span> <span className="text-[9px]">u</span>
+              </dd>
+            </div>
+          )
+        })}
       </dl>
 
       <SectionLabel>OUTPUT</SectionLabel>
@@ -126,6 +172,26 @@ export function RealityDebug() {
         ))}
       </ul>
 
+      <SectionLabel>REALITY INTEGRITY</SectionLabel>
+      <dl className="flex flex-col">
+        <Row
+          label="status"
+          value={integrity.status}
+          accent={integrity.status === "VALID"}
+          warn={integrity.status === "WARNING"}
+        />
+        <Row label="court bounds" value={integrity.courtBounds} accent={integrity.courtBounds === "ok"} warn={integrity.courtBounds !== "ok"} />
+        <Row label="timestamps" value={integrity.timestampIntegrity} accent={integrity.timestampIntegrity === "ok"} warn={integrity.timestampIntegrity !== "ok"} />
+        <Row label="identity" value={integrity.playerIdentityIntegrity} accent={integrity.playerIdentityIntegrity === "ok"} warn={integrity.playerIdentityIntegrity !== "ok"} />
+        <Row label="movement" value={integrity.physicalMovement} accent={integrity.physicalMovement === "ok"} warn={integrity.physicalMovement !== "ok"} />
+        {integrity.warnings.length > 0 && <Row label="warnings" value={String(integrity.warnings.length)} warn />}
+      </dl>
+      <p className="mt-1.5 text-[10px] leading-4 text-foreground/70">
+        Reality must be valid before Reality can be interpreted.
+        <br />
+        <span className="text-space">Reality has veto power.</span>
+      </p>
+
       <div className="mt-2.5 border-t border-border/50 pt-2 text-[9px] leading-4 tracking-[0.15em] text-muted-foreground">
         <p>REALITY → STRUCTURE → UNDERSTANDING → STORY</p>
         <p className="mt-0.5 text-foreground/70 normal-case tracking-normal">
@@ -144,11 +210,21 @@ function SectionLabel({ children }: { children: string }) {
   )
 }
 
-function Row({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
+function Row({
+  label,
+  value,
+  accent,
+  warn,
+}: {
+  label: string
+  value: string
+  accent?: boolean
+  warn?: boolean
+}) {
   return (
     <div className="flex items-baseline justify-between gap-2">
       <dt className="truncate text-muted-foreground">{label}</dt>
-      <dd className={cn("shrink-0 tabular-nums", accent && "text-space")}>{value}</dd>
+      <dd className={cn("shrink-0 tabular-nums", accent && "text-space", warn && "text-tactical")}>{value}</dd>
     </div>
   )
 }

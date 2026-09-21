@@ -1,6 +1,15 @@
 "use client"
 
-import { AlertTriangle, ArrowLeft, Check, ClipboardPaste, Database, Loader2, Upload } from "lucide-react"
+import {
+  AlertTriangle,
+  ArrowLeft,
+  Check,
+  CheckCircle2,
+  ClipboardPaste,
+  Database,
+  Loader2,
+  Upload,
+} from "lucide-react"
 import { useCallback, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
@@ -11,11 +20,14 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet"
 import { adaptTracking, type AdapterResult, type TrackingSourceKind } from "@/lib/adapters"
+import type { BasketSide } from "@/lib/reality/court"
 import { checkRealityInput, type RealityInputCheck } from "@/lib/reality/input-check"
+import type { IntegrityViolation } from "@/lib/reality/integrity"
 import { PIPELINE_STAGES, runPipeline, type PipelineStageId, type StageReport } from "@/lib/reality/pipeline"
 import { buildPossession } from "@/lib/reality5/build-possession"
 import type { Possession } from "@/lib/reality5/types"
 import { cn } from "@/lib/utils"
+import { IntegrityMiniCourt } from "./integrity-mini-court"
 import { useWorkspace } from "./workspace-context"
 
 type Step =
@@ -298,7 +310,7 @@ function InputCheck({
         <p className="mt-1 text-sm font-medium">{label}</p>
       </div>
 
-      {check.sufficient ? (
+      {check.rows.length > 0 && (
         <dl className="flex flex-col divide-y rounded-md border font-mono text-xs">
           {check.rows.map((row) => (
             <div key={row.label} className="flex items-center justify-between gap-3 px-3 py-1.5">
@@ -308,6 +320,7 @@ function InputCheck({
                   "tabular-nums",
                   row.status === "ok" && "text-space",
                   row.status === "warn" && "text-tactical",
+                  row.status === "fail" && "font-bold text-destructive",
                 )}
               >
                 {row.value}
@@ -315,15 +328,34 @@ function InputCheck({
             </div>
           ))}
         </dl>
-      ) : (
+      )}
+
+      {check.sufficient && (
+        <p
+          className={cn(
+            "flex items-center gap-2 font-mono text-xs font-bold tracking-[0.2em]",
+            check.verdict === "WARNING" ? "text-tactical" : "text-space",
+          )}
+        >
+          <CheckCircle2 className="size-3.5" aria-hidden />
+          COURT VALID ✓{check.verdict === "WARNING" && " · WITH WARNINGS"}
+        </p>
+      )}
+
+      {!check.sufficient && (
         <div className="rounded-md border border-destructive/50 bg-destructive/10 p-3">
           <p className="flex items-center gap-2 font-mono text-xs font-bold tracking-[0.2em] text-destructive">
             <AlertTriangle className="size-3.5" aria-hidden />
-            INSUFFICIENT REALITY
+            {check.verdict === "INVALID" ? "INVALID REALITY" : "INSUFFICIENT REALITY"}
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
-            缺少必需的物理数据。Reality5 不会猜测缺失的现实。
+            {check.verdict === "INVALID"
+              ? "数据描述了物理上不可能的现实。Reality5 拒绝在此基础上进行篮球解读。"
+              : "缺少必需的物理数据。Reality5 不会猜测缺失的现实。"}
           </p>
+          {check.primaryViolation && (
+            <ViolationDetail violation={check.primaryViolation} attacking={check.integrity?.attackingBasket} />
+          )}
           <ul className="mt-2 flex flex-col gap-1 font-mono text-xs">
             {check.errors.map((e, i) => (
               <li key={`${e.code}-${i}`} className="flex flex-col">
@@ -334,6 +366,10 @@ function InputCheck({
             ))}
           </ul>
         </div>
+      )}
+
+      {check.sufficient && check.primaryViolation && (
+        <ViolationDetail violation={check.primaryViolation} attacking={check.integrity?.attackingBasket} />
       )}
 
       {check.warnings.length > 0 && (
@@ -350,6 +386,48 @@ function InputCheck({
       <Button disabled={!check.sufficient} onClick={onRun} className="tracking-[0.15em]">
         RUN REALITY ENGINE
       </Button>
+    </div>
+  )
+}
+
+function ViolationDetail({
+  violation,
+  attacking,
+}: {
+  violation: IntegrityViolation
+  attacking?: BasketSide
+}) {
+  const isError = violation.severity === "error"
+  return (
+    <div
+      className={cn(
+        "mt-3 flex flex-col gap-3 rounded-md border p-3 font-mono text-[11px]",
+        isError ? "border-destructive/40" : "border-tactical/40 bg-tactical/5",
+      )}
+    >
+      <dl className="flex flex-col gap-1">
+        <div className="flex items-baseline gap-2">
+          <dt className={cn("font-bold tracking-[0.15em]", isError ? "text-destructive" : "text-tactical")}>
+            {violation.subject ?? violation.code}
+          </dt>
+          {violation.frame !== undefined && <dd className="text-muted-foreground">Frame {violation.frame}</dd>}
+        </div>
+        <div className="mt-1 flex justify-between gap-3">
+          <dt className="text-muted-foreground">Observed</dt>
+          <dd className="tabular-nums">{violation.observed}</dd>
+        </div>
+        <div className="flex justify-between gap-3">
+          <dt className="text-muted-foreground">Allowed</dt>
+          <dd className="tabular-nums">{violation.allowed}</dd>
+        </div>
+        <div className="flex justify-between gap-3">
+          <dt className="text-muted-foreground">Status</dt>
+          <dd className={cn("font-bold", isError ? "text-destructive" : "text-tactical")}>
+            {isError ? "INVALID REALITY" : "WARNING"}
+          </dd>
+        </div>
+      </dl>
+      {violation.point && <IntegrityMiniCourt violation={violation} attacking={attacking} />}
     </div>
   )
 }

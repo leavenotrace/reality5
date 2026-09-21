@@ -1,7 +1,7 @@
 import type { NormalizedTracking } from "@/lib/adapters/types"
 import { runDetectors } from "@/lib/detectors"
 import { buildPlayGraph } from "@/lib/reasoning/play-graph"
-import { ENGINE } from "./analyze"
+import { ENGINE, assertValidReality } from "./analyze"
 import { buildCommentary, buildCommentaryContext } from "./commentary"
 import { DEFAULT_DETECTOR_CONFIG } from "./config"
 import { deriveKinematics } from "./court-state"
@@ -53,17 +53,23 @@ export async function runPipeline(
   tracking: NormalizedTracking,
   options: { config?: Partial<DetectorConfig>; onStage?: (report: StageReport) => void } = {},
 ): Promise<PossessionAnalysis> {
-  const config: DetectorConfig = { ...DEFAULT_DETECTOR_CONFIG, ...options.config }
   const report = async (id: PipelineStageId, started: number, detail: string) => {
     options.onStage?.({ id, ms: performance.now() - started, detail })
     await nextFrame()
   }
 
   let t = performance.now()
+  // Reality has veto power: INVALID input never reaches a detector.
+  const integrity = assertValidReality(tracking.states, tracking.integrity)
+  const config: DetectorConfig = {
+    ...DEFAULT_DETECTOR_CONFIG,
+    attackingBasket: integrity.attackingBasket,
+    ...options.config,
+  }
   await report(
     "reading",
     t,
-    `${tracking.states.length} frames · ${tracking.roster.length} players · ${tracking.meta.adapter}`,
+    `${tracking.states.length} frames · ${tracking.roster.length} players · REALITY ${integrity.status} · ${tracking.meta.adapter}`,
   )
 
   t = performance.now()
@@ -91,5 +97,5 @@ export async function runPipeline(
   const commentary = buildCommentary(events, commentaryContext, tracking.roster)
   await report("explanation", t, `${commentary.length} audiences`)
 
-  return { states, events, graph, evidence, commentaryContext, commentary, config, engine: ENGINE }
+  return { states, events, graph, evidence, commentaryContext, commentary, config, engine: ENGINE, integrity }
 }

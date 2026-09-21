@@ -1,9 +1,5 @@
-import {
-  COURT_M,
-  distanceToBasket,
-  headingToward,
-  playerById,
-} from "@/lib/reality/court-state"
+import { basketFor } from "@/lib/reality/court"
+import { headingToward, playerById, distanceToBasket as toBasket } from "@/lib/reality/court-state"
 import type { BasketballEvent, CourtState, DetectorConfig } from "@/lib/reality/types"
 
 const HEADING_MIN = 0.6
@@ -12,10 +8,12 @@ const MIN_FRAMES = 3
 /**
  * DRIVE: the ball handler moves toward the basket above a speed threshold
  * while the distance to the basket decreases. Emits one event per drive
- * window (onset → end), never per frame.
+ * window (onset → end), never per frame. All math in court meters.
  */
 export function detectDrive(states: CourtState[], config: DetectorConfig): BasketballEvent[] {
   const events: BasketballEvent[] = []
+  const basket = basketFor(config.attackingBasket)
+  const distanceToBasket = (p: { x: number; y: number }) => toBasket(p, config.attackingBasket)
   let active: {
     handler: string
     startIndex: number
@@ -65,7 +63,7 @@ export function detectDrive(states: CourtState[], config: DetectorConfig): Baske
       continue
     }
 
-    const heading = headingToward(holder, COURT_M.basket)
+    const heading = headingToward(holder, basket)
     const prev = states[i - 1] && holderId ? playerById(states[i - 1], holderId) : undefined
     const closing = prev ? distanceToBasket(holder) < distanceToBasket(prev) - 0.05 : false
     const driving = holder.speed >= config.driveSpeedThreshold && heading >= HEADING_MIN && closing

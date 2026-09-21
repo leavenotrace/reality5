@@ -17,6 +17,7 @@ export function AppHeader() {
     exportCurrent,
   } = useWorkspace()
   const { dataSource } = possession
+  const integrity = possession.analysis.integrity
 
   return (
     <header className="grid h-14 shrink-0 grid-cols-[1fr_auto_1fr] items-center border-b bg-panel px-4">
@@ -31,6 +32,11 @@ export function AppHeader() {
         <div className="ml-3 hidden items-center gap-3 border-l pl-3 xl:flex">
           <StatusIndicator label="DATA SOURCE" value={dataSource.source} tone="tactical" />
           <StatusIndicator label="ENGINE" value={dataSource.engine} tone="space" />
+          <StatusIndicator
+            label="REALITY INTEGRITY"
+            value={integrity.status}
+            tone={integrity.status === "VALID" ? "space" : integrity.status === "WARNING" ? "tactical" : "destructive"}
+          />
         </div>
       </div>
 
@@ -93,14 +99,19 @@ function StatusIndicator({
 }: {
   label: string
   value: string
-  tone: "tactical" | "space"
+  tone: "tactical" | "space" | "destructive"
 }) {
   return (
     <div className="flex flex-col leading-none">
       <span className="text-[9px] tracking-[0.2em] text-muted-foreground">{label}</span>
       <span className="mt-1 flex items-center gap-1.5 font-mono text-[10px] font-medium">
         <span
-          className={cn("size-1.5 rounded-full", tone === "space" ? "bg-space" : "bg-tactical")}
+          className={cn(
+            "size-1.5 rounded-full",
+            tone === "space" && "bg-space",
+            tone === "tactical" && "bg-tactical",
+            tone === "destructive" && "bg-destructive",
+          )}
           aria-hidden
         />
         {value}

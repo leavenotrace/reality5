@@ -1,8 +1,8 @@
 import {
-  COURT_M,
   dist,
-  distanceToBasket,
+  distanceToBasket as toBasket,
   isBeyondArc,
+  isInCorner,
   nearestDefenderDistance,
   playerById,
 } from "@/lib/reality/court-state"
@@ -93,6 +93,8 @@ export function detectPass(
  */
 export function detectShot(states: CourtState[], config: DetectorConfig): BasketballEvent[] {
   const events: BasketballEvent[] = []
+  const side = config.attackingBasket
+  const distanceToBasket = (p: { x: number; y: number }) => toBasket(p, side)
   for (const tr of possessionTransitions(states)) {
     if (tr.to) continue
     const release = states[tr.releaseIndex]
@@ -103,7 +105,7 @@ export function detectShot(states: CourtState[], config: DetectorConfig): Basket
     const rising = (later.ball.z ?? 0) > (release.ball.z ?? 0) + 0.3
     const towardBasket = distanceToBasket(later.ball) < distanceToBasket(release.ball) - 0.5
     if (!rising || !towardBasket) continue
-    if (!isBeyondArc(shooter)) continue
+    if (!isBeyondArc(shooter, side)) continue
 
     const contest = nearestDefenderDistance(release, tr.from)
     const contestDistance = contest ? contest.distance : Infinity
@@ -119,7 +121,7 @@ export function detectShot(states: CourtState[], config: DetectorConfig): Basket
       evidence: {
         shooter: tr.from,
         shot_distance: round(distanceToBasket(shooter)),
-        zone: shooter.y <= COURT_M.cornerDepth ? "corner" : "above_break",
+        zone: isInCorner(shooter, side) ? "corner" : "above_break",
         contest_distance: round(contestDistance),
         contest_threshold: config.contestDistance,
         contested: contestDistance < config.contestDistance ? "yes" : "no",

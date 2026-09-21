@@ -17,6 +17,33 @@ const TYPE_DOT: Record<EventType, string> = {
   OPEN_THREE: "bg-space border-space",
 }
 
+const TYPE_SPAN: Record<EventType, string> = {
+  DRIVE: "bg-movement/20 border-movement/70",
+  HELP_DEFENSE: "bg-tactical/20 border-tactical/70",
+  DEFENSIVE_COLLAPSE: "bg-tactical/20 border-tactical/70",
+  OPEN_SPACE: "bg-space/20 border-space/70",
+  PASS: "bg-movement/20 border-movement/70",
+  OPEN_THREE: "bg-space/20 border-space/70",
+}
+
+const TYPE_PEAK: Record<EventType, string> = {
+  DRIVE: "bg-movement",
+  HELP_DEFENSE: "bg-tactical",
+  DEFENSIVE_COLLAPSE: "bg-tactical",
+  OPEN_SPACE: "bg-space",
+  PASS: "bg-movement",
+  OPEN_THREE: "bg-space",
+}
+
+const TYPE_PEAK_TEXT: Record<EventType, string> = {
+  DRIVE: "text-movement",
+  HELP_DEFENSE: "text-tactical",
+  DEFENSIVE_COLLAPSE: "text-tactical",
+  OPEN_SPACE: "text-space",
+  PASS: "text-movement",
+  OPEN_THREE: "text-space",
+}
+
 const TIMELINE_LABEL: Record<EventType, string> = {
   DRIVE: "突破",
   HELP_DEFENSE: "协防",
@@ -120,6 +147,58 @@ export function RealityTimeline() {
                 style={{ left: pct(s) }}
               />
             ))}
+
+            {/* Stateful events: start ├──────┤ end, with the peak marked */}
+            {possession.events.map((event) => {
+              const end = event.endTimestamp
+              if (end === undefined || end - event.t < 0.15) return null
+              const isActive = activeEvent?.id === event.id
+              const emphasized = isActive || hoveredEventId === event.id
+              const peak = event.peakTimestamp
+              const peakValue =
+                event.type === "OPEN_SPACE"
+                  ? event.evidence.peak_open_distance
+                  : event.type === "HELP_DEFENSE"
+                    ? event.evidence.peak_shift
+                    : undefined
+              return (
+                <div
+                  key={`${event.id}-span`}
+                  aria-hidden
+                  className={cn(
+                    "pointer-events-none absolute top-1/2 -translate-y-1/2 transition-opacity",
+                    emphasized ? "opacity-100" : "opacity-60",
+                  )}
+                  style={{ left: pct(event.t), width: `calc(${pct(end)} - ${pct(event.t)})` }}
+                >
+                  <div
+                    className={cn(
+                      "h-2.5 rounded-sm border-x-2",
+                      TYPE_SPAN[event.type],
+                      isActive && "h-3.5",
+                    )}
+                  />
+                  {peak !== undefined && peakValue !== undefined && (
+                    <span
+                      className="absolute top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
+                      style={{ left: `${((peak - event.t) / (end - event.t)) * 100}%` }}
+                    >
+                      <span className={cn("h-3.5 w-px", TYPE_PEAK[event.type])} />
+                      {emphasized && (
+                        <span
+                          className={cn(
+                            "absolute top-3.5 font-mono text-[9px] whitespace-nowrap tabular-nums",
+                            TYPE_PEAK_TEXT[event.type],
+                          )}
+                        >
+                          peak {Number(peakValue).toFixed(1)}m
+                        </span>
+                      )}
+                    </span>
+                  )}
+                </div>
+              )
+            })}
 
             {possession.events.map((event) => {
               const isActive = activeEvent?.id === event.id

@@ -4,11 +4,10 @@ import type {
   PossessionAnalysis,
   RosterEntry,
 } from "@/lib/reality/types"
-import { COURT, FEET_PER_METER } from "./court"
+import { basketFor } from "@/lib/reality/court"
 import { formatClock, parseClock } from "./tracking"
 import type { Localized, OverlaySpec, PresentedEvent } from "./types"
 
-const m2ft = (m: number) => m * FEET_PER_METER
 const num = (v: unknown) => (typeof v === "number" ? v : Number(v ?? 0))
 const fmt = (v: unknown, p = 1) => num(v).toFixed(p)
 
@@ -88,10 +87,10 @@ function describe(
 
     case "HELP_DEFENSE":
       return {
-        title: { zh: `协防发生 ${fmt(ev.defender_shift)} m`, en: "Help Defense" },
+        title: { zh: `协防发生 ${fmt(ev.peak_shift ?? ev.defender_shift)} m`, en: "Help Defense" },
         summary: {
-          zh: `弱侧防守者 ${J(actor)} 离开 ${J(target)}，向禁区移动 ${fmt(ev.defender_shift)} m（反应 ${fmt(ev.reaction_time)} s）。`,
-          en: `Weak-side defender ${J(actor)} leaves ${J(target)} and moves ${fmt(ev.defender_shift)} m toward the paint.`,
+          zh: `弱侧防守者 ${J(actor)} 离开 ${J(target)}，向禁区移动，峰值位移 ${fmt(ev.peak_shift ?? ev.defender_shift)} m，持续 ${fmt(ev.duration)} s（反应 ${fmt(ev.reaction_time)} s）。`,
+          en: `Weak-side defender ${J(actor)} leaves ${J(target)}; peak shift ${fmt(ev.peak_shift ?? ev.defender_shift)} m over ${fmt(ev.duration)} s.`,
         },
         actors: [actor, target],
         overlay: {
@@ -151,8 +150,8 @@ function describe(
       return {
         title: { zh: `空位形成 ${fmt(ev.peak_open_distance)} m`, en: "Open Space" },
         summary: {
-          zh: `${J(actor)} 与最近防守者 ${J(target)} 距离越过 ${fmt(ev.threshold)} m 阈值（检测时 ${fmt(ev.nearest_defender_distance)} m，峰值 ${fmt(ev.peak_open_distance)} m）。`,
-          en: `${J(actor)} becomes open; nearest defender ${J(target)} crosses the ${fmt(ev.threshold)} m threshold.`,
+          zh: `${J(actor)} 与最近防守者距离越过 ${fmt(ev.threshold)} m 阈值（进入 ${fmt(ev.enter_distance)} m，峰值 ${fmt(ev.peak_open_distance)} m，退出 ${fmt(ev.exit_distance)} m），空位持续 ${fmt(ev.duration)} s。`,
+          en: `${J(actor)} is open for ${fmt(ev.duration)} s: enter ${fmt(ev.enter_distance)} m, peak ${fmt(ev.peak_open_distance)} m, exit ${fmt(ev.exit_distance)} m (threshold ${fmt(ev.threshold)} m).`,
         },
         actors: [actor, target],
         overlay: {
@@ -165,7 +164,7 @@ function describe(
               kind: "open",
               shape: "circle",
               center: { playerId: actor },
-              radius: m2ft(num(ev.threshold)),
+              radius: num(ev.threshold),
             },
           ],
           measures: [
@@ -197,7 +196,7 @@ function describe(
               kind: "open",
               shape: "circle",
               center: { playerId: target },
-              radius: m2ft(ctx.analysis.config.openSpaceThreshold),
+              radius: ctx.analysis.config.openSpaceThreshold,
             },
           ],
           arrows: [{ from: { playerId: actor, t: start }, to: { playerId: target, t: end }, kind: "pass" }],
@@ -227,10 +226,10 @@ function describe(
               kind: "open",
               shape: "circle",
               center: { playerId: actor, t: start },
-              radius: m2ft(ctx.analysis.config.openSpaceThreshold),
+              radius: ctx.analysis.config.openSpaceThreshold,
             },
           ],
-          arrows: [{ from: { playerId: actor, t: start }, to: COURT.hoop, kind: "movement" }],
+          arrows: [{ from: { playerId: actor, t: start }, to: basketFor(ctx.analysis.config.attackingBasket), kind: "movement" }],
           labels: [
             {
               anchor: { playerId: actor },

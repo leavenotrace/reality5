@@ -20,8 +20,8 @@ export const DETECTOR_RULES: Record<EventType, DetectorRule> = {
     unit: "m/s",
   },
   HELP_DEFENSE: {
-    rule: (c) => `defender shift toward paint > ${c.helpShiftThreshold.toFixed(1)} m`,
-    observedKey: "defender_shift",
+    rule: (c) => `peak defender shift toward paint > ${c.helpShiftThreshold.toFixed(1)} m (stateful: start → peak → end)`,
+    observedKey: "peak_shift",
     thresholdKey: "shift_threshold",
     unit: "m",
   },
@@ -32,7 +32,8 @@ export const DETECTOR_RULES: Record<EventType, DetectorRule> = {
     unit: "",
   },
   OPEN_SPACE: {
-    rule: (c) => `nearestDefenderDistance > ${c.openSpaceThreshold.toFixed(1)} m`,
+    rule: (c) =>
+      `COVERED → OPEN when nearestDefenderDistance ≥ ${c.openSpaceThreshold.toFixed(2)} m; OPEN → COVERED when < ${c.openSpaceExitThreshold.toFixed(2)} m (one event per state)`,
     observedKey: "peak_open_distance",
     unit: "m",
   },

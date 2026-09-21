@@ -1,39 +1,39 @@
+import { NBA_COURT, type BasketSide, type Point, baselineFor, basketFor } from "./court"
 import type { BallState, CourtState, PlayerState } from "./types"
 
-/** NBA half court in meters. */
-export const COURT_M = {
-  width: 15.24,
-  depth: 14.33,
-  basket: { x: 7.62, y: 1.6 },
-  threePointRadius: 7.24,
-  /** Corner three: straight line 0.91 m from each sideline, up to 4.27 m from the baseline. */
-  cornerLineInset: 0.91,
-  cornerDepth: 4.27,
-  paint: { x: 5.18, width: 4.88, depth: 5.79 },
-} as const
-
-export type Point = { x: number; y: number }
+export type { Point }
 
 export function dist(a: Point, b: Point): number {
   return Math.hypot(a.x - b.x, a.y - b.y)
 }
 
-export function distanceToBasket(p: Point): number {
-  return dist(p, COURT_M.basket)
+/** Distance (m) from a point to the basket the offense is attacking. */
+export function distanceToBasket(p: Point, side: BasketSide): number {
+  return dist(p, basketFor(side))
 }
 
-export function isBeyondArc(p: Point): boolean {
-  if (p.y <= COURT_M.cornerDepth) {
-    return p.x <= COURT_M.cornerLineInset || p.x >= COURT_M.width - COURT_M.cornerLineInset
+/** Distance (m) from a point to the baseline behind the attacked basket. */
+export function distanceToBaseline(p: Point, side: BasketSide): number {
+  return Math.abs(baselineFor(side) - p.x)
+}
+
+/** In the corner-three zone: within cornerDepth of the baseline. */
+export function isInCorner(p: Point, side: BasketSide): boolean {
+  return distanceToBaseline(p, side) <= NBA_COURT.cornerDepth
+}
+
+export function isBeyondArc(p: Point, side: BasketSide): boolean {
+  if (isInCorner(p, side)) {
+    return p.y <= NBA_COURT.cornerLineInset || p.y >= NBA_COURT.width - NBA_COURT.cornerLineInset
   }
-  return distanceToBasket(p) >= COURT_M.threePointRadius
+  return distanceToBasket(p, side) >= NBA_COURT.threePointRadius
 }
 
-export function isInPaint(p: Point): boolean {
+export function isInPaint(p: Point, side: BasketSide): boolean {
+  const halfWidth = NBA_COURT.paint.width / 2
   return (
-    p.x >= COURT_M.paint.x &&
-    p.x <= COURT_M.paint.x + COURT_M.paint.width &&
-    p.y <= COURT_M.paint.depth
+    Math.abs(p.y - basketFor(side).y) <= halfWidth &&
+    distanceToBaseline(p, side) <= NBA_COURT.paint.depth
   )
 }
 

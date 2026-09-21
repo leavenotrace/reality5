@@ -5,13 +5,15 @@
  * ball position/height and ball possessor, sampled every 100 ms.
  * No basketball events are encoded here. Detectors discover them.
  *
- * Coordinate system (meters): origin at the left corner of the baseline,
- * x along the baseline (0..15.24), y from baseline toward half court (0..14.33).
- * Basket at (7.62, 1.60).
+ * Keyframes are AUTHORED in attacking-half coordinates for readability:
+ * hx along the baseline (0..15.24), hy from baseline toward half court.
+ * They are EMITTED in the NBA_METRIC full-court contract (lib/reality/court.ts):
+ * x = 0..28.65 baseline→baseline, y = 0..15.24 sideline→sideline, offense
+ * attacking the RIGHT basket at (27.075, 7.62). Mapping: x = 28.65 - hy, y = hx.
  *
- * Run: node scripts/generate-mock-tracking.mjs            → data/mock-tracking.json
+ * Run: node scripts/generate-mock-tracking.mjs            → data/sample-possession-01.json
  *      node scripts/generate-mock-tracking.mjs --scenario reality-test-no-help
- *                                                        → data/mock-tracking-no-help.json
+ *                                                        → data/sample-possession-02.json
  *
  * Scenarios change ONLY physical coordinates. Nothing downstream is authored.
  */
@@ -40,9 +42,9 @@ const SCENARIOS = {
       [3.75, 14.6, 1.0, 1.4],
       [4.05, 14.5, 1.1, 2.3],
       [4.5, 11.0, 1.4, 5.0],
-      [5.0, 7.62, 1.6, 3.05],
-      [5.4, 7.62, 1.6, 0.0],
-      [10, 7.62, 1.6, 0.0],
+      [5.0, 7.62, 1.575, 3.05],
+      [5.4, 7.62, 1.575, 0.0],
+      [10, 7.62, 1.575, 0.0],
     ],
     // D4 helps: ~1.7 m toward the paint
     d4Keys: [
@@ -236,9 +238,13 @@ const positions = Array.from({ length: frameCount }, (_, i) => {
 
 // Frames carry PHYSICAL state only: positions and the ball. No velocity, no
 // events. The Reality Engine derives everything else.
+const COURT_LENGTH = 28.65
+/** Authored half-court (hx, hy) → NBA_METRIC full court attacking the right basket. */
+const toFullCourt = (hx, hy) => ({ x: r(COURT_LENGTH - hy), y: r(hx) })
+
 const frames = positions.map((frame, i) => {
   const t = r(i * DT)
-  const players = frame.map((p) => ({ id: p.id, team: p.team, x: r(p.x), y: r(p.y) }))
+  const players = frame.map((p) => ({ id: p.id, team: p.team, ...toFullCourt(p.x, p.y) }))
 
   const holder = possessorAt(t)
   let ball
@@ -246,8 +252,8 @@ const frames = positions.map((frame, i) => {
     const h = players.find((p) => p.id === holder)
     ball = { x: h.x, y: h.y, z: 1.0, possessor: holder }
   } else {
-    const [x, y, z] = lerpKeys(BALL_FREE, t)
-    ball = { x: r(x), y: r(y), z: r(z) }
+    const [hx, hy, z] = lerpKeys(BALL_FREE, t)
+    ball = { ...toFullCourt(hx, hy), z: r(z) }
   }
 
   return {
@@ -264,8 +270,10 @@ const out = {
     possession_id: scenario.possessionId,
     fps: Math.round(1 / DT),
     court_unit: "meters",
+    coordinate_system: "NBA_METRIC",
+    attacking_basket: "right",
     generator: "scripts/generate-mock-tracking.mjs",
-    court: { width: 15.24, depth: 14.33, basket: { x: 7.62, y: 1.6 } },
+    court: { length: COURT_LENGTH, width: 15.24, basket: { x: 27.075, y: 7.62 } },
   },
   roster: [
     { id: "P23", team: "offense", number: 23, name: "持球人", role: "Ball Handler" },

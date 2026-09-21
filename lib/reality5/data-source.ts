@@ -60,6 +60,7 @@ export async function getWorkspaceData(): Promise<RealityWorkspaceData> {
     const analysis = analyzePossession(adapted.tracking.states, {
       config,
       roster: adapted.tracking.roster,
+      integrity: adapted.tracking.integrity,
     })
     return buildPossession(adapted.tracking, analysis, {
       id: sample.id,

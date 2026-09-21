@@ -1,12 +1,18 @@
+import { NBA_COURT } from "@/lib/reality/court"
+import { validateRealityIntegrity } from "@/lib/reality/integrity"
 import type { CourtState, PlayerState, RosterEntry, Team } from "@/lib/reality/types"
 import type { AdapterResult, InputIssue, NormalizedTracking, TrackingInputAdapter } from "./types"
 
 /**
  * Adapter for the Reality5 tracking JSON format:
  *
- * { metadata: { game_id, possession_id, fps, court_unit },
+ * { metadata: { game_id, possession_id, fps, court_unit, coordinate_system?, attacking_basket? },
  *   roster?: [{ id, team, number?, name?, role? }],
  *   frames: [{ timestamp, gameClock?, ball: { x, y, z?, possessor? }, players: [{ id, team, x, y }] }] }
+ *
+ * Coordinates are NBA_METRIC (lib/reality/court.ts): meters, x 0..28.65,
+ * y 0..15.24. After the schema parses, every frame goes through
+ * validateRealityIntegrity — bounds, identity, time, physical movement.
  *
  * Frames must describe PHYSICAL state only. Any event-like fields are ignored
  * and reported as a warning — the engine never trusts labels from the source.
@@ -181,19 +187,19 @@ export const trackingJsonAdapter: TrackingInputAdapter = {
 
     if (errors.length) return { ok: false, errors, warnings }
 
-    // Monotonic time
-    for (let i = 1; i < states.length; i++) {
-      if (states[i].timestamp <= states[i - 1].timestamp) {
-        errors.push(
-          issue(
-            "TIME_NOT_MONOTONIC",
-            "timestamp 必须严格递增",
-            "timestamps must be strictly increasing",
-            `frames[${i}].timestamp`,
-          ),
-        )
-        break
-      }
+    if (
+      metadata.coordinate_system !== undefined &&
+      metadata.coordinate_system !== NBA_COURT.coordinateSystem
+    ) {
+      errors.push(
+        issue(
+          "COORDINATE_SYSTEM",
+          `坐标系 "${String(metadata.coordinate_system)}" 不受支持（仅 ${NBA_COURT.coordinateSystem}）`,
+          `Coordinate system "${String(metadata.coordinate_system)}" is not supported (${NBA_COURT.coordinateSystem} only)`,
+          "metadata.coordinate_system",
+        ),
+      )
+      return { ok: false, errors, warnings }
     }
 
     const ids = [...rosterMap.keys()]
@@ -205,15 +211,6 @@ export const trackingJsonAdapter: TrackingInputAdapter = {
           "ONE_SIDED",
           "需要同时包含进攻和防守球员",
           "Both offense and defense players are required",
-        ),
-      )
-    }
-    if (offense.length !== 5 || defense.length !== 5) {
-      warnings.push(
-        issue(
-          "NOT_5V5",
-          `检测到 ${offense.length} 进攻 / ${defense.length} 防守（非 5v5）`,
-          `${offense.length} offense / ${defense.length} defense detected (not 5v5)`,
         ),
       )
     }
@@ -237,6 +234,30 @@ export const trackingJsonAdapter: TrackingInputAdapter = {
     }
 
     if (errors.length) return { ok: false, errors, warnings }
+
+    // REALITY INTEGRITY: physical validation of every frame. INVALID vetoes analysis.
+    const integrity = validateRealityIntegrity(states, {
+      attackingBasketHint: metadata.attacking_basket,
+    })
+    for (const v of integrity.violations) {
+      const target = v.severity === "error" ? errors : warnings
+      target.push(issue(v.code, v.message.zh, v.message.en, v.frame !== undefined ? `frames[${v.frame}]` : undefined))
+    }
+    if (!integrity.valid) {
+      return {
+        ok: false,
+        errors,
+        warnings,
+        integrity,
+        summary: {
+          frames: states.length,
+          duration: states[states.length - 1].timestamp - states[0].timestamp,
+          offense: offense.length,
+          defense: defense.length,
+          possessed: ballFrames - missingPossessor,
+        },
+      }
+    }
 
     const providedRoster = Array.isArray(raw.roster) ? raw.roster : []
     const roster: RosterEntry[] = ids.map((id, i) => {
@@ -282,10 +303,13 @@ export const trackingJsonAdapter: TrackingInputAdapter = {
         clockAtStart: first.gameClock,
         clockDerived: missingClock > 0,
         unit: "meters",
+        coordinateSystem: NBA_COURT.coordinateSystem,
+        attackingBasket: integrity.attackingBasket,
         adapter: trackingJsonAdapter.id,
       },
       roster,
       states: rebased,
+      integrity,
     }
 
     return { ok: true, tracking, warnings }

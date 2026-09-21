@@ -79,7 +79,7 @@ export function CourtOverlay() {
         ))}
       </defs>
 
-      <CourtLines />
+      <CourtLines attacking={possession.analysis.config.attackingBasket} />
 
       {/* Zones */}
       {(overlay.zones ?? []).map((zone, i) => {
@@ -298,7 +298,7 @@ export function CourtOverlay() {
       {/* Ball */}
       {(() => {
         const b = project(courtState.ball)
-        const lift = courtState.ball.z * 0.32
+        const lift = projectLength(courtState.ball.z) * 0.2
         return (
           <g className="glow-tactical">
             <ellipse

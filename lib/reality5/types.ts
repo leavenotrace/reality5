@@ -5,7 +5,7 @@
  * lib/reality/types. This file adds only what the UI needs to VISUALIZE an
  * analysis: overlay specs, localized titles, and the Possession envelope.
  *
- * Overlay positions are in court feet (the SVG projection in ./court.ts);
+ * Overlay positions are in court meters (NBA_METRIC; projected by ./court.ts);
  * the engine works in meters and the tracking helpers convert.
  */
 
@@ -38,7 +38,7 @@ export type Vec2 = { x: number; y: number }
 export type PlayerId = string
 export type Player = RosterEntry
 
-/** Court snapshot resolved for the overlay, in feet. */
+/** Court snapshot resolved for the overlay, in court meters. */
 export interface OverlayCourtState {
   t: number
   players: Record<PlayerId, Vec2>
@@ -48,7 +48,7 @@ export interface OverlayCourtState {
 
 export type OverlayColor = "movement" | "tactical" | "space" | "neutral"
 
-/** A point on the court: either a player (at a given time) or a fixed coordinate (feet). */
+/** A point on the court: either a player (at a given time) or a fixed coordinate (meters). */
 export type Anchor = { playerId: PlayerId; t?: number } | Vec2
 
 export interface OverlayHighlight {

@@ -47,6 +47,26 @@ const PROMOTED: Partial<Record<EventType, EvidenceSpec[]>> = {
       },
     },
     {
+      key: "peak_shift",
+      label: { zh: "峰值位移", en: "Peak Shift" },
+      unit: "m",
+      precision: 1,
+      description: {
+        zh: "协防窗口内协防者距离起始点的最大位移。",
+        en: "Largest displacement from the starting spot during the help window.",
+      },
+    },
+    {
+      key: "duration",
+      label: { zh: "协防时长", en: "Help Duration" },
+      unit: "s",
+      precision: 1,
+      description: {
+        zh: "协防状态从开始到结束的持续时间。",
+        en: "Time from help onset to the defender settling.",
+      },
+    },
+    {
       key: "reaction_time",
       label: { zh: "反应时间", en: "Reaction Time" },
       unit: "s",
@@ -78,6 +98,16 @@ const PROMOTED: Partial<Record<EventType, EvidenceSpec[]>> = {
       description: {
         zh: "该球员与最近防守者之间的最大距离（空位窗口内）。",
         en: "Largest distance between the player and his nearest defender while open.",
+      },
+    },
+    {
+      key: "duration",
+      label: { zh: "空位时长", en: "Open Duration" },
+      unit: "s",
+      precision: 1,
+      description: {
+        zh: "从越过进入阈值到跌破退出阈值之间的持续时间（带滞回）。",
+        en: "Time between crossing the enter threshold and dropping below the exit threshold (hysteresis).",
       },
     },
     {

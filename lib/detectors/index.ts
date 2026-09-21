@@ -1,4 +1,5 @@
 import type { BasketballEvent, CourtState, DetectorConfig } from "@/lib/reality/types"
+import { dedupeEvents } from "./dedupe"
 import { detectDrive } from "./drive"
 import { detectHelpDefense } from "./help-defense"
 import { detectOpenSpace } from "./open-space"
@@ -6,9 +7,9 @@ import { detectPass, detectShot } from "./pass-shot"
 
 /** Run every detector over the tracking data and return events in time order. */
 export function runDetectors(states: CourtState[], config: DetectorConfig): BasketballEvent[] {
-  const drives = detectDrive(states, config)
-  const help = detectHelpDefense(states, config, drives)
-  const open = detectOpenSpace(states, config)
+  const drives = dedupeEvents(detectDrive(states, config), config)
+  const help = dedupeEvents(detectHelpDefense(states, config, drives), config)
+  const open = dedupeEvents(detectOpenSpace(states, config), config)
   const passes = detectPass(states, config, open)
   const shots = detectShot(states, config)
 

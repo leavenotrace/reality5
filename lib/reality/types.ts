@@ -9,6 +9,9 @@
  * Units: meters, meters/second, seconds (clip-relative).
  */
 
+import type { BasketSide } from "./court"
+import type { RealityIntegrity } from "./integrity"
+
 export type Team = "offense" | "defense"
 
 export interface PlayerState {
@@ -60,6 +63,10 @@ export interface BasketballEvent {
   timestamp: number
   /** End of the event window when the detector tracks one. */
   endTimestamp?: number
+  /** Time at which the measured quantity peaked, for stateful events. */
+  peakTimestamp?: number
+  /** endTimestamp - timestamp, seconds, for stateful events. */
+  duration?: number
   actor?: string
   target?: string
   evidence: Record<string, EvidenceValue>
@@ -127,8 +134,14 @@ export interface Commentary {
 }
 
 export interface DetectorConfig {
-  /** Nearest-defender distance (m) above which an offensive player is OPEN. */
+  /** Which basket the offense attacks. Set by the adapter from the data, never assumed. */
+  attackingBasket: BasketSide
+  /** Nearest-defender distance (m) at which an offensive player ENTERS the OPEN state. */
   openSpaceThreshold: number
+  /** Nearest-defender distance (m) below which an OPEN player returns to COVERED (hysteresis). */
+  openSpaceExitThreshold: number
+  /** Gap (s) under which two windows of the same stateful event are one continuous state. */
+  eventMergeGap: number
   /** Minimum ball-handler speed (m/s) toward the basket to call a DRIVE. */
   driveSpeedThreshold: number
   /** Minimum displacement (m) toward the paint/handler to call HELP_DEFENSE. */
@@ -153,4 +166,6 @@ export interface PossessionAnalysis {
   commentary: Commentary[]
   config: DetectorConfig
   engine: { name: string; version: string }
+  /** The physical validation the analysis was gated on. */
+  integrity: RealityIntegrity
 }

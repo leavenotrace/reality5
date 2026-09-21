@@ -1,8 +1,8 @@
+import { basketFor } from "@/lib/reality/court"
 import {
-  COURT_M,
   defense,
   dist,
-  distanceToBasket,
+  distanceToBasket as toBasket,
   nearestOpponent,
   offense,
   playerById,
@@ -45,6 +45,9 @@ export function detectHelpDefense(
   const window = findDriveWindow(states, drives)
   if (!window || window.startIndex < 0) return events
 
+  const basket = basketFor(config.attackingBasket)
+  const distanceToBasket = (p: { x: number; y: number }) => toBasket(p, config.attackingBasket)
+
   const start = states[window.startIndex]
   const handlerAtStart = playerById(start, window.handler)
   if (!handlerAtStart) return events
@@ -62,13 +65,14 @@ export function detectHelpDefense(
     const assignment = assignments.get(defender.id)
     if (!assignment || assignment === window.handler) continue // on-ball defender
 
+    // HELP is a state: HOME → HELPING (moving toward paint/handler) → HOME.
     let onset = -1
     let end = -1
     for (let i = window.startIndex; i <= window.endIndex; i++) {
       const d = playerById(states[i], defender.id)
       const handler = playerById(states[i], window.handler)
       if (!d || !handler) continue
-      const towardPaint = headingTo(d, COURT_M.basket)
+      const towardPaint = headingTo(d, basket)
       const towardHandler = headingTo(d, handler)
       const moving = d.speed >= MOVE_SPEED_MIN && Math.max(towardPaint, towardHandler) >= HEADING_MIN
       if (moving && onset === -1) onset = i
@@ -81,13 +85,25 @@ export function detectHelpDefense(
     if (end === -1) end = window.endIndex
 
     const before = playerById(states[onset], defender.id)!
+    // Peak displacement from the starting spot across the window.
+    let peakIndex = end
+    let peakShift = 0
+    for (let i = onset; i <= end; i++) {
+      const d = playerById(states[i], defender.id)
+      if (!d) continue
+      const s = dist(before, d)
+      if (s > peakShift) {
+        peakShift = s
+        peakIndex = i
+      }
+    }
     const after = playerById(states[end], defender.id)!
     const shift = dist(before, after)
     const basketShift = distanceToBasket(before) - distanceToBasket(after)
     if (basketShift >= config.collapseShiftThreshold) {
       collapsing.push({ id: defender.id, shift: basketShift })
     }
-    if (shift < config.helpShiftThreshold) continue
+    if (peakShift < config.helpShiftThreshold) continue
 
     const handlerBefore = playerById(states[onset], window.handler)!
     const handlerAfter = playerById(states[end], window.handler)!
@@ -99,12 +115,17 @@ export function detectHelpDefense(
       type: "HELP_DEFENSE",
       timestamp: states[onset].timestamp,
       endTimestamp: states[end].timestamp,
+      peakTimestamp: states[peakIndex].timestamp,
+      duration: round(states[end].timestamp - states[onset].timestamp),
       actor: defender.id,
       target: assignment,
       evidence: {
         defender: defender.id,
         left_assignment: assignment,
         defender_shift: round(shift),
+        peak_shift: round(peakShift),
+        peak_shift_at: states[peakIndex].timestamp,
+        duration: round(states[end].timestamp - states[onset].timestamp),
         shift_threshold: config.helpShiftThreshold,
         distance_to_ball_handler_before: round(dist(before, handlerBefore)),
         distance_to_ball_handler_after: round(dist(after, handlerAfter)),
@@ -114,7 +135,7 @@ export function detectHelpDefense(
         movement_direction: basketShift > 0 ? "toward_paint" : "toward_ball_handler",
         reaction_time: round(states[onset].timestamp - start.timestamp),
       },
-      confidence: clamp(0.5 + 0.3 * (shift / config.helpShiftThreshold - 1)),
+      confidence: clamp(0.5 + 0.3 * (peakShift / config.helpShiftThreshold - 1)),
     })
   }
 
