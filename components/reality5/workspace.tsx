@@ -3,6 +3,7 @@
 import type { RealityWorkspaceData } from "@/lib/reality5/data-source"
 import { AnalyzeDrawer } from "./analyze-drawer"
 import { AppHeader } from "./app-header"
+import { CausalWhySheet } from "./causal-why-sheet"
 import { CommentaryPanel } from "./commentary-panel"
 import { CompareDialog } from "./compare-dialog"
 import { EvidencePanel } from "./evidence-panel"
@@ -32,6 +33,7 @@ export function Workspace({ data }: { data: RealityWorkspaceData }) {
       <AnalyzeDrawer />
       <CompareDialog />
       <EvidenceTraceDialog />
+      <CausalWhySheet />
     </WorkspaceProvider>
   )
 }

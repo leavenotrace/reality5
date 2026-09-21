@@ -1,7 +1,8 @@
 import type { NormalizedTracking } from "@/lib/adapters/types"
 import { runDetectors } from "@/lib/detectors"
-import { buildPlayGraph } from "@/lib/reasoning/play-graph"
 import { ENGINE, assertValidReality } from "./analyze"
+import { buildCausalGraph, toPlayGraph, traceCause } from "./causal"
+import { buildCausalStory } from "./causal-story"
 import { buildCommentary, buildCommentaryContext } from "./commentary"
 import { DEFAULT_DETECTOR_CONFIG } from "./config"
 import { deriveKinematics } from "./court-state"
@@ -25,7 +26,7 @@ export const PIPELINE_STAGES: PipelineStage[] = [
   { id: "reading", label: "READING REALITY" },
   { id: "normalizing", label: "NORMALIZING COURT STATE" },
   { id: "detecting", label: "DETECTING EVENTS" },
-  { id: "graph", label: "BUILDING PLAY GRAPH" },
+  { id: "graph", label: "TESTING CAUSAL EDGES" },
   { id: "evidence", label: "LINKING EVIDENCE" },
   { id: "explanation", label: "GENERATING EXPLANATION" },
 ]
@@ -85,17 +86,39 @@ export async function runPipeline(
   )
 
   t = performance.now()
-  const graph = buildPlayGraph(events)
-  await report("graph", t, `${graph.nodes.length} nodes · ${graph.edges.length} edges`)
+  const causal = buildCausalGraph(events, states, config)
+  const graph = toPlayGraph(causal)
+  const trace = traceCause(causal)
+  const supported = causal.edges.filter((e) => e.status === "SUPPORTED").length
+  const temporal = causal.edges.filter((e) => e.status === "TEMPORAL_ONLY").length
+  await report(
+    "graph",
+    t,
+    `${graph.nodes.length} nodes · ${supported} supported · ${temporal} temporal-only · chain ${trace.chain.length}`,
+  )
 
   t = performance.now()
   const evidence = promoteEvidence(events)
   await report("evidence", t, `${evidence.length} measured values`)
 
   t = performance.now()
+  const causalStory = buildCausalStory(events, causal, trace, tracking.roster)
   const commentaryContext = buildCommentaryContext(events, config)
-  const commentary = buildCommentary(events, commentaryContext, tracking.roster)
-  await report("explanation", t, `${commentary.length} audiences`)
+  const commentary = buildCommentary(events, commentaryContext, tracking.roster, causal)
+  await report("explanation", t, `${causalStory.sentences.length} causal sentences · ${commentary.length} audiences`)
 
-  return { states, events, graph, evidence, commentaryContext, commentary, config, engine: ENGINE, integrity }
+  return {
+    states,
+    events,
+    graph,
+    causal,
+    trace,
+    causalStory,
+    evidence,
+    commentaryContext,
+    commentary,
+    config,
+    engine: ENGINE,
+    integrity,
+  }
 }

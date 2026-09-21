@@ -81,6 +81,88 @@ export function measureFacts(
   }
 }
 
+export interface CausalComparison {
+  /** Event-type chain of the supported trace, cause → effect. */
+  chainA: string[]
+  chainB: string[]
+  /** Every rule-covered pair seen in either reality with its status on each side. */
+  edges: {
+    key: string
+    label: string
+    relationA: string | null
+    statusA: string | null
+    relationB: string | null
+    statusB: string | null
+    differs: boolean
+    consequence: string | null
+  }[]
+  /** Physical facts that explain why the structures differ. */
+  facts: ComparisonRow[]
+}
+
+export function compareCausalStructure(
+  first: PossessionAnalysis,
+  second: PossessionAnalysis,
+): CausalComparison {
+  const fa = measureFacts(first)
+  const fb = measureFacts(second, { defender: fa.weakSideDefender, spacing: fa.spacingPlayer })
+  const threshold = first.config.openSpaceThreshold
+
+  const chainOf = (a: PossessionAnalysis) => {
+    if (a.trace.chain.length === 0) {
+      const root = a.causal.nodes.find((n) => n.eventId === a.trace.rootEventId)
+      return root ? [root.type] : []
+    }
+    return [...a.trace.chain.map((e) => e.fromType), a.trace.chain[a.trace.chain.length - 1].toType]
+  }
+
+  const keyOf = (e: { fromType: string; toType: string }) => `${e.fromType}->${e.toType}`
+  const relevant = (a: PossessionAnalysis) =>
+    a.causal.edges.filter((e) => !e.ruleless)
+  const keys = new Set<string>([...relevant(first).map(keyOf), ...relevant(second).map(keyOf)])
+
+  const edges = [...keys].map((key) => {
+    const ea = relevant(first).find((e) => keyOf(e) === key)
+    const eb = relevant(second).find((e) => keyOf(e) === key)
+    const statusA = ea?.status ?? null
+    const statusB = eb?.status ?? null
+    const differs = statusA !== statusB || (ea?.relation ?? null) !== (eb?.relation ?? null)
+    let consequence: string | null = null
+    if (differs) {
+      const [from, to] = key.split("->")
+      const short = (t: string) => t.replace("_DEFENSE", "").replace("_SPACE", "").replace("DEFENSIVE_", "")
+      if (statusA === "SUPPORTED" && statusB !== "SUPPORTED") {
+        consequence = `${short(from)} → ${short(to)} edge ${statusB ? `degrades to ${statusB}` : "disappears"}`
+      } else if (statusB === "SUPPORTED" && statusA !== "SUPPORTED") {
+        consequence = `${short(from)} → ${short(to)} edge appears`
+      } else {
+        consequence = `${short(from)} → ${short(to)} ${statusA ?? "—"} → ${statusB ?? "—"}`
+      }
+    }
+    return {
+      key,
+      label: key.replace("->", " → ").replace(/_/g, " "),
+      relationA: ea?.relation ?? null,
+      statusA,
+      relationB: eb?.relation ?? null,
+      statusB,
+      differs,
+      consequence,
+    }
+  })
+
+  const m = (v: number | null) => (v === null ? "—" : `${v.toFixed(1)}m`)
+  const reached = (v: number | null) => (v === null ? "—" : v >= threshold ? "REACHED" : "NOT REACHED")
+  const facts: ComparisonRow[] = [
+    { label: `${fa.weakSideDefender ?? "Defender"} shift`, a: m(fa.defenderShift), b: m(fb.defenderShift) },
+    { label: `${fa.spacingPlayer ?? "Shooter"} max defender distance`, a: m(fa.maxOpenDistance), b: m(fb.maxOpenDistance) },
+    { label: `OPEN_SPACE threshold (${threshold.toFixed(1)}m)`, a: reached(fa.maxOpenDistance), b: reached(fb.maxOpenDistance) },
+    { label: "Supported causal edges", a: String(first.trace.chain.length), b: String(second.trace.chain.length) },
+  ].map((r) => ({ ...r, differs: r.a !== r.b }))
+
+  return { chainA: chainOf(first), chainB: chainOf(second), edges, facts }
+}
+
 export interface ComparisonRow {
   label: string
   a: string

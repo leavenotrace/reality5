@@ -30,6 +30,9 @@ const FORBIDDEN_KEYS = [
   "openThree",
   "playGraph",
   "play_graph",
+  "causalGraph",
+  "causal_graph",
+  "causalStory",
   "commentary",
 ]
 

@@ -41,15 +41,23 @@ export function CourtOverlay() {
     evidenceById,
     focusEvidence,
     seekToEvent,
+    causalFocus,
   } = useWorkspace()
 
-  const overlay: OverlaySpec = activeEvent?.overlay ?? {}
+  // While a causal edge is projected, the event overlay yields to it so the
+  // court shows only what that edge was tested on.
+  const overlay: OverlaySpec = causalFocus ? {} : (activeEvent?.overlay ?? {})
   const resolve = (a: Anchor): Vec2 => resolveAnchor(possession, courtState, a)
   const P = (a: Anchor) => project(resolve(a))
 
   const highlightById = new Map(
     (overlay.highlights ?? []).map((h) => [h.playerId, h]),
   )
+  if (causalFocus) {
+    for (const id of causalFocus.jump.players) {
+      highlightById.set(id, { playerId: id, color: "space", pulse: true })
+    }
+  }
 
   return (
     <svg
@@ -235,6 +243,70 @@ export function CourtOverlay() {
           </g>
         )
       })}
+
+      {/* JUMP TO REALITY: before/after positions, movement vectors, measured distances */}
+      {causalFocus && (
+        <g aria-label="因果证据投影">
+          {causalFocus.jump.movements.map((mv) => {
+            const a = P({ playerId: mv.playerId, t: mv.from })
+            const b = P({ playerId: mv.playerId, t: mv.to })
+            const pts = samplePath(possession, mv.playerId, mv.from, mv.to).map(project)
+            const d = pts.map((p, j) => `${j === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ")
+            const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }
+            const w = mv.label.length * 1.75 + 2.4
+            return (
+              <g key={`mv-${mv.playerId}`} className="glow-space">
+                {pts.length > 1 && (
+                  <path d={d} fill="none" stroke={COLOR.space} strokeWidth={0.5} strokeOpacity={0.85} strokeLinecap="round" />
+                )}
+                <line
+                  x1={a.x}
+                  y1={a.y}
+                  x2={b.x}
+                  y2={b.y}
+                  stroke={COLOR.space}
+                  strokeWidth={0.35}
+                  strokeDasharray="0.8 0.8"
+                  markerEnd="url(#r5-arrow-space)"
+                />
+                {/* ○ original position */}
+                <circle cx={a.x} cy={a.y} r={2.2} fill="none" stroke={COLOR.space} strokeWidth={0.45} strokeDasharray="1 0.7" />
+                {/* ● position after */}
+                <circle cx={b.x} cy={b.y} r={1.1} fill={COLOR.space} />
+                {mv.label && (
+                  <>
+                    <rect x={mid.x - w / 2} y={mid.y - 5.6} width={w} height={4.2} rx={0.6} fill="oklch(0.12 0.02 258 / 92%)" stroke={COLOR.space} strokeWidth={0.3} />
+                    <text x={mid.x} y={mid.y - 2.6} textAnchor="middle" fontSize={2.7} fontFamily="var(--font-mono)" fontWeight={600} fill={COLOR.space}>
+                      {mv.label}
+                    </text>
+                  </>
+                )}
+              </g>
+            )
+          })}
+          {causalFocus.jump.measures.map((m, i) => {
+            const last = i === causalFocus.jump.measures.length - 1
+            const from = P({ playerId: m.from, t: m.t })
+            const to = P({ playerId: m.to, t: m.t })
+            const mid = { x: (from.x + to.x) / 2, y: (from.y + to.y) / 2 - (last ? 0 : 4.6) }
+            const color = last ? COLOR.space : "oklch(0.75 0.01 250)"
+            const text = `${last ? "AFTER" : "BEFORE"} ${m.label}`
+            const w = text.length * 1.75 + 2.4
+            return (
+              <g key={`ms-${i}`} opacity={last ? 1 : 0.75}>
+                <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke={color} strokeWidth={last ? 0.5 : 0.32} strokeDasharray="0.9 0.9" />
+                {[from, to].map((p, j) => (
+                  <circle key={j} cx={p.x} cy={p.y} r={last ? 0.6 : 0.45} fill={color} />
+                ))}
+                <rect x={mid.x - w / 2} y={mid.y - 2.1} width={w} height={4.2} rx={0.6} fill="oklch(0.12 0.02 258 / 92%)" stroke={color} strokeWidth={last ? 0.45 : 0.25} />
+                <text x={mid.x} y={mid.y + 1} textAnchor="middle" fontSize={2.7} fontFamily="var(--font-mono)" fontWeight={600} fill={color}>
+                  {text}
+                </text>
+              </g>
+            )
+          })}
+        </g>
+      )}
 
       {/* Players */}
       {possession.players.map((player) => {

@@ -15,6 +15,7 @@ import type { CourtState, DetectorConfig } from "@/lib/reality/types"
 import { exportAnalysis, exportFileName } from "@/lib/reality/export"
 import type { RealityWorkspaceData } from "@/lib/reality5/data-source"
 import type {
+  CausalEdge,
   Evidence,
   OverlayCourtState,
   Possession,
@@ -71,6 +72,17 @@ interface WorkspaceValue {
   hoverEvent: (id: string | null) => void
   evidenceById: Map<string, Evidence>
   eventById: Map<string, PresentedEvent>
+  /** Causal edge whose WHY? sheet is open. */
+  whyEdgeId: string | null
+  openWhy: (edgeId: string | null) => void
+  /** Causal edge currently projected onto the court (JUMP TO REALITY). */
+  causalFocus: CausalEdge | null
+  jumpToReality: (edgeId: string) => void
+  clearCausalFocus: () => void
+  /** WHAT CREATED THE SHOT? — backward trace highlighted in the Play Graph. */
+  traceActive: boolean
+  setTraceActive: (active: boolean) => void
+  causalEdgeById: Map<string, CausalEdge>
 }
 
 const WorkspaceContext = createContext<WorkspaceValue | null>(null)
@@ -106,6 +118,9 @@ export function WorkspaceProvider({
   const [debugOpen, setDebugOpen] = useState(false)
   const [focusedEvidenceId, setFocusedEvidenceId] = useState<string | null>(null)
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null)
+  const [whyEdgeId, setWhyEdgeId] = useState<string | null>(null)
+  const [causalFocusId, setCausalFocusId] = useState<string | null>(null)
+  const [traceActive, setTraceActive] = useState(false)
 
   const timeRef = useRef(0)
   const frameRef = useRef<number | null>(null)
@@ -212,10 +227,33 @@ export function WorkspaceProvider({
       const event = possession.events.find((e) => e.id === eventId)
       if (!event) return
       setIsReplaying(false)
+      setCausalFocusId(null)
       pause()
       seek(event.t)
     },
     [pause, possession.events, seek],
+  )
+
+  const causalEdgeById = useMemo(
+    () => new Map(possession.analysis.causal.edges.map((e) => [e.id, e])),
+    [possession.analysis.causal.edges],
+  )
+
+  /**
+   * JUMP TO REALITY: seek to the frame the causal claim is about and project
+   * the movement vectors / distance measurements the edge was tested on.
+   */
+  const jumpToReality = useCallback(
+    (edgeId: string) => {
+      const edge = causalEdgeById.get(edgeId)
+      if (!edge) return
+      setIsReplaying(false)
+      pause()
+      seek(edge.jump.time)
+      setCausalFocusId(edgeId)
+      setWhyEdgeId(null)
+    },
+    [causalEdgeById, pause, seek],
   )
 
   const resetView = useCallback(() => {
@@ -224,6 +262,9 @@ export function WorkspaceProvider({
     setFocusedEvidenceId(null)
     setHoveredEventId(null)
     setTraceEventId(null)
+    setWhyEdgeId(null)
+    setCausalFocusId(null)
+    setTraceActive(false)
     commitTime(0)
   }, [commitTime, pause])
 
@@ -266,10 +307,13 @@ export function WorkspaceProvider({
   const manualSeek = useCallback(
     (t: number) => {
       setIsReplaying(false)
+      setCausalFocusId(null)
       seek(t)
     },
     [seek],
   )
+
+  const causalFocus = causalFocusId ? (causalEdgeById.get(causalFocusId) ?? null) : null
 
   const realityState = useMemo(
     () => getRealityState(possession, currentTime),
@@ -334,6 +378,14 @@ export function WorkspaceProvider({
     hoverEvent: setHoveredEventId,
     evidenceById,
     eventById,
+    whyEdgeId,
+    openWhy: setWhyEdgeId,
+    causalFocus,
+    jumpToReality,
+    clearCausalFocus: () => setCausalFocusId(null),
+    traceActive,
+    setTraceActive,
+    causalEdgeById,
   }
 
   return (

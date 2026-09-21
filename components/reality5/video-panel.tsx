@@ -24,6 +24,7 @@ export function VideoPanel() {
     videoRef,
     activeEvent,
     detectedEventIds,
+    causalFocus,
   } = useWorkspace()
 
   return (
@@ -91,7 +92,9 @@ export function VideoPanel() {
             )}
           </div>
 
-          {activeEvent && (
+          <CausalJumpHud />
+
+          {activeEvent && !causalFocus && (
             <div className="pointer-events-none absolute right-3 bottom-3 flex items-center gap-2 rounded-sm border border-tactical/50 bg-black/70 px-2.5 py-1">
               <span className="font-mono text-[10px] text-tactical">
                 {String(activeEvent.index).padStart(2, "0")}
@@ -141,6 +144,53 @@ export function VideoPanel() {
         </span>
       </div>
     </section>
+  )
+}
+
+/**
+ * Shown while a causal edge is projected onto the court. Hollow marker =
+ * position before, filled marker = position after; dashed lines are the
+ * distance measurements the edge was tested on.
+ */
+function CausalJumpHud() {
+  const { causalFocus, clearCausalFocus, openWhy, eventById } = useWorkspace()
+  if (!causalFocus) return null
+  const from = eventById.get(causalFocus.fromEventId)
+  const to = eventById.get(causalFocus.toEventId)
+  return (
+    <div className="absolute top-3 right-3 flex max-w-[min(100%,22rem)] flex-col gap-1.5 rounded-sm border border-space/60 bg-black/80 px-3 py-2 backdrop-blur-sm">
+      <div className="flex items-center justify-between gap-3">
+        <span className="font-mono text-[9px] tracking-[0.25em] text-space">CAUSAL JUMP · REALITY</span>
+        <div className="flex items-center gap-1">
+          <Button size="xs" variant="ghost" className="h-5 px-1.5 font-mono text-[9px] tracking-wider" onClick={() => openWhy(causalFocus.id)}>
+            WHY?
+          </Button>
+          <Button size="xs" variant="ghost" className="h-5 px-1.5 font-mono text-[9px] tracking-wider" onClick={clearCausalFocus} aria-label="关闭因果投影">
+            CLOSE
+          </Button>
+        </div>
+      </div>
+      <p className="text-xs">
+        <span className="font-semibold tracking-wide">{from?.type.replace("_", " ")}</span>
+        <span className={cn("mx-1.5 font-mono text-[10px] tracking-wider", causalFocus.status === "SUPPORTED" ? "text-space" : "text-tactical")}>
+          → {causalFocus.relation.replace("_", " ")} {causalFocus.confidence.toFixed(2)} →
+        </span>
+        <span className="font-semibold tracking-wide">{to?.type.replace("_", " ")}</span>
+      </p>
+      <ul className="flex flex-wrap gap-x-3 gap-y-0.5 font-mono text-[10px] text-muted-foreground">
+        {causalFocus.jump.movements.filter((m) => m.label).map((m) => (
+          <li key={`m-${m.playerId}`}>
+            <span className="text-foreground">{m.playerId}</span> ○→● {m.label}
+          </li>
+        ))}
+        {causalFocus.jump.measures.map((m, i) => (
+          <li key={`d-${i}`}>
+            <span className="text-foreground">{m.from}</span>–{m.to} <span className={i === causalFocus.jump.measures.length - 1 ? "text-space" : ""}>{m.label}</span>
+            <span className="ml-1 opacity-60">@{m.t.toFixed(1)}s</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 

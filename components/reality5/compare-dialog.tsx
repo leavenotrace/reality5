@@ -1,6 +1,6 @@
 "use client"
 
-import { Check, X } from "lucide-react"
+import { ArrowDown, Check, X } from "lucide-react"
 import { useMemo, useState } from "react"
 import {
   Dialog,
@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { compareRealities } from "@/lib/reality/compare"
+import { compareCausalStructure, compareRealities } from "@/lib/reality/compare"
 import { runRealityTest } from "@/lib/reality/reality-test"
 import { cn } from "@/lib/utils"
 import { useWorkspace } from "./workspace-context"
@@ -34,6 +34,10 @@ export function CompareDialog() {
     () => (left && right ? compareRealities(left.analysis, right.analysis) : []),
     [left, right],
   )
+  const causal = useMemo(
+    () => (left && right ? compareCausalStructure(left.analysis, right.analysis) : null),
+    [left, right],
+  )
   const test = useMemo(
     () => (left && right ? runRealityTest(left.analysis, right.analysis) : null),
     [left, right],
@@ -41,7 +45,7 @@ export function CompareDialog() {
 
   return (
     <Dialog open={compareOpen} onOpenChange={setCompareOpen}>
-      <DialogContent className="max-w-2xl bg-panel p-0 sm:max-w-2xl">
+      <DialogContent className="flex max-h-[90dvh] max-w-2xl flex-col gap-0 overflow-hidden bg-panel p-0 sm:max-w-2xl">
         <DialogHeader className="border-b px-5 py-4">
           <p className="font-mono text-[9px] tracking-[0.3em] text-muted-foreground">
             REALITY COMPARISON
@@ -53,7 +57,7 @@ export function CompareDialog() {
         </DialogHeader>
 
         {left && right ? (
-          <div className="flex flex-col gap-4 px-5 py-4">
+          <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-5 py-4">
             <div className="grid grid-cols-[1fr_1fr_1fr] items-end gap-3 font-mono text-[10px]">
               <span className="text-muted-foreground">FACT</span>
               <Picker label="REALITY A" value={left.id} options={possessions} onChange={setLeftId} />
@@ -64,6 +68,76 @@ export function CompareDialog() {
                 onChange={setRightId}
               />
             </div>
+
+            {causal && (
+              <section className="flex flex-col gap-3 rounded-md border border-space/40 p-3" aria-label="因果结构对比">
+                <div className="flex items-baseline justify-between">
+                  <span className="font-mono text-[9px] tracking-[0.25em] text-space">CAUSAL STRUCTURE</span>
+                  <span className="text-[10px] text-muted-foreground">不只比较事件，比较因果结构</span>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { label: "REALITY A", chain: causal.chainA },
+                    { label: "REALITY B", chain: causal.chainB },
+                  ].map((side) => (
+                    <div key={side.label} className="flex flex-col gap-1 rounded-md bg-panel-raised/40 p-2.5">
+                      <span className="font-mono text-[9px] tracking-[0.2em] text-muted-foreground">{side.label}</span>
+                      {side.chain.length === 0 ? (
+                        <span className="font-mono text-[10px] text-muted-foreground">no events</span>
+                      ) : (
+                        <ol className="flex flex-col">
+                          {side.chain.map((t, i) => (
+                            <li key={`${t}-${i}`} className="flex flex-col">
+                              <span className="font-mono text-[11px] font-semibold tracking-wide">{t.replace("_", " ")}</span>
+                              {i < side.chain.length - 1 && (
+                                <ArrowDown className="my-0.5 size-3 text-space" aria-hidden />
+                              )}
+                            </li>
+                          ))}
+                        </ol>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                <dl className="flex flex-col divide-y rounded-md border font-mono text-[11px]">
+                  {causal.facts.map((row) => (
+                    <div key={row.label} className="grid grid-cols-[1.2fr_1fr_1fr] gap-3 px-3 py-1.5">
+                      <dt className="text-muted-foreground">{row.label}</dt>
+                      <dd className={cn("tabular-nums", row.differs ? "text-foreground" : "text-muted-foreground")}>{row.a}</dd>
+                      <dd className={cn("tabular-nums", row.differs ? "font-semibold text-tactical" : "text-muted-foreground")}>{row.b}</dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <ul className="flex flex-col divide-y rounded-md border font-mono text-[11px]" aria-label="因果边差异">
+                  {causal.edges.map((e) => (
+                    <li key={e.key} className="grid grid-cols-[1.2fr_1fr_1fr] gap-3 px-3 py-1.5">
+                      <span className="text-muted-foreground">{e.label}</span>
+                      <span className={cn(e.statusA === "SUPPORTED" ? "text-space" : e.statusA === "WEAK" ? "text-tactical" : "text-muted-foreground/60")}>
+                        {e.statusA ? `${e.relationA} · ${e.statusA.replace("_", " ")}` : "—"}
+                      </span>
+                      <span className={cn(e.differs && "font-semibold", e.statusB === "SUPPORTED" ? "text-space" : e.statusB === "WEAK" ? "text-tactical" : "text-muted-foreground/60")}>
+                        {e.statusB ? `${e.relationB} · ${e.statusB.replace("_", " ")}` : "—"}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                {causal.edges.some((e) => e.consequence) && (
+                  <div className="flex flex-col gap-0.5">
+                    <span className="font-mono text-[9px] tracking-[0.2em] text-muted-foreground">CAUSAL CONSEQUENCE</span>
+                    <ul className="flex flex-col gap-0.5">
+                      {causal.edges.filter((e) => e.consequence).map((e) => (
+                        <li key={e.key} className="font-mono text-[11px] text-tactical">
+                          {e.consequence}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </section>
+            )}
 
             <dl className="flex flex-col divide-y rounded-md border font-mono text-xs">
               {rows.map((row) => (
@@ -117,7 +191,7 @@ export function CompareDialog() {
 
             <p className="text-center font-mono text-xs font-bold tracking-[0.25em] text-foreground">
               SAME ENGINE. <span className="text-tactical">DIFFERENT REALITY.</span>{" "}
-              <span className="text-space">DIFFERENT CONCLUSION.</span>
+              <span className="text-space">DIFFERENT CAUSAL STRUCTURE.</span>
             </p>
           </div>
         ) : (

@@ -1,3 +1,4 @@
+import type { CausalGraph } from "./causal"
 import { evidenceId } from "./evidence"
 import type {
   BasketballEvent,
@@ -55,6 +56,7 @@ export function buildCommentary(
   events: BasketballEvent[],
   ctx: CommentaryContext,
   roster: RosterEntry[],
+  causal?: CausalGraph,
 ): Commentary[] {
   const byType = (type: BasketballEvent["type"], actor?: string) =>
     events.find((e) => e.type === type && (actor ? e.actor === actor : true))
@@ -83,8 +85,17 @@ export function buildCommentary(
   const contestId = three ? evidenceId(three.id, "contest_distance") : null
 
   // The "drive drew help, help opened the corner" story is only allowed when
-  // the engine detected BOTH the help rotation and the resulting open space.
-  const helpCreatedOpen = Boolean(help && open)
+  // the causal engine SUPPORTS HELP_DEFENSE → OPEN_SPACE. Co-occurrence of the
+  // two events is not enough — correlation is not causation.
+  const helpCreatedOpen = causal
+    ? causal.edges.some(
+        (e) =>
+          e.fromType === "HELP_DEFENSE" &&
+          e.toType === "OPEN_SPACE" &&
+          e.toEventId === open?.id &&
+          e.status === "SUPPORTED",
+      )
+    : Boolean(help && open)
   const contested = three?.evidence.contested === "yes"
   const shotWord = three ? (contested ? "受干扰的三分出手" : "三分出手") : "出手"
 
@@ -171,7 +182,7 @@ export function buildCommentary(
         chip(three, "contest_distance", `${fmt(ctx.contest_distance)} m`),
         text(
           contested
-            ? "，低于干扰阈值。进攻方应当在突破未吸引协防时选择攻击禁区或重新组织，而不是把球传向一个被守住的底角。"
+            ? "，低于干扰阈值。进攻方应当在突破未吸引协防时选择攻击禁区���重新组织，而不是把球传向一个被守住的底角。"
             : "。进攻方应当重新组织，而不是把球传向一个被守住的底角。",
         ),
       ]

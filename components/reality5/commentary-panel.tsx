@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
 import type { Commentary, CommentarySegment } from "@/lib/reality5/types"
+import { ClaimBadge, RelationTag } from "./causal-ui"
 import { PanelHeader } from "./panel-header"
 import { useWorkspace } from "./workspace-context"
 
@@ -38,7 +39,7 @@ export function CommentaryPanel() {
           phase === "ready" ? (
             <span className="flex items-center gap-1.5 text-[10px] tracking-wider text-space">
               <span className="size-1.5 rounded-full bg-space" aria-hidden />
-              GROUNDED · {evidenceLinks} EVIDENCE LINKS · TEMPLATE
+              GROUNDED · {possession.analysis.trace.chain.length} CAUSAL EDGES · {evidenceLinks} EVIDENCE LINKS
             </span>
           ) : null
         }
@@ -47,7 +48,7 @@ export function CommentaryPanel() {
       {phase !== "ready" ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-3 px-6 py-8 text-center">
           <p className="max-w-sm text-xs leading-relaxed text-muted-foreground">
-            解说不是从统计数字中「编」出来的。Reality5 先从追踪数据检测事件，再用确定性模板把每一句话链接回可验证的证据。
+            解说不是先写段落再找理由。Reality5 先检测事件，再对每一对事件做因果检验，只用通过检验的因果边组装故事——每一句话都能回到证据。
           </p>
           <Button
             onClick={() => setPhase("analyzing")}
@@ -59,9 +60,13 @@ export function CommentaryPanel() {
           </Button>
         </div>
       ) : (
-        <Tabs defaultValue="public" className="min-h-0 flex-1 gap-0">
+        <Tabs defaultValue="causal" className="min-h-0 flex-1 gap-0">
           <div className="border-b px-3 py-2">
             <TabsList variant="line" className="h-7">
+              <TabsTrigger value="causal" className="px-2 text-xs">
+                因果链
+                <span className="ml-1 font-mono text-[10px] text-space">CAUSAL STORY</span>
+              </TabsTrigger>
               {possession.commentary.map((c) => (
                 <TabsTrigger key={c.audience} value={c.audience} className="px-2 text-xs">
                   {c.label.zh}
@@ -72,6 +77,9 @@ export function CommentaryPanel() {
               ))}
             </TabsList>
           </div>
+          <TabsContent value="causal" className="min-h-0 overflow-auto px-4 py-3">
+            <CausalStoryView />
+          </TabsContent>
           {possession.commentary.map((c) => (
             <TabsContent key={c.audience} value={c.audience} className="min-h-0 overflow-auto px-4 py-3">
               <CommentaryText commentary={c} />
@@ -80,6 +88,107 @@ export function CommentaryPanel() {
         </Tabs>
       )}
     </section>
+  )
+}
+
+/**
+ * CAUSAL STORY MODE. One sentence per event, assembled from the SUPPORTED
+ * edges of the backward trace. Each sentence carries the type of claim it
+ * makes and links back to the evidence and the edge that produced it.
+ */
+function CausalStoryView() {
+  const { possession, evidenceById, focusEvidence, focusedEvidenceId, seekToEvent, openWhy, hoverEvent, hoveredEventId } =
+    useWorkspace()
+  const { causalStory, trace } = possession.analysis
+
+  return (
+    <div className="flex flex-col gap-3">
+      <ol className="flex flex-col gap-2.5" aria-label="因果故事">
+        {causalStory.sentences.map((s, i) => {
+          const hovered = hoveredEventId === s.eventId
+          const edge = s.edgeId ? possession.analysis.causal.edges.find((e) => e.id === s.edgeId) : undefined
+          const text = s.text.zh.replace(/\s*\[[A-Z_]+ \d\.\d\d\]$/, "")
+          return (
+            <li key={`${s.eventId}-${i}`} className="flex gap-3">
+              <div className="flex flex-col items-center pt-1">
+                <span className={cn("size-1.5 rounded-full", s.claim === "CAUSAL_CLAIM" ? "bg-space" : s.claim === "INFERENCE" ? "bg-movement" : "bg-foreground/60")} aria-hidden />
+                {i < causalStory.sentences.length - 1 && <span className="mt-1 w-px flex-1 bg-border" aria-hidden />}
+              </div>
+              <div className="flex min-w-0 flex-1 flex-col gap-1">
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <ClaimBadge claim={s.claim} />
+                  <button
+                    type="button"
+                    onClick={() => seekToEvent(s.eventId)}
+                    onMouseEnter={() => hoverEvent(s.eventId)}
+                    onMouseLeave={() => hoverEvent(null)}
+                    className={cn(
+                      "rounded-sm border px-1.5 py-px font-mono text-[9px] tracking-wider transition-colors",
+                      "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
+                      hovered ? "border-movement bg-movement/15 text-movement" : "border-border text-muted-foreground hover:text-foreground",
+                    )}
+                    title="跳转到该事件"
+                  >
+                    [{s.eventType}]
+                  </button>
+                  {edge && (
+                    <button
+                      type="button"
+                      onClick={() => openWhy(edge.id)}
+                      className="flex items-center gap-1.5 rounded-sm px-1 py-px hover:bg-space/10 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+                      title="WHY? 打开因果证据"
+                    >
+                      <RelationTag relation={edge.relation} status={edge.status} confidence={edge.confidence} />
+                      <span className="font-mono text-[9px] tracking-wider text-space/70 underline decoration-dotted">WHY?</span>
+                    </button>
+                  )}
+                </div>
+                <p className="text-sm leading-6 text-foreground/90">{text}</p>
+                {s.evidenceIds.length > 0 && (
+                  <ul className="flex flex-wrap gap-1">
+                    {s.evidenceIds.map((id) => {
+                      const ev = evidenceById.get(id)
+                      if (!ev) return null
+                      const focused = focusedEvidenceId === id
+                      return (
+                        <li key={id}>
+                          <button
+                            type="button"
+                            onClick={() => seekToEvent(ev.sourceEventId)}
+                            onMouseEnter={() => focusEvidence(id)}
+                            onMouseLeave={() => focusEvidence(null)}
+                            onFocus={() => focusEvidence(id)}
+                            onBlur={() => focusEvidence(null)}
+                            className={cn(
+                              "rounded-sm border px-1.5 py-0.5 font-mono text-[10px] font-semibold tracking-wider tabular-nums uppercase transition-colors",
+                              "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
+                              focused
+                                ? "border-tactical bg-tactical/15 text-tactical"
+                                : "border-border text-foreground/80 hover:border-tactical/60 hover:text-tactical",
+                            )}
+                          >
+                            {ev.value.toFixed(ev.precision)}
+                            {ev.unit} {ev.label.en}
+                          </button>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                )}
+              </div>
+            </li>
+          )
+        })}
+      </ol>
+      {causalStory.stopped && (
+        <p className="rounded-md border border-dashed border-tactical/50 px-3 py-2 text-xs leading-5 text-tactical">
+          {causalStory.stopped.zh}
+        </p>
+      )}
+      <p className="font-mono text-[9px] tracking-[0.15em] text-muted-foreground">
+        {trace.chain.length} SUPPORTED EDGES · EVERY SENTENCE LINKS BACK TO EVIDENCE · NOTHING INFERRED FROM TIME ALONE
+      </p>
+    </div>
   )
 }
 

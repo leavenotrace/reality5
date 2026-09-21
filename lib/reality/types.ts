@@ -9,6 +9,8 @@
  * Units: meters, meters/second, seconds (clip-relative).
  */
 
+import type { CausalGraph, CausalTrace } from "./causal"
+import type { CausalStory } from "./causal-story"
 import type { BasketSide } from "./court"
 import type { RealityIntegrity } from "./integrity"
 
@@ -94,9 +96,9 @@ export interface Evidence {
 
 export type Relationship =
   | "TRIGGERED"
-  | "CONTRIBUTED"
   | "CREATED"
   | "ENABLED"
+  | "CONSTRAINED"
   | "PRECEDED"
 
 export interface PlayGraphNode {
@@ -160,7 +162,13 @@ export type CommentaryContext = Record<string, EvidenceValue | undefined>
 export interface PossessionAnalysis {
   states: CourtState[]
   events: BasketballEvent[]
+  /** Causal view: edges with a causal relation only (derived from `causal`). */
   graph: PlayGraph
+  /** Every evaluated candidate edge with its tests, factors and counterfactual. */
+  causal: CausalGraph
+  /** WHAT CREATED THE SHOT? — backward walk over SUPPORTED edges. */
+  trace: CausalTrace
+  causalStory: CausalStory
   evidence: Evidence[]
   commentaryContext: CommentaryContext
   commentary: Commentary[]

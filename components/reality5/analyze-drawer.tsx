@@ -540,9 +540,10 @@ function Completion({
 
       <StageList reports={reports} doneIds={doneIds} activeIndex={-1} />
 
-      <dl className="grid grid-cols-3 gap-2 font-mono text-xs">
+      <dl className="grid grid-cols-4 gap-2 font-mono text-xs">
         <Stat label="EVENTS" value={analysis.events.length} />
         <Stat label="NODES" value={analysis.graph.nodes.length} />
+        <Stat label="CAUSAL" value={analysis.trace.chain.length} />
         <Stat label="EVIDENCE" value={analysis.evidence.length} />
       </dl>
 

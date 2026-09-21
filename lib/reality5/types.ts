@@ -34,6 +34,21 @@ export type {
   Relationship,
 } from "@/lib/reality/types"
 
+export type {
+  CausalEdge,
+  CausalEvidence,
+  CausalFactor,
+  CausalGraph,
+  CausalJump,
+  CausalRelation,
+  CausalStatus,
+  CausalTest,
+  CausalTrace,
+  ClaimType,
+  Counterfactual,
+} from "@/lib/reality/causal"
+export type { CausalStory, CausalStorySentence } from "@/lib/reality/causal-story"
+
 export type Vec2 = { x: number; y: number }
 export type PlayerId = string
 export type Player = RosterEntry

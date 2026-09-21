@@ -1,5 +1,6 @@
 import { runDetectors } from "@/lib/detectors"
-import { buildPlayGraph } from "@/lib/reasoning/play-graph"
+import { buildCausalGraph, toPlayGraph, traceCause } from "./causal"
+import { buildCausalStory } from "./causal-story"
 import { buildCommentary, buildCommentaryContext } from "./commentary"
 import { DEFAULT_DETECTOR_CONFIG } from "./config"
 import { deriveKinematics } from "./court-state"
@@ -7,7 +8,7 @@ import { promoteEvidence } from "./evidence"
 import { validateRealityIntegrity, type RealityIntegrity } from "./integrity"
 import type { CourtState, DetectorConfig, PossessionAnalysis, RosterEntry } from "./types"
 
-export const ENGINE = { name: "REALITY ENGINE", version: "V0.3.1" } as const
+export const ENGINE = { name: "CAUSAL REALITY ENGINE", version: "V0.4" } as const
 
 export class InvalidRealityError extends Error {
   constructor(public readonly integrity: RealityIntegrity) {
@@ -57,15 +58,21 @@ export function analyzePossession(
 
   const states = deriveKinematics(rawStates)
   const events = runDetectors(states, config)
-  const graph = buildPlayGraph(events)
+  const causal = buildCausalGraph(events, states, config)
+  const graph = toPlayGraph(causal)
+  const trace = traceCause(causal)
+  const causalStory = buildCausalStory(events, causal, trace, roster)
   const evidence = promoteEvidence(events)
   const commentaryContext = buildCommentaryContext(events, config)
-  const commentary = buildCommentary(events, commentaryContext, roster)
+  const commentary = buildCommentary(events, commentaryContext, roster, causal)
 
   return {
     states,
     events,
     graph,
+    causal,
+    trace,
+    causalStory,
     evidence,
     commentaryContext,
     commentary,

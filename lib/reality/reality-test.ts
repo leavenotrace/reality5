@@ -17,7 +17,11 @@ const eventSignature = (a: PossessionAnalysis) =>
   a.events.map((e) => `${e.type}@${e.timestamp.toFixed(1)}:${e.actor}`).sort().join("|")
 
 const graphSignature = (a: PossessionAnalysis) =>
-  a.graph.edges.map((e) => `${e.source}->${e.target}:${e.relationship}`).sort().join("|")
+  a.causal.edges
+    .filter((e) => e.status !== "TEMPORAL_ONLY")
+    .map((e) => `${e.fromType}->${e.toType}:${e.relation}:${e.status}`)
+    .sort()
+    .join("|")
 
 const commentarySignature = (a: PossessionAnalysis) =>
   a.commentary.map((c) => c.segments.map((s) => s.value).join("")).join("\n")
@@ -83,11 +87,11 @@ export function runRealityTest(
     },
     {
       id: "graph",
-      label: { zh: "图谱改变", en: "Graph changed" },
+      label: { zh: "因果结构改变", en: "Causal structure changed" },
       changed: graphChanged,
       detail: graphChanged
-        ? `${baseline.graph.edges.length} → ${variant.graph.edges.length} edges`
-        : "identical edges",
+        ? `${baseline.trace.chain.length} → ${variant.trace.chain.length} supported links`
+        : "identical causal edges",
     },
     {
       id: "explanation",

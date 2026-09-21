@@ -1,17 +1,13 @@
 "use client"
 
-import { ArrowDown, RotateCw, ScanSearch } from "lucide-react"
+import { ArrowDown, ArrowUp, HelpCircle, RotateCw, ScanSearch } from "lucide-react"
 import { Fragment } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
-import type {
-  EventType,
-  PlayGraphEdge,
-  PresentedEvent,
-  Relationship,
-} from "@/lib/reality5/types"
+import type { CausalEdge, EventType, PresentedEvent } from "@/lib/reality5/types"
+import { RelationTag, StatusPill } from "./causal-ui"
 import { PanelHeader } from "./panel-header"
 import { useWorkspace } from "./workspace-context"
 
@@ -22,14 +18,6 @@ const TYPE_COLOR: Record<EventType, string> = {
   OPEN_SPACE: "space",
   PASS: "movement",
   OPEN_THREE: "space",
-}
-
-const RELATION_LABEL: Record<Relationship, string> = {
-  TRIGGERED: "触发",
-  CONTRIBUTED: "促成",
-  CREATED: "创造",
-  ENABLED: "使可能",
-  PRECEDED: "先于",
 }
 
 const colorClasses: Record<
@@ -56,9 +44,6 @@ const colorClasses: Record<
   },
 }
 
-const formatEdgeValue = (v: number | string) =>
-  typeof v === "number" ? (Number.isInteger(v) ? String(v) : v.toFixed(1)) : v
-
 export function PlayGraph() {
   const {
     possession,
@@ -67,29 +52,40 @@ export function PlayGraph() {
     isReplaying,
     replayAnalysis,
     eventById,
+    traceActive,
   } = useWorkspace()
-  const { nodes, edges } = possession.playGraph
-  const orderedEvents = nodes
+  const { causal, trace } = possession.analysis
+  const orderedEvents = causal.nodes
     .map((n) => eventById.get(n.eventId))
     .filter((e): e is PresentedEvent => Boolean(e))
 
   const edgeBetween = (a: string, b: string) =>
-    edges.find((e) => e.source === a && e.target === b)
-  const incoming = (id: string) => edges.filter((e) => e.target === id)
+    causal.edges.find((e) => e.fromEventId === a && e.toEventId === b)
+  const incoming = (id: string) =>
+    causal.edges.filter((e) => e.toEventId === id && e.status !== "TEMPORAL_ONLY")
   const detectedCount = orderedEvents.filter((e) => detectedEventIds.has(e.id)).length
+  const supported = causal.edges.filter((e) => e.status === "SUPPORTED").length
+  const chainEdgeIds = new Set(trace.chain.map((e) => e.id))
+  const chainEventIds = new Set<string>()
+  for (const e of trace.chain) {
+    chainEventIds.add(e.fromEventId)
+    chainEventIds.add(e.toEventId)
+  }
+  if (trace.rootEventId) chainEventIds.add(trace.rootEventId)
 
   return (
     <section
-      aria-label="Play Graph 回合结构图"
+      aria-label="Causal Graph 因果结构图"
       className="flex min-h-0 flex-col overflow-hidden rounded-lg border bg-panel"
     >
       <PanelHeader
-        eyebrow="PLAY GRAPH"
+        eyebrow="CAUSAL GRAPH"
         title="因果结构"
         trailing={
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[10px] tabular-nums text-muted-foreground">
-              {isReplaying ? `${detectedCount}/${nodes.length}` : nodes.length} NODES · {edges.length} EDGES
+            <span className="font-mono text-[10px] tabular-nums whitespace-nowrap text-muted-foreground">
+              {isReplaying ? `${detectedCount}/${causal.nodes.length}` : causal.nodes.length} N ·{" "}
+              <span className="text-space">{supported} SUPPORTED</span>
             </span>
             <Button
               size="xs"
@@ -104,6 +100,9 @@ export function PlayGraph() {
           </div>
         }
       />
+
+      <KeyQuestion />
+
       <ScrollArea className="min-h-0 flex-1">
         <ol className="flex flex-col px-3 py-3">
           {orderedEvents.map((event, i) => {
@@ -111,6 +110,7 @@ export function PlayGraph() {
             const edge = next ? edgeBetween(event.id, next.id) : undefined
             const reached = detectedEventIds.has(event.id)
             const nextReached = next ? detectedEventIds.has(next.id) : false
+            const inChain = chainEventIds.has(event.id)
             return (
               <Fragment key={event.id}>
                 <li>
@@ -122,15 +122,22 @@ export function PlayGraph() {
                       incoming={incoming(event.id)}
                       isActive={activeEvent?.id === event.id}
                       isReached={reached}
+                      dimmed={traceActive && !inChain}
+                      inChain={traceActive && inChain}
                     />
                   )}
                 </li>
                 {next && (
-                  <li aria-hidden className="flex items-center gap-2 py-1 pl-[15px]">
+                  <li className="flex items-center gap-2 py-1 pl-[15px]">
                     <div
+                      aria-hidden
                       className={cn(
                         "flex h-7 w-px flex-col items-center justify-center",
-                        nextReached ? "bg-foreground/40" : "bg-border",
+                        edge && chainEdgeIds.has(edge.id) && traceActive
+                          ? "bg-space"
+                          : nextReached
+                            ? "bg-foreground/40"
+                            : "bg-border",
                       )}
                     >
                       <ArrowDown
@@ -141,15 +148,10 @@ export function PlayGraph() {
                       />
                     </div>
                     {edge && (!isReplaying || nextReached) ? (
-                      <span className="text-[10px] tracking-wider text-muted-foreground">
-                        {RELATION_LABEL[edge.relationship]}
-                        <span className="ml-1 font-mono uppercase opacity-60">
-                          {edge.relationship}
-                        </span>
-                      </span>
+                      <EdgeLabel edge={edge} highlighted={traceActive && chainEdgeIds.has(edge.id)} dimmed={traceActive && !chainEdgeIds.has(edge.id)} />
                     ) : (
                       <span className="font-mono text-[10px] tracking-wider text-muted-foreground/50">
-                        {isReplaying ? "…" : "TEMPORAL"}
+                        {isReplaying ? "…" : "TEMPORAL ONLY"}
                       </span>
                     )}
                   </li>
@@ -159,7 +161,148 @@ export function PlayGraph() {
           })}
         </ol>
       </ScrollArea>
+
+      <footer className="shrink-0 border-t px-3 py-2">
+        <p className="font-mono text-[9px] leading-4 tracking-[0.18em] text-muted-foreground">
+          <span className="text-foreground/80">REALITY5 V0.4</span> · REALITY → OBSERVATION → EVENT → CAUSALITY → EXPLANATION
+        </p>
+        <p className="font-mono text-[9px] tracking-[0.18em] text-space/80">
+          DON&apos;T JUST TELL ME WHAT HAPPENED. SHOW ME WHY.
+        </p>
+      </footer>
     </section>
+  )
+}
+
+/**
+ * WHAT CREATED THE SHOT? Traces backwards from the final event along
+ * SUPPORTED edges only; a WEAK or TEMPORAL_ONLY link ends the chain.
+ */
+function KeyQuestion() {
+  const { possession, traceActive, setTraceActive, eventById, openWhy, seekToEvent } = useWorkspace()
+  const { trace } = possession.analysis
+  const root = trace.rootEventId ? eventById.get(trace.rootEventId) : undefined
+  const question = root?.type === "OPEN_THREE" ? "WHAT CREATED THE SHOT?" : "WHAT CREATED THE LAST EVENT?"
+
+  // Effect first, then its causes — reading upward.
+  const backwards = [...trace.chain].reverse()
+
+  return (
+    <div className="shrink-0 border-b bg-panel-raised/30 px-3 py-2">
+      <button
+        type="button"
+        onClick={() => setTraceActive(!traceActive)}
+        aria-expanded={traceActive}
+        className={cn(
+          "flex w-full items-center justify-between gap-2 rounded-md border px-3 py-2 text-left transition-colors",
+          "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
+          traceActive ? "border-space bg-space/10" : "border-border hover:border-space/50 hover:bg-panel-raised",
+        )}
+      >
+        <span className="flex flex-col">
+          <span className={cn("font-mono text-xs font-bold tracking-[0.2em]", traceActive ? "text-space" : "text-foreground")}>
+            {question}
+          </span>
+          <span className="text-[10px] text-muted-foreground">
+            {trace.chain.length > 0
+              ? `${trace.chain.length} 条 SUPPORTED 因果边 · 只沿有证据的边回溯`
+              : "没有 SUPPORTED 因果边通向该事件"}
+          </span>
+        </span>
+        <HelpCircle className={cn("size-4 shrink-0", traceActive ? "text-space" : "text-muted-foreground")} aria-hidden />
+      </button>
+
+      {traceActive && root && (
+        <ol className="mt-2 flex flex-col gap-0.5 pl-1" aria-label="因果回溯链">
+          <ChainNode event={root} onClick={() => seekToEvent(root.id)} />
+          {backwards.map((edge) => {
+            const cause = eventById.get(edge.fromEventId)
+            if (!cause) return null
+            return (
+              <Fragment key={edge.id}>
+                <li className="flex items-center gap-2 pl-1.5">
+                  <ArrowUp className="size-3 text-space" aria-hidden />
+                  <button
+                    type="button"
+                    onClick={() => openWhy(edge.id)}
+                    className="flex items-center gap-2 rounded-sm px-1 py-px hover:bg-space/10 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+                    title="WHY? 打开证据"
+                  >
+                    <RelationTag relation={edge.relation} status={edge.status} confidence={edge.confidence} />
+                    <span className="font-mono text-[9px] tracking-wider text-space/70 underline decoration-dotted">WHY?</span>
+                  </button>
+                </li>
+                <ChainNode event={cause} onClick={() => seekToEvent(cause.id)} />
+              </Fragment>
+            )
+          })}
+          {trace.stoppedAt && trace.stoppedAt.reason !== "NO_INCOMING" && (
+            <li className="mt-1 flex items-start gap-2 pl-1.5 font-mono text-[10px] leading-4 text-tactical">
+              <ArrowUp className="mt-0.5 size-3 shrink-0 opacity-50" aria-hidden />
+              <span>
+                STOP · {trace.stoppedAt.reason.replace("_", " ")}
+                <span className="block text-muted-foreground">
+                  {trace.stoppedAt.reason === "WEAK"
+                    ? "上游边证据不足，因果解释在此停止。"
+                    : "上游只有时间先后，没有可测量的机制。"}
+                </span>
+              </span>
+            </li>
+          )}
+          {trace.chain.length === 0 && (
+            <li className="pl-1.5 font-mono text-[10px] leading-4 text-muted-foreground">
+              它发生了，但没有任何一条边通过因果检验。Reality5 不会为它编一个原因。
+            </li>
+          )}
+        </ol>
+      )}
+    </div>
+  )
+}
+
+function ChainNode({ event, onClick }: { event: PresentedEvent; onClick: () => void }) {
+  const c = colorClasses[TYPE_COLOR[event.type]]
+  return (
+    <li>
+      <button
+        type="button"
+        onClick={onClick}
+        className="flex items-baseline gap-2 rounded-sm px-1 py-px text-left hover:bg-panel-raised focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+      >
+        <span className={cn("size-1.5 shrink-0 translate-y-[-1px] rounded-full", c.dot)} aria-hidden />
+        <span className={cn("text-xs font-semibold tracking-wide", c.text)}>{event.type.replace("_", " ")}</span>
+        <span className="font-mono text-[10px] tabular-nums text-muted-foreground">{event.clock}</span>
+      </button>
+    </li>
+  )
+}
+
+function EdgeLabel({ edge, highlighted, dimmed }: { edge: CausalEdge; highlighted: boolean; dimmed: boolean }) {
+  const { openWhy } = useWorkspace()
+  const temporal = edge.status === "TEMPORAL_ONLY"
+  return (
+    <button
+      type="button"
+      onClick={() => openWhy(edge.id)}
+      title={temporal ? "WHY NOT? 查看引擎为何拒绝这条因果边" : "WHY? 查看这条因果边的证据"}
+      className={cn(
+        "group/edge flex flex-wrap items-center gap-x-2 gap-y-0.5 rounded-sm px-1 py-px text-left transition-colors",
+        "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
+        highlighted ? "bg-space/10" : "hover:bg-panel-raised",
+        dimmed && "opacity-40",
+      )}
+    >
+      <RelationTag relation={edge.relation} status={edge.status} confidence={edge.confidence} />
+      {!temporal && <StatusPill status={edge.status} />}
+      <span
+        className={cn(
+          "font-mono text-[9px] tracking-wider underline decoration-dotted",
+          temporal ? "text-muted-foreground/60" : "text-space/70 group-hover/edge:text-space",
+        )}
+      >
+        {temporal ? "WHY NOT?" : "WHY?"}
+      </span>
+    </button>
   )
 }
 
@@ -185,11 +328,15 @@ function GraphNode({
   incoming,
   isActive,
   isReached,
+  dimmed,
+  inChain,
 }: {
   event: PresentedEvent
-  incoming: PlayGraphEdge[]
+  incoming: CausalEdge[]
   isActive: boolean
   isReached: boolean
+  dimmed: boolean
+  inChain: boolean
 }) {
   const {
     seekToEvent,
@@ -199,13 +346,14 @@ function GraphNode({
     focusEvidence,
     eventById,
     openTrace,
+    openWhy,
   } = useWorkspace()
   const colorKey = TYPE_COLOR[event.type]
   const c = colorClasses[colorKey]
   const hovered = hoveredEventId === event.id
 
   return (
-    // A div so the nested VIEW EVIDENCE button stays valid HTML.
+    // A div so the nested buttons stay valid HTML.
     <div
       role="button"
       tabIndex={0}
@@ -229,7 +377,9 @@ function GraphNode({
           : hovered
             ? "border-foreground/20 bg-panel-raised"
             : "border-border bg-panel-raised/40 hover:bg-panel-raised",
+        inChain && !isActive && "border-space/50",
         !isReached && !isActive && "opacity-60",
+        dimmed && "opacity-35",
       )}
     >
       <div className="flex flex-col items-center gap-1 pt-0.5">
@@ -293,22 +443,26 @@ function GraphNode({
               </ul>
             )}
             {incoming.length > 0 && (
-              <ul className="flex flex-col gap-0.5 border-t border-border/60 pt-1.5">
+              <ul className="flex flex-col gap-1 border-t border-border/60 pt-1.5" aria-label="因果来源">
                 {incoming.map((edge) => {
-                  const source = eventById.get(edge.source)
+                  const source = eventById.get(edge.fromEventId)
                   return (
-                    <li
-                      key={edge.source}
-                      className="flex flex-wrap items-baseline gap-x-1.5 font-mono text-[10px] text-muted-foreground"
-                    >
+                    <li key={edge.id} className="flex flex-wrap items-center gap-x-2 font-mono text-[10px]">
                       <span className="uppercase text-foreground/70">
-                        {edge.relationship} BY {source?.type.replace("_", " ")}
+                        {source?.type.replace("_", " ")}
                       </span>
-                      {Object.entries(edge.evidence).map(([k, v]) => (
-                        <span key={k} className="tabular-nums">
-                          {k}={formatEdgeValue(v)}
-                        </span>
-                      ))}
+                      <RelationTag relation={edge.relation} status={edge.status} confidence={edge.confidence} />
+                      <StatusPill status={edge.status} />
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          openWhy(edge.id)
+                        }}
+                        className="text-[9px] tracking-wider text-space/70 underline decoration-dotted hover:text-space focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+                      >
+                        WHY?
+                      </button>
                     </li>
                   )
                 })}

@@ -101,7 +101,7 @@ export function EvidencePanel() {
         })}
       </ul>
       <p className="border-t px-3 py-2 text-[10px] tracking-wider text-muted-foreground">
-        REALITY FIRST · LANGUAGE SECOND
+        REALITY FIRST · EVIDENCE SECOND · CAUSALITY THIRD · LANGUAGE LAST
       </p>
     </section>
   )

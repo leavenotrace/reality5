@@ -172,6 +172,68 @@ export function RealityDebug() {
         ))}
       </ul>
 
+      <SectionLabel>CAUSAL ENGINE</SectionLabel>
+      <ul className="mt-0.5 flex flex-col gap-1.5">
+        {analysis.causal.edges.map((edge) => (
+          <li key={edge.id} className="flex flex-col leading-4">
+            <div className="flex items-baseline justify-between gap-2">
+              <span className={cn("truncate text-[10px]", edge.status === "TEMPORAL_ONLY" ? "text-muted-foreground/60" : "text-foreground")}>
+                {edge.fromType.replace("_", " ")} → {edge.toType.replace("_", " ")}
+              </span>
+              <span
+                className={cn(
+                  "shrink-0 text-[9px] font-bold tracking-wider",
+                  edge.status === "SUPPORTED" && "text-space",
+                  edge.status === "WEAK" && "text-tactical",
+                  edge.status === "TEMPORAL_ONLY" && "text-muted-foreground/60",
+                )}
+              >
+                {edge.status.replace("_", " ")}
+              </span>
+            </div>
+            <dl className="flex flex-col pl-2 text-[9px] leading-[14px]">
+              {edge.tests.map((t) => (
+                <div key={t.id} className="flex items-baseline justify-between gap-2">
+                  <dt className="truncate text-muted-foreground">{t.label.en}</dt>
+                  <dd className={cn("shrink-0 font-bold", t.result === "PASS" ? "text-space" : t.result === "FAIL" ? "text-destructive" : "text-muted-foreground")}>
+                    {t.result}
+                  </dd>
+                </div>
+              ))}
+              <div className="flex items-baseline justify-between gap-2">
+                <dt className="text-muted-foreground">evidence</dt>
+                <dd className="shrink-0 tabular-nums">{edge.evidence.length}</dd>
+              </div>
+              <div className="flex items-baseline justify-between gap-2">
+                <dt className="text-muted-foreground">relation</dt>
+                <dd className={cn("shrink-0", edge.status === "TEMPORAL_ONLY" ? "text-muted-foreground/60" : "text-foreground")}>
+                  {edge.relation}
+                </dd>
+              </div>
+              <div className="flex items-baseline justify-between gap-2">
+                <dt className="text-muted-foreground">confidence</dt>
+                <dd className={cn("shrink-0 tabular-nums", edge.status === "SUPPORTED" && "text-space")}>
+                  {edge.status === "TEMPORAL_ONLY" ? "—" : edge.confidence.toFixed(2)}
+                </dd>
+              </div>
+              {edge.status === "SUPPORTED" &&
+                edge.factors.map((f) => (
+                  <div key={f.id} className="flex items-baseline justify-between gap-2 text-muted-foreground/80">
+                    <dt className="truncate pl-2">· {f.label.en.toLowerCase()}</dt>
+                    <dd className="shrink-0 tabular-nums">{f.score.toFixed(2)}</dd>
+                  </div>
+                ))}
+              {edge.status === "TEMPORAL_ONLY" && (
+                <p className="text-muted-foreground/70">do not create causal edge</p>
+              )}
+            </dl>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-1 text-[9px] leading-4 text-muted-foreground">
+        chain: {analysis.trace.chain.length > 0 ? analysis.trace.chain.map((e) => e.fromType).concat(analysis.trace.chain[analysis.trace.chain.length - 1].toType).map((t) => t.replace("_", " ")).join(" → ") : "none"}
+      </p>
+
       <SectionLabel>REALITY INTEGRITY</SectionLabel>
       <dl className="flex flex-col">
         <Row
@@ -193,9 +255,10 @@ export function RealityDebug() {
       </p>
 
       <div className="mt-2.5 border-t border-border/50 pt-2 text-[9px] leading-4 tracking-[0.15em] text-muted-foreground">
-        <p>REALITY → STRUCTURE → UNDERSTANDING → STORY</p>
+        <p>REALITY5 V0.4</p>
+        <p>REALITY → OBSERVATION → EVENT → CAUSALITY → EXPLANATION</p>
         <p className="mt-0.5 text-foreground/70 normal-case tracking-normal">
-          Reality first. Language second.
+          Correlation is not causation. Reality has veto power.
         </p>
       </div>
     </aside>
