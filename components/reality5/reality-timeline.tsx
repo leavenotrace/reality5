@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 import { clockAt } from "@/lib/reality5/tracking"
 import { createTimelineScale } from "@/lib/reality5/timeline-scale"
 import type { EventType } from "@/lib/reality5/types"
+import { useLocale } from "./locale-context"
 import { PanelHeader } from "./panel-header"
 import { useWorkspace } from "./workspace-context"
 
@@ -44,13 +45,13 @@ const TYPE_PEAK_TEXT: Record<EventType, string> = {
   OPEN_THREE: "text-space",
 }
 
-const TIMELINE_LABEL: Record<EventType, string> = {
-  DRIVE: "突破",
-  HELP_DEFENSE: "协防",
-  DEFENSIVE_COLLAPSE: "防守收缩",
-  OPEN_SPACE: "空位形成",
-  PASS: "传球",
-  OPEN_THREE: "三分出手",
+const TIMELINE_LABEL: Record<EventType, { zh: string; en: string }> = {
+  DRIVE: { zh: "突破", en: "DRIVE" },
+  HELP_DEFENSE: { zh: "协防", en: "HELP" },
+  DEFENSIVE_COLLAPSE: { zh: "防守收缩", en: "COLLAPSE" },
+  OPEN_SPACE: { zh: "空位形成", en: "OPEN SPACE" },
+  PASS: { zh: "传球", en: "PASS" },
+  OPEN_THREE: { zh: "三分出手", en: "OPEN THREE" },
 }
 
 export function RealityTimeline() {
@@ -63,6 +64,7 @@ export function RealityTimeline() {
     hoverEvent,
     hoveredEventId,
   } = useWorkspace()
+  const { t, tl } = useLocale()
   const trackRef = useRef<HTMLDivElement>(null)
   const duration = possession.video.duration
   const scale = useMemo(
@@ -83,16 +85,16 @@ export function RealityTimeline() {
 
   return (
     <section
-      aria-label="Reality Timeline"
+      aria-label={t("现实时间轴", "Reality Timeline")}
       className="flex shrink-0 flex-col overflow-hidden rounded-lg border bg-panel"
     >
       <PanelHeader
-        eyebrow="REALITY TIMELINE"
-        title="事件时间轴"
+        eyebrow={t("现实时间轴", "REALITY TIMELINE")}
+        title={t("事件时间轴", "Event timeline")}
         trailing={
           <div className="flex items-center gap-3">
             <span className="rounded-sm border border-movement/40 px-1.5 py-0.5 font-mono text-[10px] text-movement">
-              FOCUS ×{scale.focus.magnification.toFixed(1)} · {clockAt(possession, scale.focus.from)}–
+              {t("聚焦", "FOCUS")} ×{scale.focus.magnification.toFixed(1)} · {clockAt(possession, scale.focus.from)}–
               {clockAt(possession, scale.focus.to)}
             </span>
             <span className="font-mono text-[10px] tabular-nums text-muted-foreground">
@@ -110,7 +112,7 @@ export function RealityTimeline() {
                 key={event.id}
                 left={pct(event.t)}
                 clock={event.clock}
-                label={TIMELINE_LABEL[event.type]}
+                label={tl(TIMELINE_LABEL[event.type])}
                 position="above"
                 active={activeEvent?.id === event.id}
                 hovered={hoveredEventId === event.id}
@@ -122,7 +124,7 @@ export function RealityTimeline() {
             ref={trackRef}
             role="slider"
             tabIndex={0}
-            aria-label="播放进度"
+            aria-label={t("播放进度", "Playback position")}
             aria-valuemin={0}
             aria-valuemax={duration}
             aria-valuenow={Number(currentTime.toFixed(1))}
@@ -207,7 +209,7 @@ export function RealityTimeline() {
                 <button
                   key={event.id}
                   type="button"
-                  aria-label={`${event.clock} ${TIMELINE_LABEL[event.type]}`}
+                  aria-label={`${event.clock} ${tl(TIMELINE_LABEL[event.type])}`}
                   aria-current={isActive ? "step" : undefined}
                   onPointerDown={(e) => e.stopPropagation()}
                   onClick={(e) => {
@@ -243,7 +245,7 @@ export function RealityTimeline() {
                 key={event.id}
                 left={pct(event.t)}
                 clock={event.clock}
-                label={TIMELINE_LABEL[event.type]}
+                label={tl(TIMELINE_LABEL[event.type])}
                 position="below"
                 active={activeEvent?.id === event.id}
                 hovered={hoveredEventId === event.id}

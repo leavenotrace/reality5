@@ -131,6 +131,8 @@ export interface Commentary {
   audience: CommentaryAudience
   label: Localized
   segments: CommentarySegment[]
+  /** Same claims, same grounding, English wording. */
+  segmentsEn: CommentarySegment[]
   /** Evidence ids to surface as chips beneath the text. */
   chips: string[]
 }

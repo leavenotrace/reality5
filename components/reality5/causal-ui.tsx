@@ -2,21 +2,7 @@
 
 import { cn } from "@/lib/utils"
 import type { CausalRelation, CausalStatus, ClaimType } from "@/lib/reality5/types"
-
-export const RELATION_ZH: Record<CausalRelation, string> = {
-  TRIGGERED: "触发",
-  CREATED: "创造",
-  ENABLED: "使成立",
-  CONSTRAINED: "限制",
-  PRECEDED: "先于",
-  TEMPORAL_ONLY: "仅时间先后",
-}
-
-export const STATUS_ZH: Record<CausalStatus, string> = {
-  SUPPORTED: "成立",
-  WEAK: "证据不足",
-  TEMPORAL_ONLY: "仅时间先后",
-}
+import { RELATION_LABEL, STATUS_LABEL, useLocale } from "./locale-context"
 
 export const CLAIM_META: Record<ClaimType, { zh: string; en: string; className: string; dot: string }> = {
   OBSERVATION: {
@@ -46,6 +32,7 @@ export function statusTone(status: CausalStatus) {
 }
 
 export function StatusPill({ status, className }: { status: CausalStatus; className?: string }) {
+  const { tl } = useLocale()
   return (
     <span
       className={cn(
@@ -56,7 +43,7 @@ export function StatusPill({ status, className }: { status: CausalStatus; classN
         className,
       )}
     >
-      {status.replace("_", " ")}
+      {tl(STATUS_LABEL[status])}
     </span>
   )
 }
@@ -72,6 +59,7 @@ export function RelationTag({
   confidence?: number
   className?: string
 }) {
+  const { locale, tl } = useLocale()
   const temporal = relation === "TEMPORAL_ONLY"
   return (
     <span
@@ -81,8 +69,7 @@ export function RelationTag({
         className,
       )}
     >
-      <span className="uppercase">{relation.replace("_", " ")}</span>
-      <span className="text-[9px] opacity-70">{RELATION_ZH[relation]}</span>
+      <span className={locale === "en" ? "uppercase" : "font-sans tracking-normal"}>{tl(RELATION_LABEL[relation])}</span>
       {!temporal && typeof confidence === "number" && (
         <span className="tabular-nums opacity-80">{confidence.toFixed(2)}</span>
       )}
@@ -91,23 +78,26 @@ export function RelationTag({
 }
 
 export function ClaimBadge({ claim, className }: { claim: ClaimType; className?: string }) {
+  const { locale } = useLocale()
   const m = CLAIM_META[claim]
   return (
     <span
       className={cn(
         "inline-flex shrink-0 items-center gap-1 rounded-sm border px-1.5 py-px font-mono text-[9px] tracking-[0.15em]",
+        locale === "zh" && "font-sans tracking-normal",
         m.className,
         className,
       )}
     >
       <span className={cn("size-1.5 rounded-full", m.dot)} aria-hidden />
-      {m.en}
-      <span className="font-sans tracking-normal opacity-80">{m.zh}</span>
+      {locale === "zh" ? m.zh : m.en}
     </span>
   )
 }
 
 export function TestResult({ result }: { result: "PASS" | "FAIL" | "N/A" }) {
+  const { t } = useLocale()
+  const label = result === "PASS" ? t("通过", "PASS") : result === "FAIL" ? t("未通过", "FAIL") : t("不适用", "N/A")
   return (
     <span
       className={cn(
@@ -117,7 +107,7 @@ export function TestResult({ result }: { result: "PASS" | "FAIL" | "N/A" }) {
         result === "N/A" && "text-muted-foreground",
       )}
     >
-      {result}
+      {label}
     </span>
   )
 }

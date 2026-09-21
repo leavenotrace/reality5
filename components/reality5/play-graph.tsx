@@ -8,6 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
 import type { CausalEdge, EventType, PresentedEvent } from "@/lib/reality5/types"
 import { RelationTag, StatusPill } from "./causal-ui"
+import { EVENT_LABEL, useLocale } from "./locale-context"
 import { PanelHeader } from "./panel-header"
 import { useWorkspace } from "./workspace-context"
 
@@ -54,6 +55,7 @@ export function PlayGraph() {
     eventById,
     traceActive,
   } = useWorkspace()
+  const { t } = useLocale()
   const { causal, trace } = possession.analysis
   const orderedEvents = causal.nodes
     .map((n) => eventById.get(n.eventId))
@@ -75,27 +77,27 @@ export function PlayGraph() {
 
   return (
     <section
-      aria-label="Causal Graph 因果结构图"
+      aria-label={t("因果结构图", "Causal Graph")}
       className="flex min-h-0 flex-col overflow-hidden rounded-lg border bg-panel"
     >
       <PanelHeader
-        eyebrow="CAUSAL GRAPH"
-        title="因果结构"
+        eyebrow={t("因果图", "CAUSAL GRAPH")}
+        title={t("因果结构", "Structure")}
         trailing={
           <div className="flex items-center gap-2">
             <span className="font-mono text-[10px] tabular-nums whitespace-nowrap text-muted-foreground">
               {isReplaying ? `${detectedCount}/${causal.nodes.length}` : causal.nodes.length} N ·{" "}
-              <span className="text-space">{supported} SUPPORTED</span>
+              <span className="text-space">{supported} {t("成立", "SUPPORTED")}</span>
             </span>
             <Button
               size="xs"
               variant="outline"
               onClick={replayAnalysis}
               className="gap-1.5 font-mono text-[10px] tracking-wider"
-              aria-label="重新运行检测并回放"
+              aria-label={t("重新运行检测并回放", "Re-run detection and replay")}
             >
               <RotateCw data-icon="inline-start" className={cn(isReplaying && "animate-spin")} />
-              REPLAY ANALYSIS
+              {t("回放分析", "REPLAY ANALYSIS")}
             </Button>
           </div>
         }
@@ -151,7 +153,7 @@ export function PlayGraph() {
                       <EdgeLabel edge={edge} highlighted={traceActive && chainEdgeIds.has(edge.id)} dimmed={traceActive && !chainEdgeIds.has(edge.id)} />
                     ) : (
                       <span className="font-mono text-[10px] tracking-wider text-muted-foreground/50">
-                        {isReplaying ? "…" : "TEMPORAL ONLY"}
+                        {isReplaying ? "…" : t("仅时间先后", "TEMPORAL ONLY")}
                       </span>
                     )}
                   </li>
@@ -164,10 +166,10 @@ export function PlayGraph() {
 
       <footer className="shrink-0 border-t px-3 py-2">
         <p className="font-mono text-[9px] leading-4 tracking-[0.18em] text-muted-foreground">
-          <span className="text-foreground/80">REALITY5 V0.4</span> · REALITY → OBSERVATION → EVENT → CAUSALITY → EXPLANATION
+          <span className="text-foreground/80">REALITY5 V0.4</span> · {t("现实 → 观察 → 事件 → 因果 → 解释", "REALITY → OBSERVATION → EVENT → CAUSALITY → EXPLANATION")}
         </p>
         <p className="font-mono text-[9px] tracking-[0.18em] text-space/80">
-          DON&apos;T JUST TELL ME WHAT HAPPENED. SHOW ME WHY.
+          {t("不要只告诉我发生了什么，告诉我为什么。", "DON'T JUST TELL ME WHAT HAPPENED. SHOW ME WHY.")}
         </p>
       </footer>
     </section>
@@ -180,9 +182,13 @@ export function PlayGraph() {
  */
 function KeyQuestion() {
   const { possession, traceActive, setTraceActive, eventById, openWhy, seekToEvent } = useWorkspace()
+  const { t } = useLocale()
   const { trace } = possession.analysis
   const root = trace.rootEventId ? eventById.get(trace.rootEventId) : undefined
-  const question = root?.type === "OPEN_THREE" ? "WHAT CREATED THE SHOT?" : "WHAT CREATED THE LAST EVENT?"
+  const question =
+    root?.type === "OPEN_THREE"
+      ? t("是什么创造了这次出手？", "WHAT CREATED THE SHOT?")
+      : t("是什么创造了最后一个事件？", "WHAT CREATED THE LAST EVENT?")
 
   // Effect first, then its causes — reading upward.
   const backwards = [...trace.chain].reverse()
@@ -205,15 +211,15 @@ function KeyQuestion() {
           </span>
           <span className="text-[10px] text-muted-foreground">
             {trace.chain.length > 0
-              ? `${trace.chain.length} 条 SUPPORTED 因果边 · 只沿有证据的边回溯`
-              : "没有 SUPPORTED 因果边通向该事件"}
+              ? t(`${trace.chain.length} 条成立的因果边 · 只沿有证据的边回溯`, `${trace.chain.length} SUPPORTED edges · traced along evidence only`)
+              : t("没有成立的因果边通向该事件", "No SUPPORTED edge leads to this event")}
           </span>
         </span>
         <HelpCircle className={cn("size-4 shrink-0", traceActive ? "text-space" : "text-muted-foreground")} aria-hidden />
       </button>
 
       {traceActive && root && (
-        <ol className="mt-2 flex flex-col gap-0.5 pl-1" aria-label="因果回溯链">
+        <ol className="mt-2 flex flex-col gap-0.5 pl-1" aria-label={t("因果回溯链", "Causal trace")}>
           <ChainNode event={root} onClick={() => seekToEvent(root.id)} />
           {backwards.map((edge) => {
             const cause = eventById.get(edge.fromEventId)
@@ -226,10 +232,10 @@ function KeyQuestion() {
                     type="button"
                     onClick={() => openWhy(edge.id)}
                     className="flex items-center gap-2 rounded-sm px-1 py-px hover:bg-space/10 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
-                    title="WHY? 打开证据"
+                    title={t("为什么？打开证据", "WHY? Open evidence")}
                   >
                     <RelationTag relation={edge.relation} status={edge.status} confidence={edge.confidence} />
-                    <span className="font-mono text-[9px] tracking-wider text-space/70 underline decoration-dotted">WHY?</span>
+                    <span className="font-mono text-[9px] tracking-wider text-space/70 underline decoration-dotted">{t("为什么？", "WHY?")}</span>
                   </button>
                 </li>
                 <ChainNode event={cause} onClick={() => seekToEvent(cause.id)} />
@@ -240,18 +246,18 @@ function KeyQuestion() {
             <li className="mt-1 flex items-start gap-2 pl-1.5 font-mono text-[10px] leading-4 text-tactical">
               <ArrowUp className="mt-0.5 size-3 shrink-0 opacity-50" aria-hidden />
               <span>
-                STOP · {trace.stoppedAt.reason.replace("_", " ")}
+                {t("停止", "STOP")} · {trace.stoppedAt.reason === "WEAK" ? t("证据不足", "WEAK") : t("仅时间先后", "TEMPORAL ONLY")}
                 <span className="block text-muted-foreground">
                   {trace.stoppedAt.reason === "WEAK"
-                    ? "上游边证据不足，因果解释在此停止。"
-                    : "上游只有时间先后，没有可测量的机制。"}
+                    ? t("上游边证据不足，因果解释在此停止。", "The upstream edge is WEAK; the causal explanation stops here.")
+                    : t("上游只有时间先后，没有可测量的机制。", "Upstream there is only temporal order — no measurable mechanism.")}
                 </span>
               </span>
             </li>
           )}
           {trace.chain.length === 0 && (
             <li className="pl-1.5 font-mono text-[10px] leading-4 text-muted-foreground">
-              它发生了，但没有任何一条边通过因果检验。Reality5 不会为它编一个原因。
+              {t("它发生了，但没有任何一条边通过因果检验。Reality5 不会为它编一个原因。", "It happened, but no edge passed the causal tests. Reality5 will not invent a cause.")}
             </li>
           )}
         </ol>
@@ -261,6 +267,7 @@ function KeyQuestion() {
 }
 
 function ChainNode({ event, onClick }: { event: PresentedEvent; onClick: () => void }) {
+  const { tl } = useLocale()
   const c = colorClasses[TYPE_COLOR[event.type]]
   return (
     <li>
@@ -270,7 +277,7 @@ function ChainNode({ event, onClick }: { event: PresentedEvent; onClick: () => v
         className="flex items-baseline gap-2 rounded-sm px-1 py-px text-left hover:bg-panel-raised focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
       >
         <span className={cn("size-1.5 shrink-0 translate-y-[-1px] rounded-full", c.dot)} aria-hidden />
-        <span className={cn("text-xs font-semibold tracking-wide", c.text)}>{event.type.replace("_", " ")}</span>
+        <span className={cn("text-xs font-semibold tracking-wide", c.text)}>{tl(EVENT_LABEL[event.type])}</span>
         <span className="font-mono text-[10px] tabular-nums text-muted-foreground">{event.clock}</span>
       </button>
     </li>
@@ -279,12 +286,13 @@ function ChainNode({ event, onClick }: { event: PresentedEvent; onClick: () => v
 
 function EdgeLabel({ edge, highlighted, dimmed }: { edge: CausalEdge; highlighted: boolean; dimmed: boolean }) {
   const { openWhy } = useWorkspace()
+  const { t } = useLocale()
   const temporal = edge.status === "TEMPORAL_ONLY"
   return (
     <button
       type="button"
       onClick={() => openWhy(edge.id)}
-      title={temporal ? "WHY NOT? 查看引擎为何拒绝这条因果边" : "WHY? 查看这条因果边的证据"}
+      title={temporal ? t("为什么不？查看引擎为何拒绝这条因果边", "WHY NOT? See why the engine rejected this edge") : t("为什么？查看这条因果边的证据", "WHY? See the evidence for this edge")}
       className={cn(
         "group/edge flex flex-wrap items-center gap-x-2 gap-y-0.5 rounded-sm px-1 py-px text-left transition-colors",
         "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
@@ -300,16 +308,17 @@ function EdgeLabel({ edge, highlighted, dimmed }: { edge: CausalEdge; highlighte
           temporal ? "text-muted-foreground/60" : "text-space/70 group-hover/edge:text-space",
         )}
       >
-        {temporal ? "WHY NOT?" : "WHY?"}
+        {temporal ? t("为什么不？", "WHY NOT?") : t("为什么？", "WHY?")}
       </span>
     </button>
   )
 }
 
 function PendingNode({ index }: { index: number }) {
+  const { t } = useLocale()
   return (
     <div
-      aria-label={`事件 ${index} 尚未检测`}
+      aria-label={t(`事件 ${index} 尚未检测`, `Event ${index} not yet detected`)}
       className="flex w-full items-center gap-3 rounded-md border border-dashed border-border/70 px-3 py-2.5"
     >
       <span className="font-mono text-[11px] tabular-nums text-muted-foreground/60">
@@ -317,7 +326,7 @@ function PendingNode({ index }: { index: number }) {
       </span>
       <span className="h-1.5 w-24 animate-pulse rounded-full bg-muted" />
       <span className="ml-auto font-mono text-[10px] tracking-wider text-muted-foreground/60">
-        SCANNING
+        {t("扫描中", "SCANNING")}
       </span>
     </div>
   )
@@ -348,6 +357,7 @@ function GraphNode({
     openTrace,
     openWhy,
   } = useWorkspace()
+  const { t, tl } = useLocale()
   const colorKey = TYPE_COLOR[event.type]
   const c = colorClasses[colorKey]
   const hovered = hoveredEventId === event.id
@@ -357,7 +367,7 @@ function GraphNode({
     <div
       role="button"
       tabIndex={0}
-      aria-label={`${String(event.index).padStart(2, "0")} ${event.type.replace("_", " ")} ${event.clock}`}
+      aria-label={`${String(event.index).padStart(2, "0")} ${tl(EVENT_LABEL[event.type])} ${event.clock}`}
       onClick={() => seekToEvent(event.id)}
       onKeyDown={(e) => {
         if (e.target !== e.currentTarget) return
@@ -407,18 +417,20 @@ function GraphNode({
               isActive ? c.text : "text-foreground",
             )}
           >
-            {event.type.replace("_", " ")}
+            {tl(EVENT_LABEL[event.type])}
           </span>
           <span className="font-mono text-[10px] tabular-nums text-muted-foreground">
             {event.clock}
             <span className="ml-1.5 opacity-60">{Math.round(event.confidence * 100)}%</span>
           </span>
         </div>
-        <span className="text-sm text-foreground/90">{event.title.zh}</span>
+        {tl(event.title).toLowerCase() !== tl(EVENT_LABEL[event.type]).toLowerCase() && (
+          <span className="text-sm text-foreground/90">{tl(event.title)}</span>
+        )}
         {isActive && (
           <div className="mt-1 flex flex-col gap-1.5">
             <p className="text-[11px] leading-relaxed text-muted-foreground">
-              {event.summary.zh}
+              {tl(event.summary)}
             </p>
             {event.evidenceIds.length > 0 && (
               <ul className="flex flex-wrap gap-1">
@@ -433,7 +445,7 @@ function GraphNode({
                         onMouseEnter={() => focusEvidence(id)}
                         onMouseLeave={() => focusEvidence(null)}
                       >
-                        <span className="text-muted-foreground">{ev.label.en}</span>
+                        <span className="text-muted-foreground">{tl(ev.label)}</span>
                         {ev.value.toFixed(ev.precision)}
                         {ev.unit}
                       </Badge>
@@ -443,13 +455,13 @@ function GraphNode({
               </ul>
             )}
             {incoming.length > 0 && (
-              <ul className="flex flex-col gap-1 border-t border-border/60 pt-1.5" aria-label="因果来源">
+              <ul className="flex flex-col gap-1 border-t border-border/60 pt-1.5" aria-label={t("因果来源", "Causal sources")}>
                 {incoming.map((edge) => {
                   const source = eventById.get(edge.fromEventId)
                   return (
                     <li key={edge.id} className="flex flex-wrap items-center gap-x-2 font-mono text-[10px]">
                       <span className="uppercase text-foreground/70">
-                        {source?.type.replace("_", " ")}
+                        {source ? tl(EVENT_LABEL[source.type]) : ""}
                       </span>
                       <RelationTag relation={edge.relation} status={edge.status} confidence={edge.confidence} />
                       <StatusPill status={edge.status} />
@@ -461,7 +473,7 @@ function GraphNode({
                         }}
                         className="text-[9px] tracking-wider text-space/70 underline decoration-dotted hover:text-space focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
                       >
-                        WHY?
+                        {t("为什么？", "WHY?")}
                       </button>
                     </li>
                   )
@@ -478,7 +490,7 @@ function GraphNode({
               }}
             >
               <ScanSearch data-icon="inline-start" />
-              VIEW EVIDENCE
+              {t("查看证据", "VIEW EVIDENCE")}
             </Button>
           </div>
         )}

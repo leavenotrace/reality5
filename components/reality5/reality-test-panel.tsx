@@ -2,6 +2,7 @@
 
 import { Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useLocale } from "./locale-context"
 import { useWorkspace } from "./workspace-context"
 
 /**
@@ -11,14 +12,15 @@ import { useWorkspace } from "./workspace-context"
  */
 export function RealityTestPanel() {
   const { possessions, possessionId, setPossession, setAnalyzeOpen } = useWorkspace()
+  const { t } = useLocale()
 
   return (
     <aside
-      aria-label="Loaded realities"
+      aria-label={t("已加载的现实", "Loaded realities")}
       className="my-3 flex w-52 shrink-0 flex-col gap-2 self-start rounded-md border border-border bg-black/80 p-3 font-mono text-[11px] leading-5 backdrop-blur-sm"
     >
-      <p className="text-[9px] tracking-[0.2em] text-muted-foreground">REALITIES · {possessions.length}</p>
-      <div role="radiogroup" aria-label="Possession" className="flex flex-col gap-1">
+      <p className="text-[9px] tracking-[0.2em] text-muted-foreground">{t("现实", "REALITIES")} · {possessions.length}</p>
+      <div role="radiogroup" aria-label={t("回合", "Possession")} className="flex flex-col gap-1">
         {possessions.map((p) => {
           const active = p.id === possessionId
           return (
@@ -46,7 +48,7 @@ export function RealityTestPanel() {
               <span className="flex min-w-0 flex-col leading-4">
                 <span className="truncate font-semibold tracking-wider">{p.label}</span>
                 <span className="text-[9px] tracking-wider text-muted-foreground">
-                  {p.dataSource.source} · {p.analysis.events.length} EVENTS
+                  {p.dataSource.source} · {p.analysis.events.length} {t("个事件", "EVENTS")}
                 </span>
               </span>
             </button>
@@ -59,7 +61,7 @@ export function RealityTestPanel() {
         className="flex items-center gap-1.5 rounded-sm border border-dashed border-border px-2 py-1.5 text-[10px] tracking-wider text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
       >
         <Plus className="size-3" aria-hidden />
-        ANALYZE NEW POSSESSION
+        {t("分析新回合", "ANALYZE NEW POSSESSION")}
       </button>
     </aside>
   )

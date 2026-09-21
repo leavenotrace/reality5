@@ -2,6 +2,7 @@
 
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
+import { EVENT_LABEL, useLocale } from "./locale-context"
 import { PanelHeader } from "./panel-header"
 import { useWorkspace } from "./workspace-context"
 
@@ -15,18 +16,19 @@ export function EvidencePanel() {
     eventById,
     currentTime,
   } = useWorkspace()
+  const { t, tl } = useLocale()
 
   return (
     <section
-      aria-label="Evidence 结构化证据"
+      aria-label={t("结构化证据", "Structured evidence")}
       className="flex min-h-0 flex-col overflow-hidden rounded-lg border bg-panel"
     >
       <PanelHeader
-        eyebrow="EVIDENCE"
-        title="结构化证据"
+        eyebrow={t("证据", "EVIDENCE")}
+        title={t("结构化证据", "Structured evidence")}
         trailing={
           <span className="font-mono text-[10px] text-muted-foreground">
-            {possession.evidence.length} METRICS
+            {possession.evidence.length} {t("项指标", "METRICS")}
           </span>
         }
       />
@@ -72,9 +74,9 @@ export function EvidencePanel() {
                     aria-hidden
                   />
                   <span className="flex min-w-0 flex-1 flex-col leading-tight">
-                    <span className="text-xs font-medium">{ev.label.en}</span>
+                    <span className="text-xs font-medium">{tl(ev.label)}</span>
                     <span className="text-[10px] text-muted-foreground">
-                      {ev.label.zh} · {source?.clock}
+                      {source ? tl(EVENT_LABEL[source.type]) : ""} · {source?.clock}
                     </span>
                   </span>
                   <span
@@ -93,7 +95,7 @@ export function EvidencePanel() {
                   </span>
                 </TooltipTrigger>
                 <TooltipContent side="left" className="max-w-64">
-                  {ev.description.zh}
+                  {tl(ev.description)}
                 </TooltipContent>
               </Tooltip>
             </li>
@@ -101,7 +103,7 @@ export function EvidencePanel() {
         })}
       </ul>
       <p className="border-t px-3 py-2 text-[10px] tracking-wider text-muted-foreground">
-        REALITY FIRST · EVIDENCE SECOND · CAUSALITY THIRD · LANGUAGE LAST
+        {t("现实优先 · 证据其次 · 因果第三 · 语言最后", "REALITY FIRST · EVIDENCE SECOND · CAUSALITY THIRD · LANGUAGE LAST")}
       </p>
     </section>
   )

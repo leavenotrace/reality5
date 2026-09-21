@@ -187,6 +187,95 @@ export function buildCommentary(
         ),
       ]
 
+  const shotWordEn = three ? (contested ? "contested three" : "three") : "shot"
+  const basketChange = fmt(typeof ctx.drive_basket_change === "number" ? Math.abs(ctx.drive_basket_change) : undefined)
+
+  const publicSegmentsEn: CommentarySegment[] = helpCreatedOpen
+    ? [
+        text("The ball handler's "),
+        ev(drive, "drive"),
+        text(" pulled in the "),
+        ev(help, "help defender"),
+        text(", which opened the weak-side "),
+        ev(open, "corner"),
+        text(". The "),
+        ev(pass, "kick-out"),
+        text(" followed and the "),
+        ev(three, "three"),
+        text(" went up."),
+      ]
+    : [
+        text("The ball handler's "),
+        ev(drive, "drive"),
+        text(" did not draw help; the weak-side defender stayed home in the corner. The ball was "),
+        ev(pass, "passed"),
+        text(" to the corner, but the shooter was never truly open and had to settle for a "),
+        ev(three, shotWordEn),
+        text("."),
+      ]
+
+  const proSegmentsEn: CommentarySegment[] = helpCreatedOpen
+    ? [
+        text(`After ${jersey(ctx.ball_handler)}'s `),
+        ev(drive, "drive"),
+        text(`, weak-side defender ${jersey(ctx.help_defender)} shifted about `),
+        chip(help, "defender_shift", `${fmt(ctx.help_defender_shift)} m`),
+        text(` toward the paint, stretching corner shooter ${jersey(ctx.shooter)}'s nearest-defender distance to about `),
+        chip(open, "peak_open_distance", `${fmt(ctx.open_distance)} m`),
+        text(". The look existed "),
+        chip(pass, "creation_lead", `${fmt(ctx.creation_lead)} s`),
+        text(" before the pass arrived."),
+      ]
+    : [
+        text(`${jersey(ctx.ball_handler)}'s `),
+        ev(drive, "drive"),
+        text(" reached "),
+        chip(drive, "speed", `${fmt(ctx.drive_speed)} m/s`),
+        text(
+          `, but the weak-side defender never left corner shooter ${jersey(ctx.shooter)}; the nearest-defender distance stayed below the ${fmt(ctx.open_threshold)} m open-space threshold. `,
+        ),
+        ev(pass, "The pass"),
+        text(" arrived to a covered receiver, with the nearest defender only "),
+        chip(three, "contest_distance", `${fmt(ctx.contest_distance)} m`),
+        text(contested ? " away at release — a contested shot." : " away at release."),
+      ]
+
+  const coachSegmentsEn: CommentarySegment[] = helpCreatedOpen
+    ? [
+        text(`${jersey(ctx.help_defender)} faced a structural trade-off: ${jersey(ctx.ball_handler)}'s `),
+        ev(drive, "drive"),
+        text(" hit "),
+        chip(drive, "speed", `${fmt(ctx.drive_speed)} m/s`),
+        text(
+          ` with ${fmt(ctx.defenders_collapsing, 0)} defenders collapsing on the paint. No help means the rim is attacked directly; helping means leaving the corner shooter. He chose the rim, shifting `,
+        ),
+        chip(help, "defender_shift", `${fmt(ctx.help_defender_shift)} m`),
+        text(" toward the paint at the cost of "),
+        chip(open, "peak_open_distance", `${fmt(ctx.open_distance)} m`),
+        text(` of shooting space in the corner (threshold ${fmt(ctx.open_threshold)} m). The space existed `),
+        chip(pass, "creation_lead", `${fmt(ctx.creation_lead)} s`),
+        text(" before the pass, and the nearest defender was "),
+        chip(three, "contest_distance", `${fmt(ctx.contest_distance)} m`),
+        text(" away at release — the offense cashed in the trade-off deliberately, not by accident."),
+      ]
+    : [
+        text(`The defense paid no structural price on this possession: ${jersey(ctx.ball_handler)}'s `),
+        ev(drive, "drive"),
+        text(" reached "),
+        chip(drive, "speed", `${fmt(ctx.drive_speed)} m/s`),
+        text(
+          ` and cut the distance to the rim by ${basketChange} m, but the weak-side defender stayed home — no help shift reached the ${fmt(ctx.help_shift_threshold)} m threshold and no collapse formed. `,
+        ),
+        ev(pass, "The pass"),
+        text(" therefore cashed in no pre-existing space; the nearest defender was "),
+        chip(three, "contest_distance", `${fmt(ctx.contest_distance)} m`),
+        text(
+          contested
+            ? " away at release, inside the contest threshold. When a drive draws no help, attack the rim or reset — do not kick to a covered corner."
+            : " away at release. The offense should reset rather than kick to a covered corner.",
+        ),
+      ]
+
   const compact = (ids: (string | null)[]) => ids.filter((v): v is string => Boolean(v))
 
   return [
@@ -194,18 +283,21 @@ export function buildCommentary(
       audience: "public",
       label: { zh: "大众版", en: "Fan" },
       segments: publicSegments,
+      segmentsEn: publicSegmentsEn,
       chips: compact([shiftId, openId]),
     },
     {
       audience: "pro",
       label: { zh: "专业版", en: "Analyst" },
       segments: proSegments,
+      segmentsEn: proSegmentsEn,
       chips: compact([shiftId, openId, leadId]),
     },
     {
       audience: "coach",
       label: { zh: "教练版", en: "Coach" },
       segments: coachSegments,
+      segmentsEn: coachSegmentsEn,
       chips: compact([speedId, shiftId, openId, leadId, contestId]),
     },
   ]

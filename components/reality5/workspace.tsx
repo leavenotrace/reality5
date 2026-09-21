@@ -8,6 +8,7 @@ import { CommentaryPanel } from "./commentary-panel"
 import { CompareDialog } from "./compare-dialog"
 import { EvidencePanel } from "./evidence-panel"
 import { EvidenceTraceDialog } from "./evidence-trace-dialog"
+import { LocaleProvider } from "./locale-context"
 import { PlayGraph } from "./play-graph"
 import { RealityTimeline } from "./reality-timeline"
 import { VideoPanel } from "./video-panel"
@@ -15,6 +16,7 @@ import { WorkspaceProvider } from "./workspace-context"
 
 export function Workspace({ data }: { data: RealityWorkspaceData }) {
   return (
+    <LocaleProvider>
     <WorkspaceProvider data={data}>
       <div className="flex h-dvh flex-col">
         <AppHeader />
@@ -35,5 +37,6 @@ export function Workspace({ data }: { data: RealityWorkspaceData }) {
       <EvidenceTraceDialog />
       <CausalWhySheet />
     </WorkspaceProvider>
+    </LocaleProvider>
   )
 }

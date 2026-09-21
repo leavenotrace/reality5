@@ -28,6 +28,7 @@ import { buildPossession } from "@/lib/reality5/build-possession"
 import type { Possession } from "@/lib/reality5/types"
 import { cn } from "@/lib/utils"
 import { IntegrityMiniCourt } from "./integrity-mini-court"
+import { EVENT_LABEL, engineLabel, useLocale } from "./locale-context"
 import { useWorkspace } from "./workspace-context"
 
 type Step =
@@ -44,6 +45,7 @@ type Step =
  */
 export function AnalyzeDrawer() {
   const { analyzeOpen, setAnalyzeOpen, samples, config, loadPossession } = useWorkspace()
+  const { t } = useLocale()
   const [step, setStep] = useState<Step>({ kind: "choose" })
   const [loadingSample, setLoadingSample] = useState<string | null>(null)
   const [readError, setReadError] = useState<string | null>(null)
@@ -70,7 +72,7 @@ export function AnalyzeDrawer() {
     try {
       stage(JSON.parse(text), label, source, id)
     } catch (e) {
-      setReadError(`JSON 解析失败：${e instanceof Error ? e.message : String(e)}`)
+      setReadError(t(`JSON 解析失败：${e instanceof Error ? e.message : String(e)}`, `JSON parse failed: ${e instanceof Error ? e.message : String(e)}`))
     }
   }
 
@@ -82,7 +84,7 @@ export function AnalyzeDrawer() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       stage(await res.json(), label, "SAMPLE TRACKING", sampleId)
     } catch (e) {
-      setReadError(`无法读取样本：${e instanceof Error ? e.message : String(e)}`)
+      setReadError(t(`无法读取样本：${e instanceof Error ? e.message : String(e)}`, `Could not load sample: ${e instanceof Error ? e.message : String(e)}`))
     } finally {
       setLoadingSample(null)
     }
@@ -123,13 +125,13 @@ export function AnalyzeDrawer() {
       >
         <SheetHeader className="border-b px-5 py-4">
           <p className="font-mono text-[9px] tracking-[0.3em] text-muted-foreground">
-            REALITY ENGINE · INPUT
+            {t("现实引擎 · 输入", "REALITY ENGINE · INPUT")}
           </p>
           <SheetTitle className="text-base font-semibold tracking-[0.12em] uppercase">
-            Analyze New Reality
+            {t("分析新的现实", "Analyze New Reality")}
           </SheetTitle>
           <SheetDescription className="text-xs">
-            Bring a new possession into the Reality Engine.
+            {t("把一个新回合带入现实引擎。", "Bring a new possession into the Reality Engine.")}
           </SheetDescription>
         </SheetHeader>
 
@@ -148,7 +150,7 @@ export function AnalyzeDrawer() {
           {step.kind === "paste" && (
             <PasteInput
               onBack={() => setStep({ kind: "choose" })}
-              onSubmit={(text) => readText(text, `Pasted Possession ${new Date().toLocaleTimeString()}`, "PASTED JSON", `paste:${Date.now()}`)}
+              onSubmit={(text) => readText(text, t(`粘贴回合 ${new Date().toLocaleTimeString()}`, `Pasted Possession ${new Date().toLocaleTimeString()}`), "PASTED JSON", `paste:${Date.now()}`)}
               error={readError}
             />
           )}
@@ -178,7 +180,7 @@ export function AnalyzeDrawer() {
           type="file"
           accept="application/json,.json"
           className="sr-only"
-          aria-label="Upload tracking JSON"
+          aria-label={t("上传追踪 JSON", "Upload tracking JSON")}
           onChange={(e) => {
             void onFile(e.target.files?.[0])
             e.target.value = ""
@@ -204,10 +206,11 @@ function ChooseInput({
   onPaste: () => void
   error: string | null
 }) {
+  const { t } = useLocale()
   return (
     <div className="flex flex-col gap-5">
       <section className="flex flex-col gap-2">
-        <Eyebrow n="01" label="SAMPLE POSSESSION" />
+        <Eyebrow n="01" label={t("样本回合", "SAMPLE POSSESSION")} />
         {samples.map((s) => (
           <button
             key={s.id}
@@ -233,25 +236,25 @@ function ChooseInput({
       </section>
 
       <section className="flex flex-col gap-2">
-        <Eyebrow n="02" label="UPLOAD TRACKING JSON" />
+        <Eyebrow n="02" label={t("上传追踪 JSON", "UPLOAD TRACKING JSON")} />
         <button
           type="button"
           onClick={onUpload}
           className="flex flex-col items-center gap-2 rounded-md border border-dashed px-3 py-6 text-center transition-colors hover:border-tactical/60 hover:bg-tactical/5 focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
         >
           <Upload className="size-5 text-muted-foreground" aria-hidden />
-          <span className="text-sm font-medium">选择 .json 文件</span>
+          <span className="text-sm font-medium">{t("选择 .json 文件", "Choose a .json file")}</span>
           <span className="text-xs text-muted-foreground">
-            只接受物理状态：帧、球员坐标、球、持球人
+            {t("只接受物理状态：帧、球员坐标、球、持球人", "Physical state only: frames, player coordinates, ball, possessor")}
           </span>
         </button>
       </section>
 
       <section className="flex flex-col gap-2">
-        <Eyebrow n="03" label="PASTE TRACKING JSON" />
+        <Eyebrow n="03" label={t("粘贴追踪 JSON", "PASTE TRACKING JSON")} />
         <Button variant="outline" className="justify-start gap-2" onClick={onPaste}>
           <ClipboardPaste data-icon="inline-start" />
-          粘贴 JSON 文本
+          {t("粘贴 JSON 文本", "Paste JSON text")}
         </Button>
       </section>
 
@@ -272,21 +275,22 @@ function PasteInput({
   error: string | null
 }) {
   const [text, setText] = useState("")
+  const { t } = useLocale()
   return (
     <div className="flex h-full flex-col gap-3">
       <BackButton onClick={onBack} />
-      <Eyebrow n="03" label="PASTE TRACKING JSON" />
+      <Eyebrow n="03" label={t("粘贴追踪 JSON", "PASTE TRACKING JSON")} />
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
         spellCheck={false}
-        aria-label="Tracking JSON"
+        aria-label={t("追踪 JSON", "Tracking JSON")}
         placeholder='{ "metadata": { ... }, "frames": [ ... ] }'
         className="min-h-64 flex-1 resize-none rounded-md border bg-background p-3 font-mono text-xs leading-5 outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
       />
       {error && <ErrorNote message={error} />}
       <Button disabled={!text.trim()} onClick={() => onSubmit(text)}>
-        READ REALITY
+        {t("读取现实", "READ REALITY")}
       </Button>
     </div>
   )
@@ -302,11 +306,12 @@ function InputCheck({
   onRun: () => void
 }) {
   const { check, label } = step
+  const { t, tl, locale } = useLocale()
   return (
     <div className="flex flex-col gap-4">
       <BackButton onClick={onBack} />
       <div>
-        <p className="font-mono text-[9px] tracking-[0.3em] text-muted-foreground">REALITY INPUT CHECK</p>
+        <p className="font-mono text-[9px] tracking-[0.3em] text-muted-foreground">{t("现实输入检查", "REALITY INPUT CHECK")}</p>
         <p className="mt-1 text-sm font-medium">{label}</p>
       </div>
 
@@ -314,7 +319,7 @@ function InputCheck({
         <dl className="flex flex-col divide-y rounded-md border font-mono text-xs">
           {check.rows.map((row) => (
             <div key={row.label} className="flex items-center justify-between gap-3 px-3 py-1.5">
-              <dt className="text-muted-foreground">{row.label}</dt>
+              <dt className="text-muted-foreground">{engineLabel(row.label, locale)}</dt>
               <dd
                 className={cn(
                   "tabular-nums",
@@ -338,7 +343,7 @@ function InputCheck({
           )}
         >
           <CheckCircle2 className="size-3.5" aria-hidden />
-          COURT VALID ✓{check.verdict === "WARNING" && " · WITH WARNINGS"}
+          {t("球场有效 ✓", "COURT VALID ✓")}{check.verdict === "WARNING" && t(" · 带警告", " · WITH WARNINGS")}
         </p>
       )}
 
@@ -346,12 +351,12 @@ function InputCheck({
         <div className="rounded-md border border-destructive/50 bg-destructive/10 p-3">
           <p className="flex items-center gap-2 font-mono text-xs font-bold tracking-[0.2em] text-destructive">
             <AlertTriangle className="size-3.5" aria-hidden />
-            {check.verdict === "INVALID" ? "INVALID REALITY" : "INSUFFICIENT REALITY"}
+            {check.verdict === "INVALID" ? t("无效的现实", "INVALID REALITY") : t("现实数据不足", "INSUFFICIENT REALITY")}
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
             {check.verdict === "INVALID"
-              ? "数据描述了物理上不可能的现实。Reality5 拒绝在此基础上进行篮球解读。"
-              : "缺少必需的物理数据。Reality5 不会猜测缺失的现实。"}
+              ? t("数据描述了物理上不可能的现实。Reality5 拒绝在此基础上进行篮球解读。", "The data describes a physically impossible reality. Reality5 refuses to interpret basketball on top of it.")
+              : t("缺少必需的物理数据。Reality5 不会猜测缺失的现实。", "Required physical data is missing. Reality5 will not guess the missing reality.")}
           </p>
           {check.primaryViolation && (
             <ViolationDetail violation={check.primaryViolation} attacking={check.integrity?.attackingBasket} />
@@ -360,7 +365,7 @@ function InputCheck({
             {check.errors.map((e, i) => (
               <li key={`${e.code}-${i}`} className="flex flex-col">
                 <span className="text-destructive">{e.code}</span>
-                <span className="text-foreground/80">{e.message.zh}</span>
+                <span className="text-foreground/80">{tl(e.message)}</span>
                 {e.path && <span className="text-[10px] text-muted-foreground">{e.path}</span>}
               </li>
             ))}
@@ -377,14 +382,14 @@ function InputCheck({
           {check.warnings.map((w, i) => (
             <li key={`${w.code}-${i}`} className="flex gap-2">
               <span className="shrink-0 text-tactical">{w.code}</span>
-              <span className="text-foreground/80">{w.message.zh}</span>
+              <span className="text-foreground/80">{tl(w.message)}</span>
             </li>
           ))}
         </ul>
       )}
 
       <Button disabled={!check.sufficient} onClick={onRun} className="tracking-[0.15em]">
-        RUN REALITY ENGINE
+        {t("运行现实引擎", "RUN REALITY ENGINE")}
       </Button>
     </div>
   )
@@ -398,6 +403,7 @@ function ViolationDetail({
   attacking?: BasketSide
 }) {
   const isError = violation.severity === "error"
+  const { t } = useLocale()
   return (
     <div
       className={cn(
@@ -410,20 +416,20 @@ function ViolationDetail({
           <dt className={cn("font-bold tracking-[0.15em]", isError ? "text-destructive" : "text-tactical")}>
             {violation.subject ?? violation.code}
           </dt>
-          {violation.frame !== undefined && <dd className="text-muted-foreground">Frame {violation.frame}</dd>}
+          {violation.frame !== undefined && <dd className="text-muted-foreground">{t("帧", "Frame")} {violation.frame}</dd>}
         </div>
         <div className="mt-1 flex justify-between gap-3">
-          <dt className="text-muted-foreground">Observed</dt>
+          <dt className="text-muted-foreground">{t("观测值", "Observed")}</dt>
           <dd className="tabular-nums">{violation.observed}</dd>
         </div>
         <div className="flex justify-between gap-3">
-          <dt className="text-muted-foreground">Allowed</dt>
+          <dt className="text-muted-foreground">{t("允许范围", "Allowed")}</dt>
           <dd className="tabular-nums">{violation.allowed}</dd>
         </div>
         <div className="flex justify-between gap-3">
-          <dt className="text-muted-foreground">Status</dt>
+          <dt className="text-muted-foreground">{t("状态", "Status")}</dt>
           <dd className={cn("font-bold", isError ? "text-destructive" : "text-tactical")}>
-            {isError ? "INVALID REALITY" : "WARNING"}
+            {isError ? t("无效的现实", "INVALID REALITY") : t("警告", "WARNING")}
           </dd>
         </div>
       </dl>
@@ -435,10 +441,11 @@ function ViolationDetail({
 function PipelineProgress({ reports, label }: { reports: StageReport[]; label: string }) {
   const doneIds = new Set<PipelineStageId>(reports.map((r) => r.id))
   const activeIndex = reports.length
+  const { t } = useLocale()
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <p className="font-mono text-[9px] tracking-[0.3em] text-muted-foreground">ANALYZING</p>
+        <p className="font-mono text-[9px] tracking-[0.3em] text-muted-foreground">{t("分析中", "ANALYZING")}</p>
         <p className="mt-1 text-sm font-medium">{label}</p>
       </div>
       <StageList reports={reports} doneIds={doneIds} activeIndex={activeIndex} />
@@ -455,6 +462,7 @@ function StageList({
   doneIds: Set<PipelineStageId>
   activeIndex: number
 }) {
+  const { locale } = useLocale()
   return (
     <ol className="flex flex-col">
       {PIPELINE_STAGES.map((s, i) => {
@@ -499,7 +507,7 @@ function StageList({
                   done ? "text-foreground" : active ? "text-tactical" : "text-muted-foreground/60",
                 )}
               >
-                {s.label}
+                {engineLabel(s.label, locale)}
               </span>
               {report && (
                 <span className="mt-0.5 font-mono text-[10px] text-muted-foreground">
@@ -527,13 +535,14 @@ function Completion({
 }) {
   const doneIds = new Set<PipelineStageId>(reports.map((r) => r.id))
   const { analysis } = possession
+  const { t, tl } = useLocale()
   return (
     <div className="flex flex-col gap-5">
       <div>
-        <p className="font-mono text-[9px] tracking-[0.3em] text-space">ANALYSIS COMPLETE</p>
+        <p className="font-mono text-[9px] tracking-[0.3em] text-space">{t("分析完成", "ANALYSIS COMPLETE")}</p>
         <p className="mt-1 text-sm font-medium">{possession.label}</p>
         <p className="font-mono text-[10px] text-muted-foreground">
-          {possession.dataSource.source} · {possession.dataSource.frames} FRAMES ·{" "}
+          {possession.dataSource.source} · {possession.dataSource.frames} {t("帧", "FRAMES")} ·{" "}
           {possession.dataSource.sampleRateHz} HZ
         </p>
       </div>
@@ -541,10 +550,10 @@ function Completion({
       <StageList reports={reports} doneIds={doneIds} activeIndex={-1} />
 
       <dl className="grid grid-cols-4 gap-2 font-mono text-xs">
-        <Stat label="EVENTS" value={analysis.events.length} />
-        <Stat label="NODES" value={analysis.graph.nodes.length} />
-        <Stat label="CAUSAL" value={analysis.trace.chain.length} />
-        <Stat label="EVIDENCE" value={analysis.evidence.length} />
+        <Stat label={t("事件", "EVENTS")} value={analysis.events.length} />
+        <Stat label={t("节点", "NODES")} value={analysis.graph.nodes.length} />
+        <Stat label={t("因果边", "CAUSAL")} value={analysis.trace.chain.length} />
+        <Stat label={t("证据", "EVIDENCE")} value={analysis.evidence.length} />
       </dl>
 
       {analysis.events.length > 0 ? (
@@ -554,33 +563,33 @@ function Completion({
               key={e.id}
               className="rounded-sm border border-tactical/40 bg-tactical/10 px-1.5 py-0.5 font-mono text-[10px] tracking-wider text-tactical"
             >
-              {e.type.replace("_", " ")}
+              {tl(EVENT_LABEL[e.type])}
             </li>
           ))}
         </ul>
       ) : (
         <p className="font-mono text-xs text-muted-foreground">
-          No event met its threshold. Reality vetoed every story.
+          {t("没有任何事件达到阈值。现实否决了所有故事。", "No event met its threshold. Reality vetoed every story.")}
         </p>
       )}
 
       <div className="rounded-md border bg-background/40 p-4 text-center">
         <p className="font-mono text-sm font-bold tracking-[0.3em]">REALITY5</p>
         <p className="mt-2 font-mono text-[11px] tracking-[0.15em] text-muted-foreground">
-          Reality → Structure → Understanding → Story
+          {t("现实 → 结构 → 理解 → 故事", "Reality → Structure → Understanding → Story")}
         </p>
-        <p className="mt-1 text-xs text-foreground/80">Reality first. Language second.</p>
+        <p className="mt-1 text-xs text-foreground/80">{t("现实优先，语言其次。", "Reality first. Language second.")}</p>
         <p className="mt-3 font-mono text-[10px] tracking-[0.2em] text-space">
-          Reality has veto power.
+          {t("现实拥有否决权。", "Reality has veto power.")}
         </p>
       </div>
 
       <div className="flex gap-2">
         <Button className="flex-1 tracking-[0.15em]" onClick={onClose}>
-          OPEN IN WORKSPACE
+          {t("在工作区打开", "OPEN IN WORKSPACE")}
         </Button>
         <Button variant="outline" onClick={onAnother}>
-          ANALYZE ANOTHER
+          {t("再分析一个", "ANALYZE ANOTHER")}
         </Button>
       </div>
     </div>
@@ -606,10 +615,11 @@ function Eyebrow({ n, label }: { n: string; label: string }) {
 }
 
 function BackButton({ onClick }: { onClick: () => void }) {
+  const { t } = useLocale()
   return (
     <Button variant="ghost" size="xs" className="w-fit gap-1 font-mono text-[10px]" onClick={onClick}>
       <ArrowLeft data-icon="inline-start" />
-      BACK
+      {t("返回", "BACK")}
     </Button>
   )
 }
@@ -624,10 +634,11 @@ function ErrorNote({ message }: { message: string }) {
 }
 
 function FormatHint() {
+  const { t } = useLocale()
   return (
     <details className="rounded-md border px-3 py-2 text-xs">
       <summary className="cursor-pointer font-mono text-[10px] tracking-[0.2em] text-muted-foreground">
-        EXPECTED FORMAT
+        {t("期望格式", "EXPECTED FORMAT")}
       </summary>
       <pre className="mt-2 overflow-auto font-mono text-[10px] leading-4 text-foreground/80">{`{
   "metadata": { "game_id": "g", "possession_id": "p", "fps": 10, "court_unit": "meters" },
@@ -638,7 +649,7 @@ function FormatHint() {
   }]
 }`}</pre>
       <p className="mt-2 text-[10px] text-muted-foreground">
-        源数据不得包含事件标签（DRIVE / HELP_DEFENSE / PASS 等）。它们必须由 Reality5 产生。
+        {t("源数据不得包含事件标签（DRIVE / HELP_DEFENSE / PASS 等）。它们必须由 Reality5 产生。", "Source data must not contain event labels (DRIVE / HELP_DEFENSE / PASS, etc.). Reality5 must produce them.")}
       </p>
     </details>
   )
