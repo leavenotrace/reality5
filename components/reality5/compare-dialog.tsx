@@ -115,10 +115,10 @@ export function CompareDialog() {
                     <li key={e.key} className="grid grid-cols-[1.2fr_1fr_1fr] gap-3 px-3 py-1.5">
                       <span className="text-muted-foreground">{e.label}</span>
                       <span className={cn(e.statusA === "SUPPORTED" ? "text-space" : e.statusA === "WEAK" ? "text-tactical" : "text-muted-foreground/60")}>
-                        {e.statusA ? `${e.relationA} · ${e.statusA.replace("_", " ")}` : "—"}
+                        {e.statusA ? (e.statusA === "TEMPORAL_ONLY" ? "TEMPORAL ONLY · NO EDGE" : `${e.relationA} · ${e.statusA}`) : "—"}
                       </span>
                       <span className={cn(e.differs && "font-semibold", e.statusB === "SUPPORTED" ? "text-space" : e.statusB === "WEAK" ? "text-tactical" : "text-muted-foreground/60")}>
-                        {e.statusB ? `${e.relationB} · ${e.statusB.replace("_", " ")}` : "—"}
+                        {e.statusB ? (e.statusB === "TEMPORAL_ONLY" ? "TEMPORAL ONLY · NO EDGE" : `${e.relationB} · ${e.statusB}`) : "—"}
                       </span>
                     </li>
                   ))}
